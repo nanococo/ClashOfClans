@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.clashofclans.GifDecoder;
+import com.mygdx.clashofclans.characters.Hero;
 import com.mygdx.clashofclans.clashOfClansGame;
 
 public class LevelScreen implements Screen {
@@ -20,6 +21,8 @@ public class LevelScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private Animation<TextureRegion> animation;
+
+    private Hero hero;
 
     public static final float unitScale = 1/16f;
     float w = Gdx.graphics.getWidth();
@@ -42,11 +45,11 @@ public class LevelScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
-        WIDTH = 600;
+        WIDTH = 900;
         HEIGHT = 900;
         board = new int[WIDTH][HEIGHT];
-        camera.position.x = WIDTH / 2;
-        camera.position.y = HEIGHT / 2;
+        camera.position.x = WIDTH / 2f;
+        camera.position.y = HEIGHT / 2f;
         camera.update();
     }
 
@@ -57,8 +60,8 @@ public class LevelScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        camera.position.x = WIDTH / 2;
-        camera.position.y = HEIGHT / 2;
+        camera.position.x = WIDTH / 2f;
+        camera.position.y = HEIGHT / 2f;
         camera.update();
 
         renderer.setView(camera);
