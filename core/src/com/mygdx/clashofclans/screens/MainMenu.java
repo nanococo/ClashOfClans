@@ -65,7 +65,7 @@ public class MainMenu implements Screen {
         int loadGameTxtHeight = 500;
 
         game.batch.begin();
-        game.batch.draw(img, 0, 0, 600, 900);
+        game.batch.draw(img, 0, 0, clashOfClansGame.WIDTH, clashOfClansGame.HEIGHT);
         game.batch.draw(gameTitle, gameTitleCenterValue, gameTitleHeight, gameTitle.getWidth(), gameTitle.getHeight());
 
         if(Gdx.input.getX() < newGameTxtCenterValue+newGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && clashOfClansGame.HEIGHT - Gdx.input.getY() < newGameTxtHeight+newGameTxt.getHeight() && clashOfClansGame.HEIGHT - Gdx.input.getY() > newGameTxtHeight){
