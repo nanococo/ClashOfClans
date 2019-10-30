@@ -3,7 +3,8 @@ package com.mygdx.clashofclans.Tokens.Defences;
 import com.mygdx.clashofclans.Tokens.Defense;
 
 public class AerialDefense extends Defense {
-    public AerialDefense(int pInitialX, int pInitialY, int pLife, int pAttackRange) {
-        super(pInitialX, pInitialY, pLife, pAttackRange);
+
+    public AerialDefense(int pInitialX, int pInitialY) {
+        super(pInitialX, pInitialY, AERIAL_DEFENSE_LIFE, AERIAL_DEFENSE_RANGE, AERIAL_DEFENSE_ATTACKRATE);
     }
 }

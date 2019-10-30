@@ -7,14 +7,19 @@ public class Token extends Sprite {
     private int initialX;
     private int initialY;
     private int attackRange;
-    private int life;
+    private double attackRate;
 
-    public Token(int pInitialX, int pInitialY, int pLife, int pAttackRange){
+    private int life;
+    private int level;
+
+    public Token(int pInitialX, int pInitialY, int pLife, int pAttackRange, double pAttackRate){
 
         initialX = pInitialX;
         initialY = pInitialY;
         attackRange = pAttackRange;
         life = pLife;
+        attackRate = pAttackRate;
+        level = 1;
 
     }
 
