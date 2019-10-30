@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.screens.MainMenu;
 
-public class clashOfClansGame extends Game {
+public class ClashOfClansGame extends Game {
 
 	public static final int HEIGHT = 900;
 	public static final int WIDTH = 900;

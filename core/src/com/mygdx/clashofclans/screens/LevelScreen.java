@@ -10,12 +10,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.clashofclans.GifDecoder;
-import com.mygdx.clashofclans.characters.Hero;
-import com.mygdx.clashofclans.clashOfClansGame;
+import com.mygdx.clashofclans.Tokens.Warriors.Hero;
+import com.mygdx.clashofclans.ClashOfClansGame;
 
 public class LevelScreen implements Screen {
 
-    private clashOfClansGame game;
+    private ClashOfClansGame game;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -33,7 +33,7 @@ public class LevelScreen implements Screen {
     private float elapsed;
 
 
-    LevelScreen(clashOfClansGame game) {
+    LevelScreen(ClashOfClansGame game) {
         this.game = game;
     }
 

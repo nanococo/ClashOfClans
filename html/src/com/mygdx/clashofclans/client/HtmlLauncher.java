@@ -3,7 +3,7 @@ package com.mygdx.clashofclans.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.clashofclans.clashOfClansGame;
+import com.mygdx.clashofclans.ClashOfClansGame;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -46,6 +46,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new clashOfClansGame();
+                return new ClashOfClansGame();
         }
 }

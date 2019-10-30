@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
-import com.mygdx.clashofclans.clashOfClansGame;
+import com.mygdx.clashofclans.ClashOfClansGame;
 
 public class MainMenu implements Screen {
 
@@ -23,9 +23,9 @@ public class MainMenu implements Screen {
     private float x;
     private float y;
     private float elapsed;
-    private clashOfClansGame game;
+    private ClashOfClansGame game;
 
-    public MainMenu(clashOfClansGame game) {
+    public MainMenu(ClashOfClansGame game) {
         this.game = game;
         animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Hector (Idle).gif").read());
         img = new Texture("mainMenuBackground.png");
@@ -57,18 +57,18 @@ public class MainMenu implements Screen {
             x-=4;
         }
 
-        int gameTitleCenterValue = clashOfClansGame.WIDTH /2 - gameTitle.getWidth()/2;
+        int gameTitleCenterValue = ClashOfClansGame.WIDTH /2 - gameTitle.getWidth()/2;
         int gameTitleHeight = 800;
-        int newGameTxtCenterValue = clashOfClansGame.WIDTH /2 - newGameTxt.getWidth()/2;
+        int newGameTxtCenterValue = ClashOfClansGame.WIDTH /2 - newGameTxt.getWidth()/2;
         int newGameTxtHeight = 600;
-        int loadGameTxtCenterValue = clashOfClansGame.WIDTH /2 - loadGameTxt.getWidth()/2;
+        int loadGameTxtCenterValue = ClashOfClansGame.WIDTH /2 - loadGameTxt.getWidth()/2;
         int loadGameTxtHeight = 500;
 
         game.batch.begin();
-        game.batch.draw(img, 0, 0, clashOfClansGame.WIDTH, clashOfClansGame.HEIGHT);
+        game.batch.draw(img, 0, 0, ClashOfClansGame.WIDTH, ClashOfClansGame.HEIGHT);
         game.batch.draw(gameTitle, gameTitleCenterValue, gameTitleHeight, gameTitle.getWidth(), gameTitle.getHeight());
 
-        if(Gdx.input.getX() < newGameTxtCenterValue+newGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && clashOfClansGame.HEIGHT - Gdx.input.getY() < newGameTxtHeight+newGameTxt.getHeight() && clashOfClansGame.HEIGHT - Gdx.input.getY() > newGameTxtHeight){
+        if(Gdx.input.getX() < newGameTxtCenterValue+newGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && ClashOfClansGame.HEIGHT - Gdx.input.getY() < newGameTxtHeight+newGameTxt.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > newGameTxtHeight){
             game.batch.draw(newGameTxtHover, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
             if(Gdx.input.isTouched()){
                 this.dispose();
@@ -78,7 +78,7 @@ public class MainMenu implements Screen {
             game.batch.draw(newGameTxt, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
         }
 
-        if(Gdx.input.getX() < newGameTxtCenterValue+loadGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && clashOfClansGame.HEIGHT - Gdx.input.getY() < loadGameTxtHeight+loadGameTxt.getHeight() && clashOfClansGame.HEIGHT - Gdx.input.getY() > loadGameTxtHeight){
+        if(Gdx.input.getX() < newGameTxtCenterValue+loadGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && ClashOfClansGame.HEIGHT - Gdx.input.getY() < loadGameTxtHeight+loadGameTxt.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > loadGameTxtHeight){
             game.batch.draw(loadGameTxtHover, loadGameTxtCenterValue, loadGameTxtHeight, loadGameTxt.getWidth(), loadGameTxt.getHeight());
         } else {
             game.batch.draw(loadGameTxt, loadGameTxtCenterValue, loadGameTxtHeight, loadGameTxt.getWidth(), loadGameTxt.getHeight());
