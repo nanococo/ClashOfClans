@@ -18,6 +18,5 @@ public class Warrior extends Token implements IWarriorConstants {
         consumptionInArmy = pConsumptionInArmy;
         upgradeRate = pUpgradeRate;
 
-
     }
 }

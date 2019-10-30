@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Token extends Sprite {
 
-    private int initialX;
-    private int initialY;
+    public int initialX;
+    public int initialY;
     private int attackRange;
     private double attackRate;
 
