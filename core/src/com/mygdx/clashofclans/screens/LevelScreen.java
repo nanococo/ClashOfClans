@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
@@ -17,29 +18,29 @@ import com.mygdx.clashofclans.ClashOfClansGame;
 public class LevelScreen implements Screen {
 
     private ClashOfClansGame game;
-
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-
     private Hero hero = new Hector(0,0);
 
-    public static final float unitScale = 1/16f;
+
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
     private int[][] board;
     private float elapsed;
 
+    public static TiledMapTileLayer tileLayer;
+    public static final float unitScale = 1/16f;
 
     LevelScreen(ClashOfClansGame game) {
         this.game = game;
+        map = new TmxMapLoader().load("Tiles/gameMap.tmx");
+        tileLayer = (TiledMapTileLayer) map.getLayers().get(0);
     }
 
     @Override
     public void show() {
-        map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
