@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Hero;
 import com.mygdx.clashofclans.ClashOfClansGame;
 
@@ -19,7 +20,7 @@ public class LevelScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    private Hero hero = new Hero(0,0,0);
+    private Hero hero = new Hector(0,0);
 
     public static final float unitScale = 1/16f;
     float w = Gdx.graphics.getWidth();
