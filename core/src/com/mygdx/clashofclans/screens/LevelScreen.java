@@ -8,10 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Bichillos;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
-import com.mygdx.clashofclans.Tokens.Warriors.Hero;
+import com.mygdx.clashofclans.Tokens.Warriors.*;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
 
 public class LevelScreen implements Screen {
@@ -22,7 +20,7 @@ public class LevelScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    private Aerial hero = new Bichillos(0,0);
+    private Hero hero = new Hector(0,0);
 
     public static final float unitScale = 1/16f;
     float w = Gdx.graphics.getWidth();
@@ -79,9 +77,11 @@ public class LevelScreen implements Screen {
 
         game.batch.begin();
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            //game.batch.draw(hero.walkingAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
+            game.batch.draw(hero.walkingAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
         } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             game.batch.draw(hero.attackAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            game.batch.draw(hero.walkingAnimationL.getKeyFrame(elapsed), hero.initialX, hero.initialY);
         } else {
             game.batch.draw(hero.idleAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
         }

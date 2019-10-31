@@ -18,7 +18,9 @@ public class Deuce extends Contact {
                                                 PATH_TO_WALKING_ANIMATION,
                                                 PATH_TO_ATTACK_ANIMATION,
                                                 PATH_TO_HURT_ANIMATION,
-        PATH_TO_IDLE_ANIMATION_L,
-        });
+                                                PATH_TO_IDLE_ANIMATION_L,
+                                                PATH_TO_WALKING_ANIMATION_L,
+                                                PATH_TO_ATTACK_ANIMATION_L,
+                                                PATH_TO_HURT_ANIMATION_L});
     }
 }

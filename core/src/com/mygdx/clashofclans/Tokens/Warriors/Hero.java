@@ -14,6 +14,10 @@ public class Hero extends Warrior implements ITerrestrialWarrior{
     public Animation<TextureRegion> walkingAnimation;
     public Animation<TextureRegion> attackAnimation;
     public Animation<TextureRegion> hurtAnimation;
+    public Animation<TextureRegion> idleAnimationL;
+    public Animation<TextureRegion> walkingAnimationL;
+    public Animation<TextureRegion> attackAnimationL;
+    public Animation<TextureRegion> hurtAnimationL;
 
     public Hero(int pInitialX, int pInitialY, String[] pAnimations) {
         super(pInitialX, pInitialY, HERO_WARRIOR_LIFE, HERO_WARRIOR_RANGE, HERO_WARRIOR_LEVELAVAILABLE, HERO_WARRIOR_TROOPS_CONSUMED, HERO_WARRIOR_ATTACKRATE, HERO_WARRIOR_UPGRADERATE);
@@ -23,6 +27,10 @@ public class Hero extends Warrior implements ITerrestrialWarrior{
         walkingAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[1]).read());
         attackAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[2]).read());
         hurtAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[3]).read());
+        idleAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[4]).read());
+        walkingAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[5]).read());
+        attackAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[6]).read());
+        hurtAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[7]).read());
     }
 
     @Override

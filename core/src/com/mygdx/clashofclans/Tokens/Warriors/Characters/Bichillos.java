@@ -10,6 +10,8 @@ public class Bichillos extends Aerial {
 
 
     public Bichillos(int pInitialX, int pInitialY) {
-        super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION, PATH_TO_ATTACK_ANIMATION, PATH_TO_HURT_ANIMATION});
+        super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
+                                                PATH_TO_ATTACK_ANIMATION,
+                                                PATH_TO_HURT_ANIMATION});
     }
 }

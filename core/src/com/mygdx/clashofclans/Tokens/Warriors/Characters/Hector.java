@@ -14,7 +14,14 @@ public class Hector extends Hero {
     private static String PATH_TO_HURT_ANIMATION_L = "Hector/Hector L(Hurt).gif";
 
     public Hector(int pInitialX, int pInitialY) {
-        super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION, PATH_TO_WALKING_ANIMATION, PATH_TO_ATTACK_ANIMATION, PATH_TO_HURT_ANIMATION});
+        super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
+                                                PATH_TO_WALKING_ANIMATION,
+                                                PATH_TO_ATTACK_ANIMATION,
+                                                PATH_TO_HURT_ANIMATION,
+                                                PATH_TO_IDLE_ANIMATION_L,
+                                                PATH_TO_WALKING_ANIMATION_L,
+                                                PATH_TO_ATTACK_ANIMATION_L,
+                                                PATH_TO_HURT_ANIMATION_L});
     }
 
 
