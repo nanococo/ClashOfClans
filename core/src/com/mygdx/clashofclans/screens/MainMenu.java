@@ -18,7 +18,11 @@ public class MainMenu implements Screen {
     private Texture newGameTxtHover;
     private Texture loadGameTxt;
     private Texture loadGameTxtHover;
-    private Animation<TextureRegion> animation;
+    private Animation<TextureRegion> Hector;
+    private Animation<TextureRegion> Yolanda;
+    private Animation<TextureRegion> Deuce;
+    private Animation<TextureRegion> Bichillos;
+    private Animation<TextureRegion> Ringo;
 
     private float x;
     private float y;
@@ -27,7 +31,14 @@ public class MainMenu implements Screen {
 
     public MainMenu(ClashOfClansGame game) {
         this.game = game;
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Hector (Idle).gif").read());
+        Hector = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Hector (Idle).gif").read());
+        Yolanda = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Yolanda/Yolanda (Idle).gif").read());
+        Deuce = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Deuce/Deuce (Idle).gif").read());
+        Bichillos = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Bichillos/Bichillos (Flying).gif").read());
+        Ringo = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Ringo/Ringo (Idle).gif").read());
+
+
+
         img = new Texture("mainMenuBackground.png");
         gameTitle = new Texture("GameTitle.png");
         loadGameTxt = new Texture("LoadGameTxt.png");
@@ -84,7 +95,12 @@ public class MainMenu implements Screen {
             game.batch.draw(loadGameTxt, loadGameTxtCenterValue, loadGameTxtHeight, loadGameTxt.getWidth(), loadGameTxt.getHeight());
         }
 
-        game.batch.draw(animation.getKeyFrame(elapsed), x, y);
+        game.batch.draw(Hector.getKeyFrame(elapsed), x, y);
+        game.batch.draw(Yolanda.getKeyFrame(elapsed), x+50, y);
+        game.batch.draw(Deuce.getKeyFrame(elapsed), x+100, y);
+        game.batch.draw(Ringo.getKeyFrame(elapsed), x+150, y);
+        game.batch.draw(Bichillos.getKeyFrame(elapsed), x+200, y);
+
         game.batch.end();
     }
 
