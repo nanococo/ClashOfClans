@@ -32,4 +32,8 @@ public class Contact extends Warrior implements ITerrestrialWarrior {
 
     }
 
+    @Override
+    public Animation<TextureRegion> draw() {
+        return null;
+    }
 }

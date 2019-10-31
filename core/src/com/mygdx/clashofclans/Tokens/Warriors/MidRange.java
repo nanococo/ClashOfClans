@@ -30,4 +30,9 @@ public class MidRange extends Warrior implements ITerrestrialWarrior {
     public void move() {
 
     }
+
+    @Override
+    public Animation<TextureRegion> draw() {
+        return null;
+    }
 }
