@@ -38,4 +38,8 @@ public class Beast extends Warrior implements ITerrestrialWarrior {
 
     }
 
+    @Override
+    public Animation<TextureRegion> draw() {
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package com.mygdx.clashofclans.Tokens.Warriors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
@@ -35,7 +36,29 @@ public class Hero extends Warrior implements ITerrestrialWarrior{
 
     @Override
     public void move() {
-
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            //y+=4;
+            initialY+=4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            // y-=4;
+            initialY-=4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            //x+=4;
+            initialX+=4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            //x-=4;
+            initialX-=4;
+        }
     }
 
+    @Override
+    public Animation<TextureRegion> draw(){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            return walkingAnimation;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            return attackAnimation;
+        } else {
+            return idleAnimation;
+        }
+    }
 }

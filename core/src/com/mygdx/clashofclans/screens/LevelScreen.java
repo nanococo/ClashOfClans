@@ -61,31 +61,12 @@ public class LevelScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            //y+=4;
-            hero.initialY+=4;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-           // y-=4;
-            hero.initialY-=4;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            //x+=4;
-            hero.initialX+=4;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            //x-=4;
-            hero.initialX-=4;
-        }
+        hero.move();
 
         game.batch.begin();
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            game.batch.draw(hero.walkingAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            game.batch.draw(hero.attackAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            game.batch.draw(hero.walkingAnimationL.getKeyFrame(elapsed), hero.initialX, hero.initialY);
-        } else {
-            game.batch.draw(hero.idleAnimation.getKeyFrame(elapsed), hero.initialX, hero.initialY);
-        }
+        game.batch.draw(hero.draw().getKeyFrame(elapsed), hero.initialX, hero.initialY);
         game.batch.end();
+
     }
 
     @Override
