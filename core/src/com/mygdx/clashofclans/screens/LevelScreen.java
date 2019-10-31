@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Warriors.*;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
@@ -21,6 +22,7 @@ public class LevelScreen implements Screen {
     private OrthographicCamera camera;
 
     private Hero hero = new Hector(0,0);
+    private Bomb bomb = new Bomb(500, 500);
 
     public static final float unitScale = 1/16f;
     float w = Gdx.graphics.getWidth();
@@ -65,6 +67,7 @@ public class LevelScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(hero.draw().getKeyFrame(elapsed), hero.initialX, hero.initialY);
+        game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
         game.batch.end();
 
     }
