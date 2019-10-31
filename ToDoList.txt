@@ -1,0 +1,15 @@
+Sebas
+Plantillas
+Colocar Objetos
+Colisiones
+Matriz Lógica
+Paredes Destruibles
+Generacion de Oro
+Niveles
+
+Jorge
+Caminar hacia el objetivo
+Atacarse entre sí
+Morir
+Hilos
+
