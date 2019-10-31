@@ -4,7 +4,7 @@ import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 
 public class Bichillos extends Aerial {
 
-    private static String PATH_TO_IDLE_ANIMATION = "Bichillos/Bichillos (Idle).gif";
+    private static String PATH_TO_IDLE_ANIMATION = "Bichillos/Bichillos (Flying).gif";
     private static String PATH_TO_ATTACK_ANIMATION = "Bichillos/Bichillos (Attack).gif";
     private static String PATH_TO_HURT_ANIMATION = "Bichillos/Bichillos (Hurt).gif";
 
