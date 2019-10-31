@@ -21,4 +21,9 @@ public class Aerial extends Warrior {
         attackAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[1]).read());
         hurtAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[2]).read());
     }
+
+    @Override
+    public Animation<TextureRegion> draw() {
+        return null;
+    }
 }
