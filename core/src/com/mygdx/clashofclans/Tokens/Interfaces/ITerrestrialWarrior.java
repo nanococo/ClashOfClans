@@ -4,5 +4,4 @@ public interface ITerrestrialWarrior {
 
     void move();
 
-
 }

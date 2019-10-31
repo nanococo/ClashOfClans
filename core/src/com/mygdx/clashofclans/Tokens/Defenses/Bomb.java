@@ -1,4 +1,4 @@
-package com.mygdx.clashofclans.Tokens.Defences;
+package com.mygdx.clashofclans.Tokens.Defenses;
 
 import com.mygdx.clashofclans.Tokens.Defense;
 
