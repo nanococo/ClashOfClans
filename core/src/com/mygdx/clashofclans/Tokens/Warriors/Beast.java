@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Interfaces.ITerrestrialWarrior;
 import com.mygdx.clashofclans.Tokens.Interfaces.IWarriorConstants;
+import com.mygdx.clashofclans.Tokens.Token;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
 public class Beast extends Warrior implements ITerrestrialWarrior {
@@ -41,5 +42,10 @@ public class Beast extends Warrior implements ITerrestrialWarrior {
     @Override
     public Animation<TextureRegion> draw() {
         return null;
+    }
+
+    @Override
+    public void attack(Token pAttackTargets) {
+
     }
 }
