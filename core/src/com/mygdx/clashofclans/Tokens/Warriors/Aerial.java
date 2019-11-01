@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
-import com.mygdx.clashofclans.Tokens.Token;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
 public class Aerial extends Warrior {
@@ -15,7 +14,7 @@ public class Aerial extends Warrior {
     public Animation<TextureRegion> hurtAnimation;
 
 
-    public Aerial(int pInitialX, int pInitialY, String[] pAnimations) {
+    public Aerial(float pInitialX, float pInitialY, String[] pAnimations) {
         super(pInitialX, pInitialY, AERIAL_WARRIOR_LIFE, AERIAL_WARRIOR_RANGE, AERIAL_WARRIOR_LEVELAVAILABLE, AERIAL_WARRIOR_TROOPS_CONSUMED, AERIAL_WARRIOR_ATTACKRATE, AERIAL_WARRIOR_UPGRADERATE);
         animations = pAnimations;
         idleAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[0]).read());
@@ -29,7 +28,7 @@ public class Aerial extends Warrior {
     }
 
     @Override
-    public void attack(Token pAttackTargets) {
+    public void doAction() {
 
     }
 }

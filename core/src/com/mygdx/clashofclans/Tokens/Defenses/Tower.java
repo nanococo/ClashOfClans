@@ -7,7 +7,7 @@ import com.mygdx.clashofclans.Tokens.Token;
 
 public class Tower extends Defense {
 
-    public Tower(int pInitialX, int pInitialY) {
+    public Tower(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, TOWER_DEFENSE_LIFE, TOWER_DEFENSE_RANGE, TOWER_DEFENSE_ATTACKRATE);
     }
 

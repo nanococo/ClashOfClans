@@ -13,7 +13,7 @@ public class Deuce extends Contact {
     private static String PATH_TO_ATTACK_ANIMATION_L = "Deuce/Deuce L(Attack).gif";
     private static String PATH_TO_HURT_ANIMATION_L = "Deuce/Deuce L(Hurt).gif";
 
-    public Deuce(int pInitialX, int pInitialY) {
+    public Deuce(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
                                                 PATH_TO_WALKING_ANIMATION,
                                                 PATH_TO_ATTACK_ANIMATION,

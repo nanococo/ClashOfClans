@@ -7,7 +7,7 @@ import com.mygdx.clashofclans.Tokens.Token;
 
 public class Mortar extends Defense {
 
-    public Mortar(int pInitialX, int pInitialY) {
+    public Mortar(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, MORTAR_DEFENSE_LIFE, MORTAR_DEFENSE_RANGE, MORTAR_DEFENSE_ATTACKRATE);
     }
 

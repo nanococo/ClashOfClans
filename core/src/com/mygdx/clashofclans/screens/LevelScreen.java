@@ -10,6 +10,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
+import com.mygdx.clashofclans.Tokens.Warriors.*;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
@@ -18,13 +21,20 @@ import com.mygdx.clashofclans.Tokens.Warriors.Hero;
 public class LevelScreen implements Screen {
 
     private ClashOfClansGame game;
+
+    private int counter;
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private Hero hero;
-    private Bomb bomb = new Bomb(500, 500);
-    private Animation<TextureRegion> house;
 
+    //private TerrestrialWarrior warriorA = new Hector(504f,230f);
+//    private TerrestrialWarrior warriorB = new Yolanda(704f,730f);
+//    private TerrestrialWarrior warriorC = new Deuce(321f,123f);
+//    private TerrestrialWarrior warriorD = new Ringo(800f,456f);
+    //private TerrestrialWarrior warriorE = new Hector(654f,357f);
+    private Hero hero;
+    private Canyon bomb = new Canyon(303f, 553f);
 
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
@@ -66,13 +76,81 @@ public class LevelScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        hero.move();
+        if(counter==100){
+            bomb.initialX = 222;
+            bomb.initialY = 500;
+        }
+        if (counter==200){
+            bomb.initialX = 333;
+            bomb.initialY = 213;
+        }
+        if (counter==300){
+            bomb.initialX = 354;
+            bomb.initialY = 213;
+        }
+        if (counter==400){
+            bomb.initialX = 333;
+            bomb.initialY = 245;
+        }
+        if (counter==500){
+            bomb.initialX = 365;
+            bomb.initialY = 245;
+        }
+        if(counter==600){
+            bomb.initialX = 222;
+            bomb.initialY = 500;
+        }
+        if (counter==800){
+            bomb.initialX = 333;
+            bomb.initialY = 213;
+        }
+        if (counter==900){
+            bomb.initialX = 354;
+            bomb.initialY = 213;
+        }
+        if (counter==1000){
+            bomb.initialX = 333;
+            bomb.initialY = 245;
+        }
+        if (counter==1100){
+            bomb.initialX = 365;
+            bomb.initialY = 245;
+        }
+
+        //warriorA.doAction();
+//        warriorB.doAction();
+//        warriorC.doAction();
+//        warriorD.doAction();
+        //warriorE.doAction();
+
+        //warriorA.setTargetX(bomb.initialX);
+        //warriorA.setTargetY(bomb.initialY);
+
+//        warriorB.setTargetX(bomb.initialX);
+//        warriorB.setTargetY(bomb.initialY);
+//
+//        warriorC.setTargetX(bomb.initialX);
+//        warriorC.setTargetY(bomb.initialY);
+//
+//        warriorD.setTargetX(bomb.initialX);
+//        warriorD.setTargetY(bomb.initialY);
+
+        //warriorE.setTargetX(bomb.initialX);
+        //warriorE.setTargetY(bomb.initialY);
 
         game.batch.begin();
-        game.batch.draw(hero.draw().getKeyFrame(elapsed), hero.initialX, hero.initialY);
+        //game.batch.draw(warriorA.draw().getKeyFrame(elapsed), warriorA.initialX, warriorA.initialY);
+//        game.batch.draw(warriorB.draw().getKeyFrame(elapsed), warriorB.initialX, warriorB.initialY);
+//        game.batch.draw(warriorC.draw().getKeyFrame(elapsed), warriorC.initialX, warriorC.initialY);
+//        game.batch.draw(warriorD.draw().getKeyFrame(elapsed), warriorD.initialX, warriorD.initialY);
+        //game.batch.draw(warriorE.draw().getKeyFrame(elapsed), warriorE.initialX, warriorE.initialY);
+
+
         game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
+
         game.batch.end();
 
+        counter++;
     }
 
     @Override
