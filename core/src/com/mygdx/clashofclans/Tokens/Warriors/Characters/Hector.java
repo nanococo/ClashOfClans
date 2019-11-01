@@ -1,5 +1,7 @@
 package com.mygdx.clashofclans.Tokens.Warriors.Characters;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.Tokens.Warriors.Hero;
 
 public class Hector extends Hero {
@@ -13,7 +15,8 @@ public class Hector extends Hero {
     private static String PATH_TO_ATTACK_ANIMATION_L = "Hector/Hector L(Attack).gif";
     private static String PATH_TO_HURT_ANIMATION_L = "Hector/Hector L(Hurt).gif";
 
-    public Hector(float pInitialX, float pInitialY) {
+    //public Hector(float pInitialX, float pInitialY) {
+    public Hector(float pInitialX, float pInitialY, TiledMapTileLayer collisionLayer, TiledMap map) {
         super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
                                                 PATH_TO_WALKING_ANIMATION,
                                                 PATH_TO_ATTACK_ANIMATION,
@@ -21,7 +24,7 @@ public class Hector extends Hero {
                                                 PATH_TO_IDLE_ANIMATION_L,
                                                 PATH_TO_WALKING_ANIMATION_L,
                                                 PATH_TO_ATTACK_ANIMATION_L,
-                                                PATH_TO_HURT_ANIMATION_L});
+                                                PATH_TO_HURT_ANIMATION_L}, collisionLayer, map);
     }
 
 
