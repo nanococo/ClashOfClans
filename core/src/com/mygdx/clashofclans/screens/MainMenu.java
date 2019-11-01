@@ -96,10 +96,10 @@ public class MainMenu implements Screen {
         }
 
         game.batch.draw(Hector.getKeyFrame(elapsed), x, y);
-        game.batch.draw(Yolanda.getKeyFrame(elapsed), x+50, y);
-        game.batch.draw(Deuce.getKeyFrame(elapsed), x+100, y);
-        game.batch.draw(Ringo.getKeyFrame(elapsed), x+150, y);
-        game.batch.draw(Bichillos.getKeyFrame(elapsed), x+200, y);
+        game.batch.draw(Yolanda.getKeyFrame(elapsed), x+100, y);
+        game.batch.draw(Deuce.getKeyFrame(elapsed), x+200, y);
+        game.batch.draw(Ringo.getKeyFrame(elapsed), x+300, y);
+        game.batch.draw(Bichillos.getKeyFrame(elapsed), x+400, y);
 
         game.batch.end();
     }

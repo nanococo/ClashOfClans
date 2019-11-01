@@ -1,12 +1,11 @@
 package com.mygdx.clashofclans.Tokens;
 
 import com.mygdx.clashofclans.Tokens.Interfaces.IDefenseConstants;
-import com.mygdx.clashofclans.Tokens.Token;
 
-public abstract class Defense extends Token implements IDefenseConstants {
+public abstract class Defense extends Piece implements IDefenseConstants {
 
-    public Defense(int pInitialX, int pInitialY, int pLife, int pAttackRange, double pAttackRate) {
-        super(pInitialX, pInitialY, pLife, pAttackRange, pAttackRate);
+    public Defense(float pPositionX, float pPositionY, int pLife, int pAttackRange, double pAttackRate) {
+        super(pPositionX, pPositionY, pLife, pAttackRange, pAttackRate);
     }
 
 }

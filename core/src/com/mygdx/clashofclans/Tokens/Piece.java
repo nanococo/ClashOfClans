@@ -1,0 +1,52 @@
+package com.mygdx.clashofclans.Tokens;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+public abstract class Piece extends Sprite {
+
+    public float initialX;
+    public float initialY;
+    private int attackRange;
+    private double attackRate;
+    private float targetX;
+    private float targetY;
+    private int life;
+    private int level;
+
+    public Piece(float pInitialX, float pInitialY, int pLife, int pAttackRange, double pAttackRate){
+        initialX = pInitialX;
+        initialY = pInitialY;
+        attackRange = pAttackRange;
+        life = pLife;
+        attackRate = pAttackRate;
+        level = 1;
+        targetX = 450;
+        targetY = 450;
+    }
+
+    public float getTargetX() {
+        return targetX;
+    }
+
+    public void setTargetX(float targetX) {
+        this.targetX = targetX;
+    }
+
+    public float getTargetY() {
+        return targetY;
+    }
+
+    public void setTargetY(float targetY) {
+        this.targetY = targetY;
+    }
+
+    public abstract Animation<TextureRegion> draw();
+    public void attack(Piece pAttackTargets){}
+    public void die(){}
+
+
+
+
+}

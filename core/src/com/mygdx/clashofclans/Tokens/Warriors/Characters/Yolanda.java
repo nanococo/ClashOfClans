@@ -13,7 +13,7 @@ public class Yolanda extends MidRange {
     private static String PATH_TO_ATTACK_ANIMATION_L = "Yolanda/Yolanda L(Attack).gif";
     private static String PATH_TO_HURT_ANIMATION_L = "Yolanda/Yolanda L(Hurt).gif";
 
-    public Yolanda(int pInitialX, int pInitialY) {
+    public Yolanda(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
                                                 PATH_TO_WALKING_ANIMATION,
                                                 PATH_TO_ATTACK_ANIMATION,

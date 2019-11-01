@@ -14,7 +14,7 @@ public class Aerial extends Warrior {
     public Animation<TextureRegion> hurtAnimation;
 
 
-    public Aerial(int pInitialX, int pInitialY, String[] pAnimations) {
+    public Aerial(float pInitialX, float pInitialY, String[] pAnimations) {
         super(pInitialX, pInitialY, AERIAL_WARRIOR_LIFE, AERIAL_WARRIOR_RANGE, AERIAL_WARRIOR_LEVELAVAILABLE, AERIAL_WARRIOR_TROOPS_CONSUMED, AERIAL_WARRIOR_ATTACKRATE, AERIAL_WARRIOR_UPGRADERATE);
         animations = pAnimations;
         idleAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[0]).read());
@@ -25,5 +25,10 @@ public class Aerial extends Warrior {
     @Override
     public Animation<TextureRegion> draw() {
         return null;
+    }
+
+    @Override
+    public void doAction() {
+
     }
 }
