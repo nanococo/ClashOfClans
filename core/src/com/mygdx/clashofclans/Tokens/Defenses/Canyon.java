@@ -3,6 +3,7 @@ package com.mygdx.clashofclans.Tokens.Defenses;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Token;
 
 public class Canyon extends Defense {
 
@@ -13,5 +14,10 @@ public class Canyon extends Defense {
     @Override
     public Animation<TextureRegion> draw() {
         return null;
+    }
+
+    @Override
+    public void attack(Token pAttackTargets) {
+
     }
 }

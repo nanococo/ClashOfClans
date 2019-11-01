@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
+import com.mygdx.clashofclans.Tokens.Token;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
 public class Aerial extends Warrior {
@@ -25,5 +26,10 @@ public class Aerial extends Warrior {
     @Override
     public Animation<TextureRegion> draw() {
         return null;
+    }
+
+    @Override
+    public void attack(Token pAttackTargets) {
+
     }
 }
