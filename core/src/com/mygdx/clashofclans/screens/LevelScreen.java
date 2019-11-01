@@ -76,52 +76,55 @@ public class LevelScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        if(counter==100){
-            bomb.initialX = 222;
-            bomb.initialY = 500;
-        }
-        if (counter==200){
-            bomb.initialX = 333;
-            bomb.initialY = 213;
-        }
-        if (counter==300){
-            bomb.initialX = 354;
-            bomb.initialY = 213;
-        }
-        if (counter==400){
-            bomb.initialX = 333;
-            bomb.initialY = 245;
-        }
-        if (counter==500){
-            bomb.initialX = 365;
-            bomb.initialY = 245;
-        }
-        if(counter==600){
-            bomb.initialX = 222;
-            bomb.initialY = 500;
-        }
-        if (counter==800){
-            bomb.initialX = 333;
-            bomb.initialY = 213;
-        }
-        if (counter==900){
-            bomb.initialX = 354;
-            bomb.initialY = 213;
-        }
-        if (counter==1000){
-            bomb.initialX = 333;
-            bomb.initialY = 245;
-        }
-        if (counter==1100){
-            bomb.initialX = 365;
-            bomb.initialY = 245;
-        }
+//        if(counter==100){
+//            bomb.initialX = 222;
+//            bomb.initialY = 500;
+//        }
+//        if (counter==200){
+//            bomb.initialX = 333;
+//            bomb.initialY = 213;
+//        }
+//        if (counter==300){
+//            bomb.initialX = 354;
+//            bomb.initialY = 213;
+//        }
+//        if (counter==400){
+//            bomb.initialX = 333;
+//            bomb.initialY = 245;
+//        }
+//        if (counter==500){
+//            bomb.initialX = 365;
+//            bomb.initialY = 245;
+//        }
+//        if(counter==600){
+//            bomb.initialX = 222;
+//            bomb.initialY = 500;
+//        }
+//        if (counter==800){
+//            bomb.initialX = 333;
+//            bomb.initialY = 213;
+//        }
+//        if (counter==900){
+//            bomb.initialX = 354;
+//            bomb.initialY = 213;
+//        }
+//        if (counter==1000){
+//            bomb.initialX = 333;
+//            bomb.initialY = 245;
+//        }
+//        if (counter==1100){
+//            bomb.initialX = 365;
+//            bomb.initialY = 245;
+//        }
 
         //warriorA.doAction();
 //        warriorB.doAction();
 //        warriorC.doAction();
 //        warriorD.doAction();
         //warriorE.doAction();
+        hero.doAction();
+        hero.setTargetX(bomb.initialX);
+        hero.setTargetY(bomb.initialY);
 
         //warriorA.setTargetX(bomb.initialX);
         //warriorA.setTargetY(bomb.initialY);
@@ -145,7 +148,7 @@ public class LevelScreen implements Screen {
 //        game.batch.draw(warriorD.draw().getKeyFrame(elapsed), warriorD.initialX, warriorD.initialY);
         //game.batch.draw(warriorE.draw().getKeyFrame(elapsed), warriorE.initialX, warriorE.initialY);
 
-
+        game.batch.draw(hero.draw().getKeyFrame(elapsed), hero.initialX, hero.initialY);
         game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
 
         game.batch.end();
