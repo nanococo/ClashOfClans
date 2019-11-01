@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
-import com.mygdx.clashofclans.Tokens.Token;
+import com.mygdx.clashofclans.Tokens.Piece;
 
 public class Bomb extends Defense {
 
@@ -21,7 +21,7 @@ public class Bomb extends Defense {
     }
 
     @Override
-    public void attack(Token pAttackTargets) {
+    public void attack(Piece pAttackTargets) {
 
     }
 }

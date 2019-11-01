@@ -1,5 +1,7 @@
 package com.mygdx.clashofclans.Tokens.Warriors.Characters;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.Tokens.Warriors.MidRange;
 
 public class Yolanda extends MidRange {
@@ -13,7 +15,7 @@ public class Yolanda extends MidRange {
     private static String PATH_TO_ATTACK_ANIMATION_L = "Yolanda/Yolanda L(Attack).gif";
     private static String PATH_TO_HURT_ANIMATION_L = "Yolanda/Yolanda L(Hurt).gif";
 
-    public Yolanda(float pInitialX, float pInitialY) {
+    public Yolanda(float pInitialX, float pInitialY, TiledMapTileLayer mapTileLayer, TiledMap map) {
         super(pInitialX, pInitialY, new String[]{PATH_TO_IDLE_ANIMATION,
                                                 PATH_TO_WALKING_ANIMATION,
                                                 PATH_TO_ATTACK_ANIMATION,
@@ -21,6 +23,6 @@ public class Yolanda extends MidRange {
                                                 PATH_TO_IDLE_ANIMATION_L,
                                                 PATH_TO_WALKING_ANIMATION_L,
                                                 PATH_TO_ATTACK_ANIMATION_L,
-                                                PATH_TO_HURT_ANIMATION_L});
+                                                PATH_TO_HURT_ANIMATION_L}, mapTileLayer, map);
     }
 }
