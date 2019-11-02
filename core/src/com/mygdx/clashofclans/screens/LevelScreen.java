@@ -87,11 +87,12 @@ public class LevelScreen implements Screen {
         for (Warrior troop:army.getTroops()){
             troop.doAction();
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
+            if (defenses.getDefenses().size()>0)
             troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
         }
 
         army.searchAndSetTargets();
-        System.out.println(defenses.getDefenses().get(0).getLife());
+
 
         game.batch.end();
 

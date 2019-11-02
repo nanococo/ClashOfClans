@@ -6,6 +6,11 @@ import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
+
+import static com.mygdx.clashofclans.Teams.Defenses.generateRandomIntIntRange;
 
 public class Defenses {
     private int level;
@@ -20,8 +25,11 @@ public class Defenses {
         this.collisionLayer = collisionLayer;
     }
     public void removeCasualties(){
-        for (Defense defense: defenses){
-            if (defense.getLife()<=0) defenses.remove(defense);
+        for (Iterator<Defense> iterator = defenses.iterator(); iterator.hasNext();) {
+            Defense defense = iterator.next();
+            if (defense.getLife()==0) {
+                iterator.remove();
+            }
         }
     }
 
