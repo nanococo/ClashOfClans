@@ -10,7 +10,7 @@ public class MidRange extends TerrestrialWarrior {
     }
 
     @Override
-    public void attack(Piece pAttackTargets) {
+    public void attack() {
 
     }
 }

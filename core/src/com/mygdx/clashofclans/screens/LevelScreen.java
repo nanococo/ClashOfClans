@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.*;
@@ -34,6 +37,11 @@ public class LevelScreen implements Screen {
     private TerrestrialWarrior warriorD;
     private TerrestrialWarrior warriorE;
     private TerrestrialWarrior hero;
+
+    public Animation<TextureRegion> testAnimation;
+
+
+
     private Canyon bomb = new Canyon(303f, 450);
     private ArrayList<Warrior> army = new ArrayList<Warrior>();
 
@@ -53,6 +61,8 @@ public class LevelScreen implements Screen {
     public void show() {
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+        testAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Tiles/House.gif").read());
+
         hero = new Hector(150,350f, (TiledMapTileLayer) map.getLayers().get("Grass"), map);
         warriorA = new Hector(200,230f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
         warriorB = new Yolanda(200,730f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
@@ -95,6 +105,7 @@ public class LevelScreen implements Screen {
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
         }
         game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
+        game.batch.draw(testAnimation.getKeyFrame(elapsed), 980, 600);
 
         game.batch.end();
 

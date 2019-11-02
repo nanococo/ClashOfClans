@@ -22,7 +22,7 @@ public class Canyon extends Defense {
     }
 
     @Override
-    public void attack(Piece pAttackTargets) {
+    public void attack() {
 
     }
 }
