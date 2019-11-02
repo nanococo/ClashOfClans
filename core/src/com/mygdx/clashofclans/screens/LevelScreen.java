@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -24,6 +26,7 @@ public class LevelScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+
     private Army army;
     private Defenses defenses;
 
@@ -42,6 +45,7 @@ public class LevelScreen implements Screen {
 
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
+
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5);
@@ -85,8 +89,10 @@ public class LevelScreen implements Screen {
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
             troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
         }
+
         army.searchAndSetTargets();
         System.out.println(defenses.getDefenses().get(0).getLife());
+
         game.batch.end();
 
         defenses.removeCasualties();
