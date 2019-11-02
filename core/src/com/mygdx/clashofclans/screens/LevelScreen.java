@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -35,6 +36,8 @@ public class LevelScreen implements Screen {
     private float h = Gdx.graphics.getHeight();
     private float elapsed;
 
+    private Texture hectorFrame = new Texture("Hector/Frame/Hector (Frame).png");
+    private Texture yolandaFrame = new Texture("Yolanda/Frame/Yolanda (Frame).png");
 
 
     LevelScreen(ClashOfClansGame game) {
@@ -43,8 +46,8 @@ public class LevelScreen implements Screen {
 
     @Override
     public void show() {
-
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
+        levelData = new LevelData();
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
@@ -84,6 +87,8 @@ public class LevelScreen implements Screen {
         renderer.render();
 
         game.batch.begin();
+        game.batch.draw(hectorFrame, 200,15);
+
         for (Defense defense: defenses.getDefenses()){
             game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
         }
