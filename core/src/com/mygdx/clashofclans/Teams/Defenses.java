@@ -2,6 +2,7 @@ package com.mygdx.clashofclans.Teams;
 
 import com.mygdx.clashofclans.Mathematics;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,11 +41,11 @@ public class Defenses {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public void addDefense(){
+    public void addDefense(int specificDefense){
         int spawnX = generateRandomIntIntRange(660, 1250);
         int spawnY = generateRandomIntIntRange(350, 900);
 
-
+        defenses.add(DefenseFactory.getDefense(specificDefense, spawnX, spawnY));
     }
 
     public ArrayList<Defense> getDefenses() {
