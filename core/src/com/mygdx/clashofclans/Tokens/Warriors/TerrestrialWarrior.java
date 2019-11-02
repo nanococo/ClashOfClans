@@ -140,26 +140,6 @@ public class TerrestrialWarrior extends Warrior {
         if(walking){
             walk();
         }
-
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-//            if (!collidesTop()){
-//                initialY+=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-//            if (!collidesBottom()){
-//                initialY-=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-//            if (!collidesRight()){
-//                initialX+=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            if (!collidesLeft()){
-//                initialX-=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-//            attack();
-//        }
     }
 
     private boolean isCellBlocked(float x, float y){
@@ -168,7 +148,7 @@ public class TerrestrialWarrior extends Warrior {
 
     }
 
-    public boolean collidesRight(){
+    private boolean collidesRight(){
         boolean collides = false;
 
         for (float step = 0; step < animationWidth; step+=(collisionLayer.getTileHeight())/2){
@@ -183,7 +163,7 @@ public class TerrestrialWarrior extends Warrior {
         return collides;
     }
 
-    public boolean collidesLeft(){
+    private boolean collidesLeft(){
         boolean collides = false;
 
         for (float step = 0; step < animationWidth; step+=collisionLayer.getTileHeight()/2){
@@ -213,7 +193,7 @@ public class TerrestrialWarrior extends Warrior {
         return collides;
     }
 
-    public boolean collidesBottom(){
+    private boolean collidesBottom(){
         boolean collides = false;
 
         for (float step = 0; step < animationWidth; step+=collisionLayer.getTileWidth()/2){
@@ -229,11 +209,13 @@ public class TerrestrialWarrior extends Warrior {
     }
 
     private void destroyWall(){
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell(((int) ((initialX+animationWidth)/collisionLayer.getTileWidth()))+1, (int) ((initialY+animationWidth/2)/collisionLayer.getTileHeight()));
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))+1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
 
-        if(map.getTileSets().getTileSet(0).getTile(33)!=null && cell!=null){
-            System.out.println("here");
-            cell.setTile(map.getTileSets().getTileSet(0).getTile(33));
+        if(map.getTileSets().getTileSet(0).getTile(33)!=null && cell!=null && cell.getTile().getId()!=313){
+            if(cell.getTile().getId()!=313){
+                System.out.println(cell.getTile().getId());
+                cell.setTile(map.getTileSets().getTileSet(0).getTile(33));
+            }
         }
 
     }

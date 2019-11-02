@@ -8,8 +8,8 @@ public abstract class Piece extends Sprite {
 
     public float initialX;
     public float initialY;
-    public int animationHeight;
-    public int animationWidth;
+    protected int animationHeight;
+    protected int animationWidth;
     private int attackRange;
     private double attackRate;
     private float targetX;
