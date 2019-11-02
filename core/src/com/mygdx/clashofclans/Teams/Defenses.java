@@ -19,7 +19,6 @@ public class Defenses {
     public void removeCasualties(){
         for (Defense defense: defenses){
             if (defense.getLife()<=0) defenses.remove(defense);
-
         }
     }
     public Defense returnAttackable(float pX, float pY, float pRange){

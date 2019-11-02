@@ -41,7 +41,6 @@ public class Army {
     public ArrayList<Warrior> getTroops() {
         return troops;
     }
-
     public boolean addTroop(Warrior newSoldier){
 
         boolean added = false;

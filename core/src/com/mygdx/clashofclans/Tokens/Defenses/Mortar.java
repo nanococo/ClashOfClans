@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Piece;
-import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Mortar extends Defense {
 
@@ -18,10 +17,7 @@ public class Mortar extends Defense {
     }
 
     @Override
-    public void setTarget(Piece target) {
-        if (target instanceof TerrestrialWarrior){
-            this.target = target;
-            targetLocked = true;
-        }
+    public void attack() {
+
     }
 }
