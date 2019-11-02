@@ -8,7 +8,6 @@ Generacion de Oro
 Niveles
 
 Jorge
-Caminar hacia el objetivo
 Atacarse entre sí
 Morir
 Hilos

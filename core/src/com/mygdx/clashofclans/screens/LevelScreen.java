@@ -11,12 +11,16 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
+import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.*;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Hero;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class LevelScreen implements Screen {
 
@@ -28,13 +32,16 @@ public class LevelScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    //private TerrestrialWarrior warriorA = new Hector(504f,230f);
-//    private TerrestrialWarrior warriorB = new Yolanda(704f,730f);
-//    private TerrestrialWarrior warriorC = new Deuce(321f,123f);
-//    private TerrestrialWarrior warriorD = new Ringo(800f,456f);
-    //private TerrestrialWarrior warriorE = new Hector(654f,357f);
-    private Hero hero;
+    private TerrestrialWarrior warriorA;
+    private TerrestrialWarrior warriorB;
+    private TerrestrialWarrior warriorC;
+    private TerrestrialWarrior warriorD;
+    private TerrestrialWarrior warriorE;
+    private TerrestrialWarrior hero;
     private Canyon bomb = new Canyon(303f, 553f);
+    private ArrayList<Warrior> army = new ArrayList<Warrior>();
+
+
 
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
@@ -51,8 +58,19 @@ public class LevelScreen implements Screen {
     public void show() {
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        hero = new Hector(150,350, (TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        hero = new Hector(150,350f, (TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        warriorA = new Hector(200,230f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        warriorB = new Yolanda(200,730f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        warriorC = new Deuce(200,123f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        warriorD = new Ringo(200,456f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
+        warriorE = new Hector(200,357f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
 
+        army.add(hero);
+        army.add(warriorA);
+        army.add(warriorB);
+        army.add(warriorC);
+        army.add(warriorD);
+        army.add(warriorE);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
@@ -75,85 +93,28 @@ public class LevelScreen implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-
-//        if(counter==100){
-//            bomb.initialX = 222;
-//            bomb.initialY = 500;
-//        }
-//        if (counter==200){
-//            bomb.initialX = 333;
-//            bomb.initialY = 213;
-//        }
-//        if (counter==300){
-//            bomb.initialX = 354;
-//            bomb.initialY = 213;
-//        }
-//        if (counter==400){
-//            bomb.initialX = 333;
-//            bomb.initialY = 245;
-//        }
-//        if (counter==500){
-//            bomb.initialX = 365;
-//            bomb.initialY = 245;
-//        }
-//        if(counter==600){
-//            bomb.initialX = 222;
-//            bomb.initialY = 500;
-//        }
-//        if (counter==800){
-//            bomb.initialX = 333;
-//            bomb.initialY = 213;
-//        }
-//        if (counter==900){
-//            bomb.initialX = 354;
-//            bomb.initialY = 213;
-//        }
-//        if (counter==1000){
-//            bomb.initialX = 333;
-//            bomb.initialY = 245;
-//        }
-//        if (counter==1100){
-//            bomb.initialX = 365;
-//            bomb.initialY = 245;
-//        }
-
-        //warriorA.doAction();
-//        warriorB.doAction();
-//        warriorC.doAction();
-//        warriorD.doAction();
-        //warriorE.doAction();
-        hero.doAction();
-        hero.setTargetX(bomb.initialX);
-        hero.setTargetY(bomb.initialY);
-
-        //warriorA.setTargetX(bomb.initialX);
-        //warriorA.setTargetY(bomb.initialY);
-
-//        warriorB.setTargetX(bomb.initialX);
-//        warriorB.setTargetY(bomb.initialY);
-//
-//        warriorC.setTargetX(bomb.initialX);
-//        warriorC.setTargetY(bomb.initialY);
-//
-//        warriorD.setTargetX(bomb.initialX);
-//        warriorD.setTargetY(bomb.initialY);
-
-        //warriorE.setTargetX(bomb.initialX);
-        //warriorE.setTargetY(bomb.initialY);
-
         game.batch.begin();
-        //game.batch.draw(warriorA.draw().getKeyFrame(elapsed), warriorA.initialX, warriorA.initialY);
-//        game.batch.draw(warriorB.draw().getKeyFrame(elapsed), warriorB.initialX, warriorB.initialY);
-//        game.batch.draw(warriorC.draw().getKeyFrame(elapsed), warriorC.initialX, warriorC.initialY);
-//        game.batch.draw(warriorD.draw().getKeyFrame(elapsed), warriorD.initialX, warriorD.initialY);
-        //game.batch.draw(warriorE.draw().getKeyFrame(elapsed), warriorE.initialX, warriorE.initialY);
-
-        game.batch.draw(hero.draw().getKeyFrame(elapsed), hero.initialX, hero.initialY);
-        game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
+        for(Warrior troop:army){
+            troop.doAction();
+            troop.setTarget(bomb.initialX, bomb.initialY);
+            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
+            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
+        }
+        
 
         game.batch.end();
 
         counter++;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
     @Override
