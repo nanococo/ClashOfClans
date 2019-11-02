@@ -163,8 +163,6 @@ public class TerrestrialWarrior extends Warrior {
         }
         else if(walking){
             walk();
-            System.out.println(targetX);
-            System.out.println(targetY);
         }
 
     }

@@ -20,8 +20,4 @@ public class Canyon extends Defense {
         return canyonAnimation;
     }
 
-    @Override
-    public void attack() {
-
-    }
 }

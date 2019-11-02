@@ -54,13 +54,15 @@ public class LevelScreen implements Screen {
         defenses = new Defenses(1, 5, collisionLayer, levelData);
         defenses.addDefense(0);
         defenses.addDefense(1);
-        defenses.addDefense(0);
+        //defenses.addDefense(0);
+
 
         army = new Army(1, 10, defenses);
         army.addTroop(new Yolanda(0,0, collisionLayer, map));
         army.addTroop(new Hector(0,500, collisionLayer, map));
         army.addTroop(new Ringo(1600,0, collisionLayer, map));
 
+        defenses.setEnemies(army);
 
         camera.setToOrtho(false, w, h);
         camera.position.x = ClashOfClansGame.WIDTH / 2f;
@@ -85,6 +87,7 @@ public class LevelScreen implements Screen {
 
         game.batch.begin();
         for (Defense defense: defenses.getDefenses()){
+            defense.doAction();
             game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
         }
         for (Warrior troop:army.getTroops()){
@@ -92,13 +95,17 @@ public class LevelScreen implements Screen {
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
             if (defenses.getDefenses().size()>0)
             troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
+            System.out.println(troop.getLife());
         }
 
         army.searchAndSetTargets();
+        defenses.searchAndSetTargets();
 
         game.batch.end();
 
         defenses.removeCasualties();
+        army.removeCasualties();
+
 
     }
 

@@ -5,6 +5,7 @@ import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Army {
     private int level;
@@ -19,8 +20,11 @@ public class Army {
         enemies = pEnemies;
     }
     public void removeCasualties(){
-        for (Warrior troop:troops){
-            if (troop.getLife()<=0)troops.remove(troop);
+        for (Iterator<Warrior> iterator = troops.iterator(); iterator.hasNext();) {
+            Warrior troop = iterator.next();
+            if (troop.getLife()<=0) {
+                iterator.remove();
+            }
         }
     }
     public Warrior returnAttackable(float pX, float pY, float pRange){

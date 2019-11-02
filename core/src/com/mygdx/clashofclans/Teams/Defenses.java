@@ -3,7 +3,16 @@ package com.mygdx.clashofclans.Teams;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
+
+import com.mygdx.clashofclans.Tokens.Warrior;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+
 import com.mygdx.clashofclans.levelManager.LevelData;
 
 import java.util.ArrayList;
@@ -13,6 +22,9 @@ public class Defenses {
     private int level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
+
+    private Army enemies;
+
     private TiledMapTileLayer collisionLayer;
     private LevelData levelData;
 
@@ -42,10 +54,26 @@ public class Defenses {
         return null;
     }
 
+
+    public void searchAndSetTargets(){
+        for (Defense defense:defenses){
+            Warrior possibleTarget = enemies.returnAttackable(defense.getInitialX(), defense.getInitialY(), defense.getAttackRange());
+            if (possibleTarget!=null){
+                defense.setTarget(possibleTarget);
+            }
+            if (defense instanceof Bomb){
+              ((Bomb) defense).setEnemies(enemies);
+            }
+        }
+    }
+
+
+
     /**
      * Method adds specific defense
      * @param newDefense is the specific defense to add
      */
+
     public void addDefense(Defense newDefense){
         defenses.add(newDefense);
     }
@@ -70,4 +98,10 @@ public class Defenses {
     public ArrayList<Defense> getDefenses() {
         return defenses;
     }
+
+    public void setEnemies(Army enemies) {
+        this.enemies = enemies;
+    }
 }
+
+
