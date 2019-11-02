@@ -38,14 +38,13 @@ public class LevelScreen implements Screen {
     private TerrestrialWarrior warriorD;
     private TerrestrialWarrior warriorE;
     private TerrestrialWarrior hero;
-    private Canyon bomb = new Canyon(303f, 553f);
+    private Canyon bomb = new Canyon(303f, 450);
     private ArrayList<Warrior> army = new ArrayList<Warrior>();
 
 
 
-    float w = Gdx.graphics.getWidth();
-    float h = Gdx.graphics.getHeight();
-    private int[][] board;
+    private float w = Gdx.graphics.getWidth();
+    private float h = Gdx.graphics.getHeight();
     private float elapsed;
 
     public static final float unitScale = 1/16f;
@@ -66,15 +65,14 @@ public class LevelScreen implements Screen {
         warriorE = new Hector(200,357f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
 
         army.add(hero);
-        army.add(warriorA);
-        army.add(warriorB);
-        army.add(warriorC);
-        army.add(warriorD);
-        army.add(warriorE);
+//        army.add(warriorA);
+        //army.add(warriorB);
+//        army.add(warriorC);
+//        army.add(warriorD);
+//        army.add(warriorE);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
-        board = new int[ClashOfClansGame.WIDTH][ClashOfClansGame.HEIGHT];
         camera.position.x = ClashOfClansGame.WIDTH / 2f;
         camera.position.y = ClashOfClansGame.HEIGHT / 2f;
         camera.update();
@@ -100,7 +98,7 @@ public class LevelScreen implements Screen {
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
         }
-        
+        game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
 
         game.batch.end();
 
@@ -143,19 +141,5 @@ public class LevelScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-    }
-
-    public void removeBlock(){
-//        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-//            try {
-//                TiledMap testMap = map.clone(); //load the new map
-//                testMap.getLayers().get("Grass").get
-//                renderer.getMap().dispose(); //dispose the old map
-//                renderer.setMap(testMap); //set the map in your renderer
-//            } catch (CloneNotSupportedException e){
-//
-//            }
-//        });
-
     }
 }

@@ -13,14 +13,16 @@ import com.mygdx.clashofclans.screens.MainMenu;
 
 public class ClashOfClansGame extends Game {
 
-	public static final int HEIGHT = 900;
-	public static final int WIDTH = 900;
+	public static int HEIGHT;
+	public static int WIDTH;
 	public SpriteBatch batch;
 
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		HEIGHT = Gdx.graphics.getHeight();
+		WIDTH = Gdx.graphics.getWidth();
 		this.setScreen(new MainMenu(this));
 		//img = new Texture("badlogic.jpg");
 	}
