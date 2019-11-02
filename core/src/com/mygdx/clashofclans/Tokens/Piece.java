@@ -31,22 +31,20 @@ public abstract class Piece extends Sprite {
     public float getTargetX() {
         return targetX;
     }
-
-    public void setTargetX(float targetX) {
-        this.targetX = targetX;
-    }
-
     public float getTargetY() {
         return targetY;
     }
-
-    public void setTargetY(float targetY) {
-        this.targetY = targetY;
-    }
-
     public abstract Animation<TextureRegion> draw();
-    public void attack(Piece pAttackTargets){}
-    public void die(){}
+    public void attack(Piece pAttackTarget){
+
+    }
+    public void die(){
+
+    }
+    public void setTarget(float x, float y){
+        targetX = x;
+        targetY = y;
+    }
 
 
 
