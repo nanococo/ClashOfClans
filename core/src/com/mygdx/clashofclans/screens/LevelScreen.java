@@ -48,10 +48,9 @@ public class LevelScreen implements Screen {
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5);
-        defenses.addDefense(new Canyon(1250, 350));
-//        defenses.addDefense(new Canyon(255, 356));
-//        defenses.addDefense(new Canyon(456, 645));
-
+        defenses.addDefense(0);
+        defenses.addDefense(1);
+        defenses.addDefense(0);
 
         army = new Army(1, 10, defenses);
         army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
