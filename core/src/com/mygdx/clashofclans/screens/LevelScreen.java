@@ -49,9 +49,9 @@ public class LevelScreen implements Screen {
         defenses.addDefense(new Canyon(255, 356));
         defenses.addDefense(new Canyon(456, 645));
 
-        army = new Army(1, 10, defenses);
-        army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
-        army.addTroop(new Hector(0,500,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        army = new Army(1, 50, defenses);
+        //army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        //army.addTroop(new Hector(0,500,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
         army.addTroop(new Ringo(1600,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
 
 
@@ -81,8 +81,8 @@ public class LevelScreen implements Screen {
             game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
         }
         for (Warrior troop:army.getTroops()){
-            troop.doAction();
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
+            troop.doAction();
             troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
         }
         army.searchAndSetTargets();

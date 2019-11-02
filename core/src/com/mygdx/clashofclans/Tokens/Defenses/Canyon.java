@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Piece;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Canyon extends Defense {
 
@@ -22,7 +23,10 @@ public class Canyon extends Defense {
     }
 
     @Override
-    public void attack() {
-
+    public void setTarget(Piece target) {
+        if (target instanceof TerrestrialWarrior){
+            this.target = target;
+            targetLocked = true;
+        }
     }
 }
