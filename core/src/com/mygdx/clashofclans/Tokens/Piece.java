@@ -55,7 +55,6 @@ public abstract class Piece extends Sprite {
     public void attack(){
        if (targetLocked){
            if(nextAttack >= attackRate){
-               System.out.println("Attacked");
                target.receiveDamage();
                nextAttack = 0;
            }
@@ -67,7 +66,7 @@ public abstract class Piece extends Sprite {
        }
 
     }
-    private void killedTarget(){
+    protected void killedTarget(){
 
         target = null;
         targetLocked = false;
@@ -78,6 +77,7 @@ public abstract class Piece extends Sprite {
         targetX = x;
         targetY = y;
     }
+
     public void setTarget(Piece target) {
         if (target!=null){
             this.target = target;
@@ -86,6 +86,11 @@ public abstract class Piece extends Sprite {
 
     }
 
+    public void doAction(){
+        if (targetLocked){
+            attack();
+        }
+    }
 
 
     public boolean isAttacking() {

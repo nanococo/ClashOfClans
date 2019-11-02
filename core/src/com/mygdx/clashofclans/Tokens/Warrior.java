@@ -1,6 +1,7 @@
 package com.mygdx.clashofclans.Tokens;
 
 
+import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Interfaces.IWarriorConstants;
 
 public abstract class Warrior extends Piece implements IWarriorConstants {
@@ -16,8 +17,6 @@ public abstract class Warrior extends Piece implements IWarriorConstants {
         upgradeRate = pUpgradeRate;
     }
 
-    public abstract void doAction();
-
     public int getConsumptionInArmy() {
         return consumptionInArmy;
     }
@@ -28,5 +27,14 @@ public abstract class Warrior extends Piece implements IWarriorConstants {
 
     public double getUpgradeRate() {
         return upgradeRate;
+    }
+
+    @Override
+    public void setTarget(Piece target){
+        if (!(target instanceof Bomb)){
+            this.target = target;
+            targetLocked = true;
+        }
+
     }
 }
