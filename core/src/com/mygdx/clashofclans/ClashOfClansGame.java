@@ -24,7 +24,6 @@ public class ClashOfClansGame extends Game {
 		HEIGHT = Gdx.graphics.getHeight();
 		WIDTH = Gdx.graphics.getWidth();
 		this.setScreen(new MainMenu(this));
-		//img = new Texture("badlogic.jpg");
 	}
 
 	@Override

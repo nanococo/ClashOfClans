@@ -12,7 +12,6 @@ import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
-import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
@@ -23,6 +22,7 @@ public class LevelScreen implements Screen {
     private ClashOfClansGame game;
 
     private TiledMap map;
+    private TiledMapTileLayer collisionLayer;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
@@ -43,19 +43,20 @@ public class LevelScreen implements Screen {
     public void show() {
 
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
+        collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         camera = new OrthographicCamera();
 
-        defenses = new Defenses(1, 5);
+        defenses = new Defenses(1, 5, collisionLayer);
         defenses.addDefense(0);
         defenses.addDefense(1);
         defenses.addDefense(0);
 
         army = new Army(1, 10, defenses);
-        army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
-        army.addTroop(new Hector(0,500,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
-        army.addTroop(new Ringo(1600,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        army.addTroop(new Yolanda(0,0, collisionLayer, map));
+        army.addTroop(new Hector(0,500,collisionLayer, map));
+        army.addTroop(new Ringo(1600,0,collisionLayer, map));
 
 
         camera.setToOrtho(false, w, h);

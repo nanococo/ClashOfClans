@@ -4,6 +4,7 @@ import com.mygdx.clashofclans.Tokens.Defense;
 
 /**
  * Factory Method Creator class
+ * @author sebas
  */
 public class DefenseFactory {
     public static Defense getDefense(int index, int x, int y){
