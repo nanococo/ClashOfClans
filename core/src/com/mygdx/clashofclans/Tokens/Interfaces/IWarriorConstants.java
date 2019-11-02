@@ -24,7 +24,7 @@ public interface IWarriorConstants {
     int MIDRANGE_WARRIOR_LEVELAVAILABLE = 1; //level available
     double MIDRANGE_WARRIOR_UPGRADERATE = 0.9; //upgrade rate
     int MIDRANGE_WARRIOR_TROOPS_CONSUMED = 1; //troops consumed
-    int MIDRANGE_WARRIOR_RANGE = 50;
+    int MIDRANGE_WARRIOR_RANGE = 100;
 
 
     int HERO_WARRIOR_LIFE = 10; //life

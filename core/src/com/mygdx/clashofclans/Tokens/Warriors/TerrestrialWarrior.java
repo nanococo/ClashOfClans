@@ -16,17 +16,14 @@ public class TerrestrialWarrior extends Warrior {
     private boolean movingRight;
     private boolean walking;
 
-
-
-
-    public Animation<TextureRegion> idleAnimation;
-    public Animation<TextureRegion> walkingAnimation;
-    public Animation<TextureRegion> attackAnimation;
-    public Animation<TextureRegion> hurtAnimation;
-    public Animation<TextureRegion> idleAnimationL;
-    public Animation<TextureRegion> walkingAnimationL;
-    public Animation<TextureRegion> attackAnimationL;
-    public Animation<TextureRegion> hurtAnimationL;
+    private Animation<TextureRegion> idleAnimation;
+    private Animation<TextureRegion> walkingAnimation;
+    private Animation<TextureRegion> attackAnimation;
+    private Animation<TextureRegion> hurtAnimation;
+    private Animation<TextureRegion> idleAnimationL;
+    private Animation<TextureRegion> walkingAnimationL;
+    private Animation<TextureRegion> attackAnimationL;
+    private Animation<TextureRegion> hurtAnimationL;
     private TiledMapTileLayer collisionLayer;
     private TiledMap map;
 
@@ -60,10 +57,8 @@ public class TerrestrialWarrior extends Warrior {
         animationHeight = 32;
         animationWidth = 32;
     }
-
     private void walk(){
         float greaterIncrease = calcGreaterIncrease();
-
         if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
             if (initialX < super.getTargetX()){
                 //Right
@@ -119,8 +114,6 @@ public class TerrestrialWarrior extends Warrior {
                 }
             }
         }
-
-        attack();
     }
     private float calcGreaterIncrease(){
         float trayectory;
@@ -138,25 +131,26 @@ public class TerrestrialWarrior extends Warrior {
     @Override
     public Animation<TextureRegion> draw(){
         if (movingRight){
-            if(walking){
-                return walkingAnimation;
-            }
-            else if(attacking){
-                return attackAnimation;
-            }
-            else if(dead){
+            if(dead){
                 return idleAnimation;
             }
+            else if(targetLocked){
+                return attackAnimation;
+            }
+            else if(walking){
+                return walkingAnimation;
+            }
+
         }
         else{
-            if(walking){
-                return walkingAnimationL;
+            if(dead){
+                return idleAnimationL;
             }
-            else if(attacking){
+            else if(targetLocked){
                 return attackAnimationL;
             }
-            else if(dead){
-                return idleAnimationL;
+            else if(walking){
+                return walkingAnimationL;
             }
         }
         return null;
@@ -164,11 +158,13 @@ public class TerrestrialWarrior extends Warrior {
 
     @Override
     public void doAction() {
-        if(walking){
-            walk();
-        }
-        else if(attacking){
+        if(targetLocked){
             attack();
+        }
+        else if(walking){
+            walk();
+            System.out.println(targetX);
+            System.out.println(targetY);
         }
 
     }
@@ -251,7 +247,7 @@ public class TerrestrialWarrior extends Warrior {
 
     }
 
-    public void attack(){
+    public void attackWall(){
         if(collidesRight()){
             destroyWall();
         }
