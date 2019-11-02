@@ -27,7 +27,7 @@ public class Defenses {
     public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer, LevelData levelData) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
-        defenses = new ArrayList<>();
+        defenses = new ArrayList<Defense>();
         this.collisionLayer = collisionLayer;
         this.levelData = levelData;
     }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
-import com.mygdx.clashofclans.Mathematics;
+import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
@@ -48,7 +48,7 @@ public class Bomb extends Defense {
 
     public void setReachableTargets() {
         for (Warrior enemy: enemies.getTroops()){
-            if (Mathematics.distanceBetweenPoints(initialX, initialY, enemy.getInitialX(), enemy.getInitialY())<=attackRange+100
+            if (Calculations.distanceBetweenPoints(initialX, initialY, enemy.getInitialX(), enemy.getInitialY())<=attackRange+100
                 && enemy instanceof TerrestrialWarrior){
                    reachableTargets.add((TerrestrialWarrior)enemy);
             }

@@ -137,10 +137,13 @@ public class LevelScreen implements Screen {
     }
 
     void changeMap() {
-        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-            map = new TmxMapLoader().load("Tiles/gameMap2.tmx"); //load the new map
-            renderer.getMap().dispose(); //dispose the old map
-            renderer.setMap(map); //set the map in your renderer
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() { //Post runnable posts the below task in opengl thread
+                map = new TmxMapLoader().load("Tiles/gameMap2.tmx"); //load the new map
+                renderer.getMap().dispose(); //dispose the old map
+                renderer.setMap(map); //set the map in your renderer
+            }
         });
     }
 }
