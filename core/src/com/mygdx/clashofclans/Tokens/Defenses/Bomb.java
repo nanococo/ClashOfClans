@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Bomb extends Defense {
 
-    private Animation<TextureRegion> bombAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_ANIMATION).read());
+    private Animation<TextureRegion> bombAttackingAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_ANIMATION).read());
     private ArrayList<TerrestrialWarrior> reachableTargets;
     private Army enemies;
 
@@ -25,7 +25,7 @@ public class Bomb extends Defense {
 
     @Override
     public Animation<TextureRegion> draw() {
-        return bombAnimation;
+        return bombAttackingAnimation;
     }
 
     @Override
