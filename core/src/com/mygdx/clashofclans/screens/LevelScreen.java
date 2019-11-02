@@ -17,6 +17,7 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
 
@@ -48,6 +49,7 @@ public class LevelScreen implements Screen {
 
     @Override
     public void show() {
+
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         levelData = new LevelData();
         levelData.setLevel(Levels.LEVEL1);
