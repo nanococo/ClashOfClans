@@ -17,7 +17,6 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
-import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
 
@@ -41,17 +40,19 @@ public class LevelScreen implements Screen {
     private Texture yolandaFrame = new Texture("Yolanda/Frame/Yolanda (Frame).png");
     private Texture deuceFrame = new Texture("Deuce/Frame/Deuce (Frame).png");
     private Texture bichilloFrame = new Texture("Bichillos/Frame/Bichillos (Frame).png");
+    private Texture ringoFrame = new Texture("Ringo/Frame/Ringo (Frame).png");
 
 
     LevelScreen(ClashOfClansGame game) {
         this.game = game;
+        levelData = LevelData.getInstance();
     }
 
     @Override
     public void show() {
 
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
-        levelData = new LevelData();
+
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
@@ -59,23 +60,27 @@ public class LevelScreen implements Screen {
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5, collisionLayer, levelData);
-        defenses.addDefense(0);
-        defenses.addDefense(1);
-        defenses.addDefense(4);
-        defenses.addDefense(3);
-        defenses.addDefense(2);
-        defenses.addDefense(0);
-        defenses.addDefense(3);
-        defenses.addDefense(0);
+//        defenses.addDefense(0);
+//        defenses.addDefense(1);
+//        defenses.addDefense(4);
+//        defenses.addDefense(3);
+//        defenses.addDefense(2);
+//        defenses.addDefense(0);
+//        defenses.addDefense(3);
+//        defenses.addDefense(0);
         //defenses.addDefense(0);
 
         army = new Army(1, 50, defenses);
-        army.addTroop(new Yolanda(0,0, collisionLayer, map));
-        army.addTroop(new Hector(500,100, collisionLayer, map));
-        army.addTroop(new Ringo(1600,0, collisionLayer, map));
-        army.addTroop(new Yolanda(0,451, collisionLayer, map));
-        army.addTroop(new Hector(500,0, collisionLayer, map));
-        army.addTroop(new Ringo(0,1600, collisionLayer, map));
+        System.out.println(army.addTroop(1, 0,0,collisionLayer, map));
+        System.out.println(army.addTroop(2, 500, 100, collisionLayer, map));
+        //System.out.println(army.addTroop(new Yolanda(0,0, collisionLayer, map)));
+        //System.out.println(army.addTroop(new Hector(500,100, collisionLayer, map)));
+        System.out.println(army.getTroops().size());
+
+//        army.addTroop(new Ringo(1600,0, collisionLayer, map));
+//        army.addTroop(new Yolanda(0,451, collisionLayer, map));
+//        army.addTroop(new Hector(500,0, collisionLayer, map));
+//        army.addTroop(new Ringo(0,1600, collisionLayer, map));
 
         defenses.setEnemies(army);
 
@@ -105,6 +110,7 @@ public class LevelScreen implements Screen {
         game.batch.draw(yolandaFrame, 300,15);
         game.batch.draw(deuceFrame, 400,15);
         game.batch.draw(bichilloFrame, 500,15);
+        game.batch.draw(ringoFrame, 600, 15);
 
         for (Defense defense: defenses.getDefenses()){
             defense.doAction();
@@ -113,8 +119,8 @@ public class LevelScreen implements Screen {
         for (Warrior troop:army.getTroops()){
             troop.doAction();
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
-            if (defenses.getDefenses().size()>0)
-            troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
+//            if (defenses.getDefenses().size()>0)
+//            troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
             System.out.println(troop.getLife());
         }
 
