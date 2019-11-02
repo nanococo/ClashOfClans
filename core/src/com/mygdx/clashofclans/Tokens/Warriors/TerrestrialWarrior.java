@@ -54,8 +54,8 @@ public class TerrestrialWarrior extends Warrior {
         attackAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[6]).read());
         hurtAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[7]).read());
 
-        animationHeight = 32;
-        animationWidth = 32;
+        animationHeight = 28;
+        animationWidth = 28;
     }
     private void walk(){
         float greaterIncrease = calcGreaterIncrease();

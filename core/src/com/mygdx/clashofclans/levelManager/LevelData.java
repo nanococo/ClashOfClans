@@ -1,16 +1,29 @@
 package com.mygdx.clashofclans.levelManager;
 
+/**
+ * Singleton class for level Data
+ * @author sebas
+ */
 public class LevelData {
+    private static LevelData levelData = null;
+
     private int minBaseWidth;
     private int minBaseHeight;
     private int maxBaseWidth;
     private int maxBaseHeight;
 
-    public LevelData(){
+    private LevelData(){
         this.minBaseWidth = 0;
         this.minBaseHeight = 0;
         this.maxBaseWidth = 0;
         this.minBaseHeight = 0;
+    }
+
+    public static LevelData getInstance(){
+        if (levelData == null)
+            levelData = new LevelData();
+
+        return levelData;
     }
 
     public int getMinBaseWidth() {
