@@ -1,21 +1,23 @@
 package com.mygdx.clashofclans.Teams;
 
-import com.mygdx.clashofclans.Mathematics;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Defenses {
     private int level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
+    private TiledMapTileLayer collisionLayer;
 
-    public Defenses(int level, int troopsAvailable) {
+    public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
         defenses = new ArrayList<>();
+        this.collisionLayer = collisionLayer;
     }
     public void removeCasualties(){
         for (Defense defense: defenses){
@@ -25,27 +27,37 @@ public class Defenses {
 
     Defense returnAttackable(float pX, float pY, float pRange){
         for (Defense defense: defenses){
-            if (Mathematics.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()) <= pRange) {
-                System.out.println(Mathematics.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()));
+            if (Calculations.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()) <= pRange) {
+                System.out.println(Calculations.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()));
                 return defense;
             }
         }
         return null;
     }
+
+    /**
+     * Method adds specific defense
+     * @param newDefense is the specific defense to add
+     */
     public void addDefense(Defense newDefense){
         defenses.add(newDefense);
     }
 
-    public static int generateRandomIntIntRange(int min, int max) {
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
 
+    /**
+     * Method creates defense on random position
+     * @param specificDefense is int selector for DefenseFactory
+     */
     public void addDefense(int specificDefense){
-        int spawnX = generateRandomIntIntRange(660, 1250);
-        int spawnY = generateRandomIntIntRange(350, 900);
+        int spawnX = Calculations.generateRandomIntIntRange(660, 1250);
+        int spawnY = Calculations.generateRandomIntIntRange(350, 900);
 
-        defenses.add(DefenseFactory.getDefense(specificDefense, spawnX, spawnY));
+        if (Calculations.collidesLeft(spawnX, spawnY, collisionLayer) || Calculations.collidesRight(spawnX, spawnY, collisionLayer)
+        || Calculations.collidesTop(spawnX, spawnY, collisionLayer) || Calculations.collidesBottom(spawnX, spawnY, collisionLayer)){
+            addDefense(specificDefense);
+        } else {
+            defenses.add(DefenseFactory.getDefense(specificDefense, spawnX, spawnY));
+        }
     }
 
     public ArrayList<Defense> getDefenses() {

@@ -7,7 +7,7 @@ import com.mygdx.clashofclans.Tokens.Piece;
 
 public class AerialDefense extends Defense {
 
-    public AerialDefense(int pInitialX, int pInitialY) {
+    AerialDefense(int pInitialX, int pInitialY) {
         super(pInitialX, pInitialY, AERIAL_DEFENSE_LIFE, AERIAL_DEFENSE_RANGE, AERIAL_DEFENSE_ATTACKRATE);
     }
 
