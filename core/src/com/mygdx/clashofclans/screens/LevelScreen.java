@@ -4,20 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
-import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
 
 public class LevelScreen implements Screen {
 
@@ -34,7 +33,7 @@ public class LevelScreen implements Screen {
     private float h = Gdx.graphics.getHeight();
     private float elapsed;
 
-    public static final float unitScale = 1/16f;
+
 
     LevelScreen(ClashOfClansGame game) {
         this.game = game;
@@ -49,9 +48,10 @@ public class LevelScreen implements Screen {
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5);
-        defenses.addDefense(new Canyon(1000, 1000));
-        defenses.addDefense(new Canyon(255, 356));
-        defenses.addDefense(new Canyon(456, 645));
+        defenses.addDefense(new Canyon(1250, 350));
+//        defenses.addDefense(new Canyon(255, 356));
+//        defenses.addDefense(new Canyon(456, 645));
+
 
         army = new Army(1, 10, defenses);
         army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
