@@ -32,7 +32,6 @@ public interface IDefenseConstants {
     double BOMB_DEFENSE_ATTACKRATE = 10; //attack rate
     String BOMB_DEFENSE_ANIMATION = "Objects/Bomba/Bomba.gif";
 
-
     int AERIAL_DEFENSE_LIFE = 5; //life
     int AERIAL_DEFENSE_RANGE = 40; //range
     double AERIAL_DEFENSE_ATTACKRATE = 3; //attack rate

@@ -20,7 +20,7 @@ public class Bomb extends Defense {
 
     Bomb(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, BOMB_DEFENSE_LIFE, BOMB_DEFENSE_RANGE, BOMB_DEFENSE_ATTACKRATE);
-        reachableTargets = new ArrayList<TerrestrialWarrior>();
+        reachableTargets = new ArrayList<>();
     }
 
     @Override
