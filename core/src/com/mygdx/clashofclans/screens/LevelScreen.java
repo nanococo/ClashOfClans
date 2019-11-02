@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,9 +13,7 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.*;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
-import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
-import com.mygdx.clashofclans.Tokens.Warriors.Hero;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -96,7 +92,7 @@ public class LevelScreen implements Screen {
         game.batch.begin();
         for(Warrior troop:army){
             troop.doAction();
-            troop.setTarget(bomb.initialX, bomb.initialY);
+            troop.setTargetDirection(bomb.initialX, bomb.initialY);
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
         }
@@ -143,19 +139,5 @@ public class LevelScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-    }
-
-    public void removeBlock(){
-//        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-//            try {
-//                TiledMap testMap = map.clone(); //load the new map
-//                testMap.getLayers().get("Grass").get
-//                renderer.getMap().dispose(); //dispose the old map
-//                renderer.setMap(testMap); //set the map in your renderer
-//            } catch (CloneNotSupportedException e){
-//
-//            }
-//        });
-
     }
 }

@@ -1,7 +1,6 @@
 package com.mygdx.clashofclans.Tokens.Warriors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,8 +11,13 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 public class TerrestrialWarrior extends Warrior {
 
     private String[] animations;
+
+
     private boolean movingRight;
     private boolean walking;
+
+
+
 
     public Animation<TextureRegion> idleAnimation;
     public Animation<TextureRegion> walkingAnimation;
@@ -33,6 +37,17 @@ public class TerrestrialWarrior extends Warrior {
         animations = pAnimations;
         this.collisionLayer = collisionLayer;
         this.map = map;
+        setAnimations();
+        initFlags();
+    }
+
+    public void initFlags() {
+        movingRight = true;
+        walking = true;
+        attacking = false;
+        dead = false;
+    }
+    private void setAnimations(){
         idleAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[0]).read());
         walkingAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[1]).read());
         attackAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[2]).read());
@@ -41,30 +56,27 @@ public class TerrestrialWarrior extends Warrior {
         walkingAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[5]).read());
         attackAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[6]).read());
         hurtAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[7]).read());
-        //animationHeight = idleAnimation.getKeyFrame(0).getRegionHeight();
+
         animationHeight = 32;
-        //animationWidth = idleAnimation.getKeyFrame(0).getRegionWidth();
         animationWidth = 32;
-        movingRight = true;
-        walking = true;
     }
 
-    public void walk(){
-        float greaterEncrease = calcGreaterEncrease();
+    private void walk(){
+        float greaterIncrease = calcGreaterIncrease();
 
         if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
             if (initialX < super.getTargetX()){
                 //Right
                 movingRight = true;
                 if (!collidesRight()) {
-                    initialX += greaterEncrease;
+                    initialX += greaterIncrease;
                 }
             }
             if (initialX > super.getTargetX()) {
                 //Left
                 movingRight = false;
                 if (!collidesLeft()) {
-                    initialX -= greaterEncrease;
+                    initialX -= greaterIncrease;
                 }
             }
             if (initialY < super.getTargetY()){
@@ -97,21 +109,20 @@ public class TerrestrialWarrior extends Warrior {
             if (initialY < super.getTargetY()){
                 //Up
                 if (!collidesTop()) {
-                    initialY += greaterEncrease;
+                    initialY += greaterIncrease;
                 }
             }
             if (initialY > super.getTargetY()) {
                 //Down
                 if (!collidesBottom()) {
-                    initialY -= greaterEncrease;
+                    initialY -= greaterIncrease;
                 }
             }
         }
 
         attack();
     }
-
-    public float calcGreaterEncrease(){
+    private float calcGreaterIncrease(){
         float trayectory;
         if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
             trayectory = Math.abs(getTargetX()-initialX)/Math.abs(getTargetY()-initialY);
@@ -127,12 +138,28 @@ public class TerrestrialWarrior extends Warrior {
     @Override
     public Animation<TextureRegion> draw(){
         if (movingRight){
-            return walkingAnimation;
+            if(walking){
+                return walkingAnimation;
+            }
+            else if(attacking){
+                return attackAnimation;
+            }
+            else if(dead){
+                return idleAnimation;
+            }
         }
         else{
-            return walkingAnimationL;
+            if(walking){
+                return walkingAnimationL;
+            }
+            else if(attacking){
+                return attackAnimationL;
+            }
+            else if(dead){
+                return idleAnimationL;
+            }
         }
-
+        return null;
     }
 
     @Override
@@ -140,26 +167,9 @@ public class TerrestrialWarrior extends Warrior {
         if(walking){
             walk();
         }
-
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-//            if (!collidesTop()){
-//                initialY+=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-//            if (!collidesBottom()){
-//                initialY-=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-//            if (!collidesRight()){
-//                initialX+=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            if (!collidesLeft()){
-//                initialX-=4;
-//            }
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-//            attack();
-//        }
+        else if(attacking){
+            attack();
+        }
     }
 
     private boolean isCellBlocked(float x, float y){
