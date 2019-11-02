@@ -20,7 +20,7 @@ public interface IWarriorConstants {
 
 
     int MIDRANGE_WARRIOR_LIFE = 3; //life
-    double MIDRANGE_WARRIOR_ATTACKRATE = 0.5; //attack rate
+    double MIDRANGE_WARRIOR_ATTACKRATE = 2; //attack rate
     int MIDRANGE_WARRIOR_LEVELAVAILABLE = 1; //level available
     double MIDRANGE_WARRIOR_UPGRADERATE = 0.9; //upgrade rate
     int MIDRANGE_WARRIOR_TROOPS_CONSUMED = 1; //troops consumed
@@ -36,14 +36,14 @@ public interface IWarriorConstants {
 
 
     int BEAST_WARRIOR_LIFE = 25; //life
-    double BEAST_WARRIOR_ATTACKRATE = 2; //attack rate
+    double BEAST_WARRIOR_ATTACKRATE = 1/2f; //attack rate
     int BEAST_WARRIOR_LEVELAVAILABLE = 10; //level available
     double BEAST_WARRIOR_UPGRADERATE = 0.7; //upgrade rate
     int BEAST_WARRIOR_TROOPS_CONSUMED = 15; //troops consumed
-    int BEAST_WARRIOR_RANGE = 1;
+    int BEAST_WARRIOR_RANGE = 50;
 
     int AERIAL_WARRIOR_LIFE = 25; //life
-    double AERIAL_WARRIOR_ATTACKRATE = 3; //attack rate
+    double AERIAL_WARRIOR_ATTACKRATE = 1/3f; //attack rate
     int AERIAL_WARRIOR_LEVELAVAILABLE = 11; //level available
     double AERIAL_WARRIOR_UPGRADERATE = 0.5; //upgrade rate
     int AERIAL_WARRIOR_TROOPS_CONSUMED = 40; //troops consumed
