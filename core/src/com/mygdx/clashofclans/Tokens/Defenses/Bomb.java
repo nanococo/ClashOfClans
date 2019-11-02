@@ -21,7 +21,7 @@ public class Bomb extends Defense {
     }
 
     @Override
-    public void attack(Piece pAttackTargets) {
+    public void attack() {
 
     }
 }
