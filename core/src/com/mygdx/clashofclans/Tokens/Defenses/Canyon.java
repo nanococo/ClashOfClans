@@ -8,7 +8,7 @@ import com.mygdx.clashofclans.Tokens.Defense;
 
 public class Canyon extends Defense {
 
-    private Animation<TextureRegion> canyonAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_LEFT).read());
+    private Animation<TextureRegion> canyonAttackingAnimation_R = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_LEFT).read());
 
 
     Canyon(float pInitialX, float pInitialY) {
@@ -17,7 +17,7 @@ public class Canyon extends Defense {
 
     @Override
     public Animation<TextureRegion> draw() {
-        return canyonAnimation;
+        return canyonAttackingAnimation_R;
     }
 
 }

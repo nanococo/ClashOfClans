@@ -59,12 +59,21 @@ public class LevelScreen implements Screen {
         defenses = new Defenses(1, 5, collisionLayer, levelData);
         defenses.addDefense(0);
         defenses.addDefense(1);
+        defenses.addDefense(4);
+        defenses.addDefense(3);
+        defenses.addDefense(2);
+        defenses.addDefense(0);
+        defenses.addDefense(3);
+        defenses.addDefense(0);
         //defenses.addDefense(0);
 
-        army = new Army(1, 10, defenses);
+        army = new Army(1, 50, defenses);
         army.addTroop(new Yolanda(0,0, collisionLayer, map));
-        army.addTroop(new Hector(0,500, collisionLayer, map));
+        army.addTroop(new Hector(500,100, collisionLayer, map));
         army.addTroop(new Ringo(1600,0, collisionLayer, map));
+        army.addTroop(new Yolanda(0,451, collisionLayer, map));
+        army.addTroop(new Hector(500,0, collisionLayer, map));
+        army.addTroop(new Ringo(0,1600, collisionLayer, map));
 
         defenses.setEnemies(army);
 

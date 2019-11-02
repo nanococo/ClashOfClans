@@ -5,11 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
-import com.mygdx.clashofclans.Tokens.Piece;
 
 public class Tower extends Defense {
 
-    private Animation<TextureRegion> towerAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(TOWER_DEFENSE_ANIMATION).read());
+    private Animation<TextureRegion> towerAttackingAnimation_R = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(TOWER_DEFENSE_ANIMATION_LEFT).read());
 
 
     public Tower(float pInitialX, float pInitialY) {
@@ -18,7 +17,7 @@ public class Tower extends Defense {
 
     @Override
     public Animation<TextureRegion> draw() {
-        return towerAnimation;
+        return towerAttackingAnimation_R;
     }
 
 
