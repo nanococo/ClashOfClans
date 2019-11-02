@@ -12,11 +12,12 @@ import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
-import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
+import com.mygdx.clashofclans.levelManager.LevelData;
+import com.mygdx.clashofclans.levelManager.Levels;
 
 public class LevelScreen implements Screen {
 
@@ -25,6 +26,7 @@ public class LevelScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    private LevelData levelData;
 
     private Army army;
     private Defenses defenses;
@@ -43,19 +45,21 @@ public class LevelScreen implements Screen {
     public void show() {
 
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
+        levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
 
         camera = new OrthographicCamera();
 
-        defenses = new Defenses(1, 5);
-        //defenses.addDefense(0);
+        defenses = new Defenses(1, 5, collisionLayer, levelData);
+        defenses.addDefense(0);
         defenses.addDefense(1);
         //defenses.addDefense(0);
 
-        army = new Army(1, 60, defenses);
-        army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
-        army.addTroop(new Yolanda(0,500,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
-        army.addTroop(new Yolanda(1600,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        army = new Army(1, 10, defenses);
+        army.addTroop(new Yolanda(0,0, collisionLayer, map));
+        army.addTroop(new Hector(0,500, collisionLayer, map));
+        army.addTroop(new Ringo(1600,0, collisionLayer, map));
 
         defenses.setEnemies(army);
 
@@ -96,7 +100,6 @@ public class LevelScreen implements Screen {
         army.searchAndSetTargets();
         defenses.searchAndSetTargets();
 
-
         game.batch.end();
 
         defenses.removeCasualties();
@@ -131,5 +134,13 @@ public class LevelScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+    }
+
+    void changeMap() {
+        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
+            map = new TmxMapLoader().load("Tiles/gameMap2.tmx"); //load the new map
+            renderer.getMap().dispose(); //dispose the old map
+            renderer.setMap(map); //set the map in your renderer
+        });
     }
 }
