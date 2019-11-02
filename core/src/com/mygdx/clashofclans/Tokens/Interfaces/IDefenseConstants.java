@@ -9,19 +9,19 @@ package com.mygdx.clashofclans.Tokens.Interfaces;
 public interface IDefenseConstants {
 
     int CANYON_DEFENSE_LIFE = 5; //life
-    int CANYON_DEFENSE_RANGE = 10; //range
+    int CANYON_DEFENSE_RANGE = 300; //range
     double CANYON_DEFENSE_ATTACKRATE = 1; //attack rate
     String CANYON_DEFENSE_ANIMATION_LEFT = "Objects/Cañón.gif";
     String CANYON_DEFENSE_ANIMATION_RIGHT = "Objects/Cañón_R.gif";
 
 
     int MORTAR_DEFENSE_LIFE = 5; //life
-    int MORTAR_DEFENSE_RANGE = 15; //range
+    int MORTAR_DEFENSE_RANGE = 500; //range
     double MORTAR_DEFENSE_ATTACKRATE = 0.5; //attack rate
     String MORTAR_DEFENSE_ANIMATION = "";
 
     int TOWER_DEFENSE_LIFE = 5; //life
-    int TOWER_DEFENSE_RANGE = 20; //range
+    int TOWER_DEFENSE_RANGE = 500; //range
     double TOWER_DEFENSE_ATTACKRATE = 0.2; //attack rate
     String TOWER_DEFENSE_ANIMATION = "";
 
