@@ -4,25 +4,24 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
+import com.mygdx.clashofclans.levelManager.LevelData;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
-
-
-import static com.mygdx.clashofclans.Teams.Defenses.generateRandomIntIntRange;
 
 public class Defenses {
     private int level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
     private TiledMapTileLayer collisionLayer;
+    private LevelData levelData;
 
-    public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer) {
+    public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer, LevelData levelData) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
         defenses = new ArrayList<>();
         this.collisionLayer = collisionLayer;
+        this.levelData = levelData;
     }
     public void removeCasualties(){
         for (Iterator<Defense> iterator = defenses.iterator(); iterator.hasNext();) {
@@ -57,8 +56,8 @@ public class Defenses {
      * @param specificDefense is int selector for DefenseFactory
      */
     public void addDefense(int specificDefense){
-        int spawnX = Calculations.generateRandomIntIntRange(660, 1250);
-        int spawnY = Calculations.generateRandomIntIntRange(350, 900);
+        int spawnX = Calculations.generateRandomIntIntRange(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
+        int spawnY = Calculations.generateRandomIntIntRange(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());
 
         if (Calculations.collidesLeft(spawnX, spawnY, collisionLayer) || Calculations.collidesRight(spawnX, spawnY, collisionLayer)
         || Calculations.collidesTop(spawnX, spawnY, collisionLayer) || Calculations.collidesBottom(spawnX, spawnY, collisionLayer)){
