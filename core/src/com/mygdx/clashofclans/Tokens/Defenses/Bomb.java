@@ -20,7 +20,7 @@ public class Bomb extends Defense {
 
     Bomb(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, BOMB_DEFENSE_LIFE, BOMB_DEFENSE_RANGE, BOMB_DEFENSE_ATTACKRATE);
-        reachableTargets = new ArrayList<TerrestrialWarrior>();
+        reachableTargets = new ArrayList<>();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Bomb extends Defense {
         life = 0;
     }
 
-    public void setReachableTargets() {
+    private void setReachableTargets() {
         for (Warrior enemy: enemies.getTroops()){
             if (Calculations.distanceBetweenPoints(initialX, initialY, enemy.getInitialX(), enemy.getInitialY())<=attackRange+100
                 && enemy instanceof TerrestrialWarrior){

@@ -38,6 +38,8 @@ public class LevelScreen implements Screen {
 
     private Texture hectorFrame = new Texture("Hector/Frame/Hector (Frame).png");
     private Texture yolandaFrame = new Texture("Yolanda/Frame/Yolanda (Frame).png");
+    private Texture deuceFrame = new Texture("Deuce/Frame/Deuce (Frame).png");
+    private Texture bichilloFrame = new Texture("Bichillos/Frame/Bichillos (Frame).png");
 
 
     LevelScreen(ClashOfClansGame game) {
@@ -89,6 +91,9 @@ public class LevelScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(hectorFrame, 200,15);
+        game.batch.draw(yolandaFrame, 300,15);
+        game.batch.draw(deuceFrame, 400,15);
+        game.batch.draw(bichilloFrame, 500,15);
 
         for (Defense defense: defenses.getDefenses()){
             defense.doAction();

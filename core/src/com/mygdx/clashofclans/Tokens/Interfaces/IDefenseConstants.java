@@ -11,8 +11,8 @@ public interface IDefenseConstants {
     int CANYON_DEFENSE_LIFE = 5; //life
     int CANYON_DEFENSE_RANGE = 300; //range
     double CANYON_DEFENSE_ATTACKRATE = 1; //attack rate
-    String CANYON_DEFENSE_ANIMATION_LEFT = "Objects/Cañón.gif";
-    String CANYON_DEFENSE_ANIMATION_RIGHT = "Objects/Cañón_R.gif";
+    String CANYON_DEFENSE_ANIMATION_LEFT = "Objects/Cañón/Cañón (Left).gif";
+    String CANYON_DEFENSE_ANIMATION_RIGHT = "Objects/Cañón/Cañón (Right).gif";
 
 
     int MORTAR_DEFENSE_LIFE = 5; //life
@@ -28,7 +28,7 @@ public interface IDefenseConstants {
     int BOMB_DEFENSE_LIFE = 5; //life
     int BOMB_DEFENSE_RANGE = 10; //range
     double BOMB_DEFENSE_ATTACKRATE = 10; //attack rate
-    String BOMB_DEFENSE_ANIMATION = "Objects/Bomb.gif";
+    String BOMB_DEFENSE_ANIMATION = "Objects/Bomba/Bomba.gif";
 
     int AERIAL_DEFENSE_LIFE = 5; //life
     int AERIAL_DEFENSE_RANGE = 40; //range
