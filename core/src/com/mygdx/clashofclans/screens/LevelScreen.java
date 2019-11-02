@@ -59,7 +59,6 @@ public class LevelScreen implements Screen {
         defenses.addDefense(1);
         //defenses.addDefense(0);
 
-
         army = new Army(1, 10, defenses);
         army.addTroop(new Yolanda(0,0, collisionLayer, map));
         army.addTroop(new Hector(0,500, collisionLayer, map));
@@ -143,10 +142,13 @@ public class LevelScreen implements Screen {
     }
 
     void changeMap() {
-        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-            map = new TmxMapLoader().load("Tiles/gameMap2.tmx"); //load the new map
-            renderer.getMap().dispose(); //dispose the old map
-            renderer.setMap(map); //set the map in your renderer
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() { //Post runnable posts the below task in opengl thread
+                map = new TmxMapLoader().load("Tiles/gameMap2.tmx"); //load the new map
+                renderer.getMap().dispose(); //dispose the old map
+                renderer.setMap(map); //set the map in your renderer
+            }
         });
     }
 }

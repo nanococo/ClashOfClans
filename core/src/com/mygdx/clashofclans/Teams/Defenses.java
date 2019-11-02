@@ -5,14 +5,12 @@ import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
-
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
 import com.mygdx.clashofclans.levelManager.LevelData;
 
 import java.util.ArrayList;
@@ -22,16 +20,14 @@ public class Defenses {
     private int level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
-
     private Army enemies;
-
     private TiledMapTileLayer collisionLayer;
     private LevelData levelData;
 
     public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer, LevelData levelData) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
-        defenses = new ArrayList<>();
+        defenses = new ArrayList<Defense>();
         this.collisionLayer = collisionLayer;
         this.levelData = levelData;
     }
@@ -54,7 +50,6 @@ public class Defenses {
         return null;
     }
 
-
     public void searchAndSetTargets(){
         for (Defense defense:defenses){
             Warrior possibleTarget = enemies.returnAttackable(defense.getInitialX(), defense.getInitialY(), defense.getAttackRange());
@@ -68,12 +63,10 @@ public class Defenses {
     }
 
 
-
     /**
      * Method adds specific defense
      * @param newDefense is the specific defense to add
      */
-
     public void addDefense(Defense newDefense){
         defenses.add(newDefense);
     }
