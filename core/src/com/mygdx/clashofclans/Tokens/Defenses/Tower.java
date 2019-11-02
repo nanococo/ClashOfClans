@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Piece;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Tower extends Defense {
 
@@ -16,8 +17,4 @@ public class Tower extends Defense {
         return null;
     }
 
-    @Override
-    public void attack() {
-
-    }
 }
