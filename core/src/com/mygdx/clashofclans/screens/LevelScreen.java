@@ -10,42 +10,25 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.mygdx.clashofclans.GifDecoder;
+import com.mygdx.clashofclans.Teams.Army;
+import com.mygdx.clashofclans.Teams.Defenses;
+import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.Canyon;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.*;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class LevelScreen implements Screen {
 
     private ClashOfClansGame game;
 
-    private int counter;
-
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    private TerrestrialWarrior warriorA;
-    private TerrestrialWarrior warriorB;
-    private TerrestrialWarrior warriorC;
-    private TerrestrialWarrior warriorD;
-    private TerrestrialWarrior warriorE;
-    private TerrestrialWarrior hero;
-
-    public Animation<TextureRegion> testAnimation;
-
-
-
-    private Canyon bomb = new Canyon(303f, 450);
-    private ArrayList<Warrior> army = new ArrayList<Warrior>();
-
-
+    private Army army;
+    private Defenses defenses;
 
     private float w = Gdx.graphics.getWidth();
     private float h = Gdx.graphics.getHeight();
@@ -59,25 +42,23 @@ public class LevelScreen implements Screen {
 
     @Override
     public void show() {
+
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        testAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Tiles/House.gif").read());
-
-        hero = new Hector(150,350f, (TiledMapTileLayer) map.getLayers().get("Grass"), map);
-        warriorA = new Hector(200,230f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
-        warriorB = new Yolanda(200,730f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
-        warriorC = new Deuce(200,123f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
-        warriorD = new Ringo(200,456f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
-        warriorE = new Hector(200,357f,(TiledMapTileLayer) map.getLayers().get("Grass"), map);
-
-        army.add(hero);
-//        army.add(warriorA);
-        //army.add(warriorB);
-//        army.add(warriorC);
-//        army.add(warriorD);
-//        army.add(warriorE);
 
         camera = new OrthographicCamera();
+
+        defenses = new Defenses(1, 5);
+        defenses.addDefense(new Canyon(1000, 1000));
+        defenses.addDefense(new Canyon(255, 356));
+        defenses.addDefense(new Canyon(456, 645));
+
+        army = new Army(1, 10, defenses);
+        army.addTroop(new Yolanda(0,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        army.addTroop(new Hector(0,500,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+        army.addTroop(new Ringo(1600,0,(TiledMapTileLayer) map.getLayers().get("Grass"), map));
+
+
         camera.setToOrtho(false, w, h);
         camera.position.x = ClashOfClansGame.WIDTH / 2f;
         camera.position.y = ClashOfClansGame.HEIGHT / 2f;
@@ -95,31 +76,27 @@ public class LevelScreen implements Screen {
         camera.position.y = ClashOfClansGame.HEIGHT / 2f;
         camera.update();
 
+
         renderer.setView(camera);
         renderer.render();
+
         game.batch.begin();
-        for(Warrior troop:army){
-            troop.doAction();
-            troop.setTargetDirection(bomb.initialX, bomb.initialY);
-            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
-            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.initialX, troop.initialY);
+        for (Defense defense: defenses.getDefenses()){
+            game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
         }
-        game.batch.draw(bomb.draw().getKeyFrame(elapsed), bomb.initialX, bomb.initialY);
-        game.batch.draw(testAnimation.getKeyFrame(elapsed), 980, 600);
+        for (Warrior troop:army.getTroops()){
+            troop.doAction();
+            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
+            troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
+        }
+
+        army.searchAndSetTargets();
+        System.out.println(defenses.getDefenses().get(0).getLife());
 
         game.batch.end();
 
-        counter++;
-    }
+        defenses.removeCasualties();
 
-    private static int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
     }
 
     @Override

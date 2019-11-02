@@ -18,4 +18,15 @@ public abstract class Warrior extends Piece implements IWarriorConstants {
 
     public abstract void doAction();
 
+    public int getConsumptionInArmy() {
+        return consumptionInArmy;
+    }
+
+    public int getLevelAvailable() {
+        return levelAvailable;
+    }
+
+    public double getUpgradeRate() {
+        return upgradeRate;
+    }
 }
