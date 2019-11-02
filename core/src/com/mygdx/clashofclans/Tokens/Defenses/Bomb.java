@@ -18,7 +18,7 @@ public class Bomb extends Defense {
     private ArrayList<TerrestrialWarrior> reachableTargets;
     private Army enemies;
 
-    public Bomb(float pInitialX, float pInitialY) {
+    Bomb(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, BOMB_DEFENSE_LIFE, BOMB_DEFENSE_RANGE, BOMB_DEFENSE_ATTACKRATE);
         reachableTargets = new ArrayList<TerrestrialWarrior>();
     }

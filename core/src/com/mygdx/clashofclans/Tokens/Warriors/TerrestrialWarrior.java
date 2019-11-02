@@ -170,7 +170,6 @@ public class TerrestrialWarrior extends Warrior {
     private boolean isCellBlocked(float x, float y){
         TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x/collisionLayer.getTileWidth()), (int) (y/collisionLayer.getTileHeight()));
         return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("Attackable");
-
     }
 
     private boolean collidesRight(){

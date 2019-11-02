@@ -1,6 +1,6 @@
 package com.mygdx.clashofclans.Teams;
 
-import com.mygdx.clashofclans.Mathematics;
+import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
@@ -29,7 +29,7 @@ public class Army {
     }
     public Warrior returnAttackable(float pX, float pY, float pRange){
         for (Warrior troop:troops){
-            if (Mathematics.distanceBetweenPoints(pX, pY, troop.getInitialX(), troop.getInitialY()) <= pRange) return troop;
+            if (Calculations.distanceBetweenPoints(pX, pY, troop.getInitialX(), troop.getInitialY()) <= pRange) return troop;
         }
         return null;
     }
