@@ -58,4 +58,5 @@ public class Bomb extends Defense {
     public void setEnemies(Army enemies) {
         this.enemies = enemies;
     }
+
 }

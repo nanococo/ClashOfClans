@@ -18,12 +18,12 @@ public interface IDefenseConstants {
     int MORTAR_DEFENSE_LIFE = 5; //life
     int MORTAR_DEFENSE_RANGE = 500; //range
     double MORTAR_DEFENSE_ATTACKRATE = 0.5; //attack rate
-    String MORTAR_DEFENSE_ANIMATION = "";
+    String MORTAR_DEFENSE_ANIMATION = "Objects/Mortero/Mortero.gif";
 
     int TOWER_DEFENSE_LIFE = 5; //life
     int TOWER_DEFENSE_RANGE = 500; //range
     double TOWER_DEFENSE_ATTACKRATE = 0.2; //attack rate
-    String TOWER_DEFENSE_ANIMATION = "";
+    String TOWER_DEFENSE_ANIMATION = "Objects/Torre/Torre.gif";
 
     int BOMB_DEFENSE_LIFE = 5; //life
     int BOMB_DEFENSE_RANGE = 10; //range
@@ -33,6 +33,6 @@ public interface IDefenseConstants {
     int AERIAL_DEFENSE_LIFE = 5; //life
     int AERIAL_DEFENSE_RANGE = 40; //range
     double AERIAL_DEFENSE_ATTACKRATE = 3; //attack rate
-    String AERIAL_DEFENSE_ANIMATION = "";
+    String AERIAL_DEFENSE_ANIMATION = "Objects/Ballesta/Ballesta.gif";
 
 }
