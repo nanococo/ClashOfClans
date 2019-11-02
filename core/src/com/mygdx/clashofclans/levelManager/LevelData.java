@@ -35,7 +35,7 @@ public class LevelData {
                 minBaseWidth = 660;
                 maxBaseWidth = 1250;
                 minBaseHeight = 350;
-                minBaseWidth = 900;
+                maxBaseHeight = 900;
         }
     }
 }
