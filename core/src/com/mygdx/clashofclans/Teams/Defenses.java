@@ -6,15 +6,11 @@ import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
+
 import com.mygdx.clashofclans.levelManager.LevelData;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Defenses {
     private int level;
@@ -94,6 +90,30 @@ public class Defenses {
 
     public void setEnemies(Army enemies) {
         this.enemies = enemies;
+    }
+
+    private void generateDefenseSpecific(int defenseCount, int defenseFactoryIndex){
+        while (defenseCount>0){
+            addDefense(defenseFactoryIndex);
+            defenseCount--;
+        }
+    }
+
+    public void generateDefenses(int cannonCount, int bombCount, int ballistaCount, int towerCount, int mortarCount) {
+        //Cannons
+        generateDefenseSpecific(cannonCount, 0);
+
+        //Bombs
+        generateDefenseSpecific(bombCount, 1);
+
+        //Ballista
+        generateDefenseSpecific(ballistaCount, 2);
+
+        //Mortar
+        generateDefenseSpecific(mortarCount, 3);
+
+        //Tower
+        generateDefenseSpecific(towerCount, 4);
     }
 }
 

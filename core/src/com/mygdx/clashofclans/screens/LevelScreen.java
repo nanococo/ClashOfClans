@@ -2,9 +2,8 @@ package com.mygdx.clashofclans.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -14,9 +13,7 @@ import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
+import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
 
@@ -25,6 +22,7 @@ public class LevelScreen implements Screen {
     private ClashOfClansGame game;
 
     private TiledMap map;
+    private TiledMapTileLayer collisionLayer;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private LevelData levelData;
@@ -36,11 +34,33 @@ public class LevelScreen implements Screen {
     private float h = Gdx.graphics.getHeight();
     private float elapsed;
 
+    private boolean gameStart = false;
+    private boolean setWarrior = false;
+
     private Texture hectorFrame = new Texture("Hector/Frame/Hector (Frame).png");
     private Texture yolandaFrame = new Texture("Yolanda/Frame/Yolanda (Frame).png");
     private Texture deuceFrame = new Texture("Deuce/Frame/Deuce (Frame).png");
     private Texture bichilloFrame = new Texture("Bichillos/Frame/Bichillos (Frame).png");
     private Texture ringoFrame = new Texture("Ringo/Frame/Ringo (Frame).png");
+    private Texture goFrame = new Texture("Go.png");
+
+    //All frames have same width and height so take one as reference
+    private final int COMMON_FRAME_WIDTH = hectorFrame.getWidth();
+    private final int COMMON_FRAME_HEIGHT = hectorFrame.getHeight();
+
+    private final int COMMON_Y_FRAMES = 15;
+    private final int HECTOR_FRAME_X = 200;
+    private final int YOLANDA_FRAME_X = 300;
+    private final int DEUCE_FRAME_X = 400;
+    private final int BICHILLO_FRAME_X = 500;
+    private final int RINGO_FRAMEX = 600;
+    private final int GO_FRAMES_X = 700;
+
+    private Warrior placeHolderWarrior;
+
+
+
+
 
 
     LevelScreen(ClashOfClansGame game) {
@@ -51,37 +71,22 @@ public class LevelScreen implements Screen {
     @Override
     public void show() {
 
+
         map = new TmxMapLoader().load("Tiles/gameMap.tmx");
 
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
-        TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
+        collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
 
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5, collisionLayer, levelData);
-//        defenses.addDefense(0);
-//        defenses.addDefense(1);
-//        defenses.addDefense(4);
-//        defenses.addDefense(3);
-//        defenses.addDefense(2);
-//        defenses.addDefense(0);
-//        defenses.addDefense(3);
-//        defenses.addDefense(0);
-        //defenses.addDefense(0);
+        defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
 
-        army = new Army(1, 50, defenses);
-        System.out.println(army.addTroop(1, 0,0,collisionLayer, map));
-        System.out.println(army.addTroop(2, 500, 100, collisionLayer, map));
-        //System.out.println(army.addTroop(new Yolanda(0,0, collisionLayer, map)));
-        //System.out.println(army.addTroop(new Hector(500,100, collisionLayer, map)));
-        System.out.println(army.getTroops().size());
-
-//        army.addTroop(new Ringo(1600,0, collisionLayer, map));
-//        army.addTroop(new Yolanda(0,451, collisionLayer, map));
-//        army.addTroop(new Hector(500,0, collisionLayer, map));
-//        army.addTroop(new Ringo(0,1600, collisionLayer, map));
-
+        army = new Army(1, levelData.getArmySize(), defenses);
+//        System.out.println(army.addTroop(1, 0,0,collisionLayer, map));
+//        System.out.println(army.addTroop(2, 500, 100, collisionLayer, map));
+//
         defenses.setEnemies(army);
 
         camera.setToOrtho(false, w, h);
@@ -106,28 +111,113 @@ public class LevelScreen implements Screen {
         renderer.render();
 
         game.batch.begin();
-        game.batch.draw(hectorFrame, 200,15);
-        game.batch.draw(yolandaFrame, 300,15);
-        game.batch.draw(deuceFrame, 400,15);
-        game.batch.draw(bichilloFrame, 500,15);
-        game.batch.draw(ringoFrame, 600, 15);
+
+        if(!gameStart){
+
+            if(!setWarrior){
+                if(Gdx.input.getX() > HECTOR_FRAME_X && Gdx.input.getX() < HECTOR_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                    setHandCursor();
+                    if(Gdx.input.justTouched()){
+                        placeHolderWarrior = WarriorFactory.getWarrior(2,0,0, collisionLayer, map);
+                        setWarrior = true;
+                    }
+                } else {
+                    if(Gdx.input.getX() > YOLANDA_FRAME_X && Gdx.input.getX() < YOLANDA_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                        setHandCursor();
+                        if(Gdx.input.justTouched()){
+                            placeHolderWarrior = WarriorFactory.getWarrior(1,0,0, collisionLayer, map);
+                            setWarrior = true;
+                        }
+                    } else {
+                        if(Gdx.input.getX() > DEUCE_FRAME_X && Gdx.input.getX() < DEUCE_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                            setHandCursor();
+                            if(Gdx.input.justTouched()){
+                                placeHolderWarrior = WarriorFactory.getWarrior(0,0,0, collisionLayer, map);
+                                setWarrior = true;
+                            }
+                        } else {
+                            if(Gdx.input.getX() > BICHILLO_FRAME_X && Gdx.input.getX() < BICHILLO_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                setHandCursor();
+                                if(Gdx.input.justTouched()){
+                                    placeHolderWarrior = WarriorFactory.getWarrior(3,0,0, collisionLayer, map);
+                                    setWarrior = true;
+                                }
+                            } else {
+                                if(Gdx.input.getX() > RINGO_FRAMEX && Gdx.input.getX() < RINGO_FRAMEX+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                    setHandCursor();
+                                    if(Gdx.input.justTouched()){
+                                        placeHolderWarrior = WarriorFactory.getWarrior(4,0,0, collisionLayer, map);
+                                        setWarrior = true;
+                                    }
+                                } else {
+                                    if(Gdx.input.getX() > GO_FRAMES_X && Gdx.input.getX() < GO_FRAMES_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                        setHandCursor();
+                                        if(Gdx.input.justTouched()){
+                                            gameStart = true;
+                                            setWarrior = false;
+                                            setNormalCursor();
+                                        }
+                                    } else {
+                                        setNormalCursor();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                game.batch.draw(hectorFrame, 200,15);
+                game.batch.draw(yolandaFrame, 300,15);
+                game.batch.draw(deuceFrame, 400,15);
+                game.batch.draw(bichilloFrame, 500,15);
+                game.batch.draw(ringoFrame, 600, 15);
+                game.batch.draw(goFrame, 700, 15);
+            } else {
+                if (Gdx.input.justTouched()){
+                    placeHolderWarrior.setInitialX(Gdx.input.getX());
+                    placeHolderWarrior.setInitialY(ClashOfClansGame.HEIGHT-Gdx.input.getY());
+                    army.addTroop(placeHolderWarrior);
+                    placeHolderWarrior = null;
+                    setWarrior = false;
+                }
+            }
+        }
+
+        if (setWarrior){
+            game.batch.draw(placeHolderWarrior.draw().getKeyFrame(elapsed), Gdx.input.getX(), ClashOfClansGame.HEIGHT-Gdx.input.getY());
+        }
+
+
+
 
         for (Defense defense: defenses.getDefenses()){
-            defense.doAction();
+            if(gameStart){
+                defense.doAction();
+            }
             game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
         }
         for (Warrior troop:army.getTroops()){
-            troop.doAction();
+            if (gameStart){
+                troop.doAction();
+            }
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
 //            if (defenses.getDefenses().size()>0)
 //            troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
-            System.out.println(troop.getLife());
         }
 
         army.searchAndSetTargets();
         defenses.searchAndSetTargets();
 
         game.batch.end();
+
+
+        if (setWarrior){
+            game.shape.setProjectionMatrix(camera.combined);
+            game.shape.begin(ShapeRenderer.ShapeType.Line);
+            game.shape.setColor(Color.RED);
+            game.shape.rect(levelData.getMinBaseWidth(), levelData.getMinBaseHeight(), levelData.getMaxBaseWidth()-levelData.getMinBaseWidth(), levelData.getMaxBaseHeight()-levelData.getMinBaseHeight());
+            game.shape.end();
+        }
 
         defenses.removeCasualties();
         army.removeCasualties();
@@ -172,5 +262,23 @@ public class LevelScreen implements Screen {
                 renderer.setMap(map); //set the map in your renderer
             }
         });
+    }
+
+    void setHandCursor(){
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("Cursor/handCursor.png"));
+        int xHotspot = pixmap.getWidth() / 2;
+        int yHotspot = pixmap.getHeight() / 2;
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
+        Gdx.graphics.setCursor(cursor);
+        pixmap.dispose();
+    }
+
+    void setNormalCursor(){
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("Cursor/Cursor_1.png"));
+        int xHotspot = pixmap.getWidth() / 2;
+        int yHotspot = pixmap.getHeight() / 2;
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
+        Gdx.graphics.setCursor(cursor);
+        pixmap.dispose();
     }
 }
