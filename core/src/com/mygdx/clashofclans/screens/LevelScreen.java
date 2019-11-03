@@ -3,12 +3,15 @@ package com.mygdx.clashofclans.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.Json;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Teams.Army;
@@ -19,6 +22,8 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
+import com.mygdx.clashofclans.test.ClassTest;
+import com.mygdx.clashofclans.test.Container;
 
 public class LevelScreen implements Screen {
 
@@ -49,8 +54,10 @@ public class LevelScreen implements Screen {
 
     private Texture continueText = new Texture("Continue.png");
     private Texture saveGame = new Texture("SaveAndExit.png");
+    private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
 
     private int continueX = ClashOfClansGame.WIDTH /2 - continueText.getWidth()/2;
+    private int saveAndQuitX = ClashOfClansGame.WIDTH /2 - saveGame.getWidth()/2;
 
     //All frames have same width and height so take one as reference
     private final int COMMON_FRAME_WIDTH = hectorFrame.getWidth();
@@ -69,6 +76,9 @@ public class LevelScreen implements Screen {
     private boolean timer;
     boolean isPaused = false;
     long finish;
+
+    Container container = new Container();
+    Json json = new Json();
 
     LevelScreen(ClashOfClansGame game, String levelMap, Levels levels) {
         this.game = game;
@@ -93,6 +103,8 @@ public class LevelScreen implements Screen {
 
 
         defenses.setEnemies(army);
+
+
     }
 
     @Override
@@ -248,6 +260,17 @@ public class LevelScreen implements Screen {
                 if(Gdx.input.justTouched()){
                     isPaused = false;
                 }
+            } else if(Gdx.input.getX() < saveAndQuitX+saveGame.getWidth() && Gdx.input.getX() > saveAndQuitX && ClashOfClansGame.HEIGHT - Gdx.input.getY() < 500+saveGame.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > 500){
+                if(Gdx.input.justTouched()){
+
+                    ClassTest classTest = new ClassTest("Jose", "Aurelio");
+
+                    container.setName("MIGUE");
+                    container.setClassTest(classTest);
+
+                    saveData();
+                    isPaused = false;
+                }
             } else {
                 setNormalCursor();
             }
@@ -310,6 +333,18 @@ public class LevelScreen implements Screen {
         Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
         Gdx.graphics.setCursor(cursor);
         pixmap.dispose();
+    }
+
+    public void saveData() {
+        if (container != null) {
+            fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(container.Name)),
+                    false);
+        }
+    }
+
+    public void loadData() {
+        container = json.fromJson(Container.class,
+                Base64Coder.decodeString(fileHandle.readString()));
     }
 
 
