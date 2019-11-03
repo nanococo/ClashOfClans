@@ -1,10 +1,12 @@
 package com.mygdx.clashofclans.levelManager;
 
+import java.io.Serializable;
+
 /**
  * Singleton class for level Data
  * @author sebas
  */
-public class LevelData {
+public class LevelData implements Serializable {
     private static LevelData levelData = null;
 
     private int minBaseWidth;

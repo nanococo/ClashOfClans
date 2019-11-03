@@ -8,8 +8,11 @@ import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Interfaces.IWarriorConstants;
 
-public abstract class Warrior extends Piece implements IWarriorConstants {
+import java.io.Serializable;
 
+public abstract class Warrior extends Piece implements IWarriorConstants, Serializable {
+
+    protected int warriorType;
     protected int consumptionInArmy;
     protected int levelAvailable;
     protected double upgradeRate;
@@ -36,6 +39,14 @@ public abstract class Warrior extends Piece implements IWarriorConstants {
 
     public double getUpgradeRate() {
         return upgradeRate;
+    }
+
+    public int getWarriorType() {
+        return warriorType;
+    }
+
+    public void setWarriorType(int warriorType) {
+        this.warriorType = warriorType;
     }
 
     @Override

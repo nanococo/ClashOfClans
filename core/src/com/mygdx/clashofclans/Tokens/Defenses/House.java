@@ -27,6 +27,11 @@ public class House extends Defense {
         return mInstance;
     }
 
+    public void setPosition(){
+        setInitialX(Calculations.getBaseCenter(levelData.getMinBaseWidth()-(house.getKeyFrame(0).getRegionWidth()/2), levelData.getMaxBaseWidth()));
+        setInitialY(Calculations.getBaseCenter(levelData.getMinBaseHeight()-(house.getKeyFrame(0).getRegionHeight()/2), levelData.getMaxBaseHeight()));
+    }
+
     @Override
     public Animation<TextureRegion> draw() {
         if(!dead)

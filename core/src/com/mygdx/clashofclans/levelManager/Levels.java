@@ -1,6 +1,8 @@
 package com.mygdx.clashofclans.levelManager;
 
-public enum Levels {
+import java.io.Serializable;
+
+public enum Levels implements Serializable {
     LEVEL1,
     LEVEL2,
     LEVEL3,
@@ -15,5 +17,16 @@ public enum Levels {
     LEVEL12,
     LEVEL13,
     LEVEL14,
-    LEVEL15
+    LEVEL15;
+
+    private static Levels[] vals = values();
+    public Levels next()
+    {
+        if(this.ordinal()+1>15){
+            return LEVEL15;
+        } else {
+            return vals[(this.ordinal()+1) % vals.length];
+        }
+
+    }
 }
