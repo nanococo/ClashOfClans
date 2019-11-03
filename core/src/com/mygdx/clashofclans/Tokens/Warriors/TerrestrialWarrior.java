@@ -12,7 +12,6 @@ public class TerrestrialWarrior extends Warrior {
 
     private String[] animations;
 
-
     private boolean movingRight;
     private boolean walking;
 
@@ -58,6 +57,7 @@ public class TerrestrialWarrior extends Warrior {
         animationWidth = 28;
     }
     private void walk(){
+
         float greaterIncrease = calcGreaterIncrease();
         if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
             if (initialX < super.getTargetX()){
@@ -127,31 +127,38 @@ public class TerrestrialWarrior extends Warrior {
         else return 3;
     }
 
-
     @Override
     public Animation<TextureRegion> draw(){
         if (movingRight){
+            if (hitted){
+                hitted = false;
+                return hurtAnimation;
+            }
             if(dead){
-                return idleAnimation;
+                return super.dieAnimation;
             }
             else if(targetLocked){
                 return attackAnimation;
             }
             else if(walking){
                 return walkingAnimation;
-            }
+            } else return idleAnimation;
 
         }
         else{
+            if (hitted){
+                hitted = false;
+                return hurtAnimation;
+            }
             if(dead){
-                return idleAnimationL;
+                return super.dieAnimationL;
             }
             else if(targetLocked){
                 return attackAnimationL;
             }
             else if(walking){
                 return walkingAnimationL;
-            }
+            }else return idleAnimationL;
         }
         return idleAnimation;
     }
@@ -162,11 +169,18 @@ public class TerrestrialWarrior extends Warrior {
             attack();
         }
         else if(walking){
+            checkDestination();
             walk();
         } else {
             walking = true;
         }
 
+    }
+
+    public void checkDestination(){
+        if (walking){
+            if (initialX == targetX && initialY == targetY) walking = false;
+        }
     }
 
     private boolean isCellBlocked(float x, float y){

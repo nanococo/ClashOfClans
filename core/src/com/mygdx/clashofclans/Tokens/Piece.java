@@ -23,8 +23,13 @@ public abstract class Piece extends Sprite {
     protected boolean dead;
     protected boolean targetLocked;
     protected boolean attacking;
+    private boolean timer;
+    private long start;
+    private long finish;
+    protected boolean hitted;
     protected Piece target;
     protected LevelData levelData = LevelData.getInstance();
+
 
 
     public Piece(float pInitialX, float pInitialY, int pLife, int pAttackRange, double pAttackRate){
@@ -34,8 +39,10 @@ public abstract class Piece extends Sprite {
         life = pLife;
         attackRate = pAttackRate;
         level = 1;
+
         targetX = Calculations.getBaseCenter(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
         targetY = Calculations.getBaseCenter(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());
+
         target = null;
         nextAttack = 0;
     }
@@ -44,6 +51,7 @@ public abstract class Piece extends Sprite {
         dead = false;
         targetLocked = false;
         attacking = false;
+        hitted = false;
     }
 
     public float getTargetX() {
@@ -66,7 +74,6 @@ public abstract class Piece extends Sprite {
                killedTarget();
            }
        }
-
     }
     protected void killedTarget(){
 
@@ -83,6 +90,8 @@ public abstract class Piece extends Sprite {
     public void setTarget(Piece target) {
         if (target!=null){
             this.target = target;
+            targetX = target.getInitialX();
+            targetY = target.getInitialY();
             targetLocked = true;
         }
 
@@ -106,7 +115,9 @@ public abstract class Piece extends Sprite {
     }
     public void receiveDamage(){
         life--;
+        hitted = true;
     }
+
 
     public void setInitialX(float initialX) {
         this.initialX = initialX;
@@ -115,6 +126,7 @@ public abstract class Piece extends Sprite {
     public void setInitialY(float initialY) {
         this.initialY = initialY;
     }
+
 
     public float getInitialX() {
         return initialX;
@@ -174,5 +186,17 @@ public abstract class Piece extends Sprite {
 
     public Piece getTarget() {
         return target;
+    }
+
+    void attackAnimation(){
+        if (!timer){
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if(finish-start>=2000){
+            System.out.println("Hello");
+            timer = false;
+        }
     }
 }

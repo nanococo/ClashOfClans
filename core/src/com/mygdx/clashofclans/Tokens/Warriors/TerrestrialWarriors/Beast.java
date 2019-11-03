@@ -1,8 +1,9 @@
-package com.mygdx.clashofclans.Tokens.Warriors;
+package com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarriors;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.Tokens.Piece;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Beast extends TerrestrialWarrior {
 

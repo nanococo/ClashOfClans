@@ -2,7 +2,7 @@ package com.mygdx.clashofclans.Tokens.Warriors.Characters;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mygdx.clashofclans.Tokens.Warriors.Beast;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarriors.Beast;
 
 public class Ringo extends Beast {
 

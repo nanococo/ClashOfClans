@@ -49,6 +49,9 @@ public interface IWarriorConstants {
     int AERIAL_WARRIOR_TROOPS_CONSUMED = 40; //troops consumed
     int AERIAL_WARRIOR_RANGE = 200;
 
+    String PERSON_DEAD_ANIMATION_RIGHT = "Ghosts/Death.gif";
+    String PERSON_DEAD_ANIMATION_LEFT = "Ghosts/Death L.gif";
+
 
 
 
