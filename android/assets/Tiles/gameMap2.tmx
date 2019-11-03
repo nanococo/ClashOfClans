@@ -5,11 +5,13 @@
   <tile id="40">
    <properties>
     <property name="Attackable" type="bool" value="true"/>
+    <property name="Health" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="53">
    <properties>
     <property name="Attackable" type="bool" value="true"/>
+    <property name="Health" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="126">

@@ -16,6 +16,7 @@ public class TerrestrialWarrior extends Warrior {
 
     private boolean movingRight;
     private boolean walking;
+    private boolean attackingWall;
 
     private Animation<TextureRegion> idleAnimation;
     private Animation<TextureRegion> walkingAnimation;
@@ -27,6 +28,7 @@ public class TerrestrialWarrior extends Warrior {
     private Animation<TextureRegion> hurtAnimationL;
     private TiledMapTileLayer collisionLayer;
     private TiledMap map;
+
 
 
     public TerrestrialWarrior(float pInitialX, float pInitialY, int pLife, int pAttackRange, int pLevelAvailable, int pConsumptionInArmy, double pAttackRate, double pUpgradeRate, String[] pAnimations,
@@ -66,42 +68,42 @@ public class TerrestrialWarrior extends Warrior {
                 //Right
                 movingRight = true;
                 if (!collidesRight()) {
-                    initialX += greaterIncrease;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialX += greaterIncrease;
+                    }
                 } else {
-                    destroyWall(Directions.RIGHT);
+                    removeWallDelay();
                 }
             }
             if (initialX > super.getTargetX()) {
                 //Left
                 movingRight = false;
                 if (!collidesLeft()) {
-                    initialX -= greaterIncrease;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialX -= greaterIncrease;
+                    }
                 } else {
-                    destroyWall(Directions.LEFT);
+                    removeWallDelay();
                 }
             }
             if (initialY < super.getTargetY()){
                 //Up
                 if (!collidesTop()) {
-                    initialY++;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialY++;
+                    }
                 } else {
-                    destroyWall(Directions.TOP);
+                    removeWallDelay();
                 }
             }
             if (initialY > super.getTargetY()) {
                 //Down
                 if (!collidesBottom()) {
-                    initialY--;
-                }else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialY--;
+                    }
                 } else {
-                    destroyWall(Directions.BOTTOM);
+                    removeWallDelay();
                 }
             }
         } else{
@@ -109,42 +111,42 @@ public class TerrestrialWarrior extends Warrior {
                 //Right
                 movingRight = true;
                 if (!collidesRight()) {
-                    initialX++;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
-                } else  {
-                    destroyWall(Directions.RIGHT);
+                    if(!timer) {
+                        initialX++;
+                    }
+                } else {
+                    removeWallDelay();
                 }
             }
             if (initialX > super.getTargetX()) {
                 //Left
                 movingRight = false;
                 if (!collidesLeft()) {
-                    initialX--;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialX--;
+                    }
                 } else {
-                    destroyWall(Directions.LEFT);
+                    removeWallDelay();
                 }
             }
             if (initialY < super.getTargetY()){
                 //Up
                 if (!collidesTop()) {
-                    initialY += greaterIncrease;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialY += greaterIncrease;
+                    }
                 } else {
-                    destroyWall(Directions.TOP);
+                    removeWallDelay();
                 }
             }
             if (initialY > super.getTargetY()) {
                 //Down
                 if (!collidesBottom()) {
-                    initialY -= greaterIncrease;
-                } else if (isCellBlocked(initialX, initialY)){
-                    destroyWall(Directions.CENTER);
+                    if(!timer) {
+                        initialY -= greaterIncrease;
+                    }
                 } else {
-                    destroyWall(Directions.BOTTOM);
+                    removeWallDelay();
                 }
             }
         }
@@ -164,51 +166,67 @@ public class TerrestrialWarrior extends Warrior {
     @Override
     public Animation<TextureRegion> draw(){
         if (movingRight){
-            if (hitted){
-                hitted = false;
-                return hurtAnimation;
-            }
-            if(dead){
-                return super.dieAnimation;
-            }
-            else if(targetLocked){
+            if(attackingWall){
                 return attackAnimation;
+            } else {
+                if (hitted){
+                    hitted = false;
+                    return hurtAnimation;
+                }
+                if(dead){
+                    return super.dieAnimation;
+                }
+                else if(targetLocked){
+                    return attackAnimation;
+                }
+                else if(walking){
+                    return walkingAnimation;
+                } else return idleAnimation;
             }
-            else if(walking){
-                return walkingAnimation;
-            } else return idleAnimation;
-
         }
         else{
-            if (hitted){
-                hitted = false;
-                return hurtAnimation;
-            }
-            if(dead){
-                return super.dieAnimationL;
-            }
-            else if(targetLocked){
+            if(attackingWall){
                 return attackAnimationL;
+            } else {
+                if (hitted){
+                    hitted = false;
+                    return hurtAnimation;
+                }
+                if(dead){
+                    return super.dieAnimationL;
+                }
+                else if(targetLocked){
+                    return attackAnimationL;
+                }
+                else if(walking){
+                    return walkingAnimationL;
+                }else return idleAnimationL;
             }
-            else if(walking){
-                return walkingAnimationL;
-            }else return idleAnimationL;
         }
 
     }
 
     @Override
     public void doAction() {
-        if(targetLocked){
-            attack();
-        }
-        else if(walking){
+        if(!attackingWall){
+            if(targetLocked){
+                attack();
+            }
+            else if(walking){
+                checkDestination();
+                walk();
+            } else {
+                walking = true;
+            }
+        }else if(walking){
             checkDestination();
             walk();
         } else {
             walking = true;
         }
-
+        if(timer){
+            removeWallDelay();
+        }
     }
 
     public void checkDestination(){
@@ -228,9 +246,7 @@ public class TerrestrialWarrior extends Warrior {
         for (float step = 0; step < animationWidth; step+=(collisionLayer.getTileHeight())/2){
             collides = isCellBlocked(initialX + animationWidth, initialY + step);
             if (collides){
-                break;
-            } else if (isCellBlocked(initialX+4 + animationWidth, initialY + step)){
-                collides=true;
+                removeWallDelay(collisionLayer.getCell((int) ((initialX + animationWidth)/collisionLayer.getTileWidth()), (int) ((initialY + step)/collisionLayer.getTileHeight())));
                 break;
             }
         }
@@ -243,9 +259,7 @@ public class TerrestrialWarrior extends Warrior {
         for (float step = 0; step < animationWidth; step+=collisionLayer.getTileHeight()/2){
             collides = isCellBlocked(initialX, initialY + step);
             if (collides){
-                break;
-            } else if (isCellBlocked(initialX-4, initialY + step)){
-                collides=true;
+                removeWallDelay(collisionLayer.getCell((int) ((initialX)/collisionLayer.getTileWidth()), (int) ((initialY + step)/collisionLayer.getTileHeight())));
                 break;
             }
         }
@@ -258,9 +272,7 @@ public class TerrestrialWarrior extends Warrior {
         for (float step = 0; step < animationWidth; step+=collisionLayer.getTileWidth()/2){
             collides = isCellBlocked(initialX + step, initialY + (animationHeight));
             if (collides){
-                break;
-            } else if (isCellBlocked(initialX + step, initialY+4 + (animationHeight))){
-                collides=true;
+                removeWallDelay(collisionLayer.getCell((int) ((initialX + step)/collisionLayer.getTileWidth()), (int) ((initialY + (animationHeight))/collisionLayer.getTileHeight())));
                 break;
             }
         }
@@ -273,66 +285,44 @@ public class TerrestrialWarrior extends Warrior {
         for (float step = 0; step < animationWidth; step+=collisionLayer.getTileWidth()/2){
             collides = isCellBlocked(initialX + step, initialY);
             if (collides){
-                break;
-            } else if (isCellBlocked(initialX + step, initialY-4)){
-                collides=true;
+                removeWallDelay(collisionLayer.getCell((int) ((initialX + step)/collisionLayer.getTileWidth()), (int) ((initialY)/collisionLayer.getTileHeight())));
                 break;
             }
         }
         return collides;
     }
 
-    private void destroyWall(Directions directions){
-        TiledMapTileLayer.Cell cell;
-        switch (directions){
-            case TOP:
-                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), ((int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())))+1);
-                break;
-            case BOTTOM:
-                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), ((int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())))-1);
-                break;
-            case LEFT:
-                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))-1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
-                break;
-            case RIGHT:
-                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))+1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
-                break;
-            default:
-                //Center is default
-                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
-                break;
-        }
-        removeCell(cell);
-
-    }
-
-    void removeCell(TiledMapTileLayer.Cell cell){
+    private void removeCell(TiledMapTileLayer.Cell cell){
         if(map.getTileSets().getTileSet(0).getTile(33)!=null && cell!=null && cell.getTile().getId()!=313){
             if(cell.getTile().getId()!=313){
-                System.out.println(cell.getTile().getId());
                 cell.setTile(map.getTileSets().getTileSet(0).getTile(33));
             }
         }
     }
 
-    // function to find the number closest to n
-    // and divisible by m
-    static int closestNumber(int n, int m)
-    {
-        // find the quotient
-        int q = n / m;
+    private void removeWallDelay(TiledMapTileLayer.Cell cell){
+        if (!timer){
+            start = System.currentTimeMillis();
+            timer = true;
+            attackingWall = true;
+        }
+        finish = System.currentTimeMillis();
+        if(finish-start>=1000){
+            System.out.println("Stopped");
+            removeCell(cell);
+            timer = false;
+            attackingWall = false;
+        }
+    }
 
-        // 1st possible closest number
-        int n1 = m * q;
-
-        // 2nd possible closest number
-        int n2 = (n * m) > 0 ? (m * (q + 1)) : (m * (q - 1));
-
-        // if true, then n1 is the required closest number
-        if (Math.abs(n - n1) < Math.abs(n - n2))
-            return n1;
-
-        // else n2 is the required closest number
-        return n2;
+    private void removeWallDelay(){
+        if (timer){
+            finish = System.currentTimeMillis();
+            if(finish-start>=1000){
+                System.out.println("Stopped");
+                timer = false;
+                attackingWall = false;
+            }
+        }
     }
 }

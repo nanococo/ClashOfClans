@@ -153,7 +153,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("N");
+
     }
     private void setAttackingS() {
         attackingN = false;
@@ -164,7 +164,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("S");
+
     }
     private void setAttackingE() {
         attackingN = false;
@@ -175,7 +175,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("E");
+
     }
     private void setAttackingW() {
         attackingN = false;
@@ -186,7 +186,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("W");
+
     }
     private void setAttackingNW() {
         attackingN = false;
@@ -196,7 +196,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("NW");
+
     }
     private void setAttackingNE() {
         attackingN = false;
@@ -207,7 +207,7 @@ public class Canyon extends Defense {
         attackingNE = true;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("NE");
+
     }
     private void setAttackingSW() {
         attackingN = false;
@@ -218,7 +218,7 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = true;
         attackingSE = false;
-        System.out.println("SW");
+
     }
     private void setAttackingSE() {
         attackingN = false;
@@ -229,6 +229,6 @@ public class Canyon extends Defense {
         attackingNE = false;
         attackingSW = false;
         attackingSE = true;
-        System.out.println("SE");
+
     }
 }

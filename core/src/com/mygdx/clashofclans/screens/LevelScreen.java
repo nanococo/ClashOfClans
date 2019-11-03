@@ -75,7 +75,7 @@ public class LevelScreen implements Screen {
     public void show() {
 
 
-        map = new TmxMapLoader().load("Tiles/gameMap4.tmx");
+        map = new TmxMapLoader().load("Tiles/gameMap15.tmx");
 
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
