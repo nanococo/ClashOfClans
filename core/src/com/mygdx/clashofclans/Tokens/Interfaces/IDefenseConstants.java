@@ -24,8 +24,8 @@ public interface IDefenseConstants {
     int TOWER_DEFENSE_LIFE = 5; //life
     int TOWER_DEFENSE_RANGE = 500; //range
     double TOWER_DEFENSE_ATTACKRATE = 0.2; //attack rate
-    String TOWER_DEFENSE_ANIMATION_LEFT = "Objects/Torre/Torre.gif";
-    String TOWER_DEFENSE_ANIMATION_RIGHT = "Objects/Torre/Torre.gif";
+    String TOWER_DEFENSE_ANIMATION_LEFT = "Objects/Torre/Torre L2.gif";
+    String TOWER_DEFENSE_ANIMATION_RIGHT = "Objects/Torre/Torre R2.gif";
 
     int BOMB_DEFENSE_LIFE = 5; //life
     int BOMB_DEFENSE_RANGE = 10; //range

@@ -107,6 +107,15 @@ public abstract class Piece extends Sprite {
     public void receiveDamage(){
         life--;
     }
+
+    public void setInitialX(float initialX) {
+        this.initialX = initialX;
+    }
+
+    public void setInitialY(float initialY) {
+        this.initialY = initialY;
+    }
+
     public float getInitialX() {
         return initialX;
     }

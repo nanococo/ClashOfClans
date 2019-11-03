@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.clashofclans.screens.MainMenu;
 
 public class ClashOfClansGame extends Game {
@@ -16,10 +17,12 @@ public class ClashOfClansGame extends Game {
 	public static int HEIGHT;
 	public static int WIDTH;
 	public SpriteBatch batch;
+	public ShapeRenderer shape;
 
 	
 	@Override
 	public void create () {
+		shape = new ShapeRenderer();
 		batch = new SpriteBatch();
 		HEIGHT = Gdx.graphics.getHeight();
 		WIDTH = Gdx.graphics.getWidth();

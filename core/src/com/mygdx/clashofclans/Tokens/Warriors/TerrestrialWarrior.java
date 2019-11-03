@@ -39,8 +39,8 @@ public class TerrestrialWarrior extends Warrior {
     }
 
     public void initFlags() {
-        movingRight = true;
-        walking = true;
+        movingRight = false;
+        walking = false;
         attacking = false;
         dead = false;
     }
@@ -153,7 +153,7 @@ public class TerrestrialWarrior extends Warrior {
                 return walkingAnimationL;
             }
         }
-        return null;
+        return idleAnimation;
     }
 
     @Override
@@ -163,6 +163,8 @@ public class TerrestrialWarrior extends Warrior {
         }
         else if(walking){
             walk();
+        } else {
+            walking = true;
         }
 
     }
