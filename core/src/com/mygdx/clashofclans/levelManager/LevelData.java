@@ -86,13 +86,13 @@ public class LevelData implements Serializable {
                 maxBaseWidth = 1300;
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
-                defenseCount = 50;
-                cannonCount = 2;
-                bombCount = 0;
+                defenseCount = 8;
+                cannonCount = 5;
+                bombCount = 3;
                 towerCount = 0;
                 ballistaCount = 0;
                 mortarCount = 0;
-                armySize = 50;
+                armySize = 20;
                 actualLevel = 1;
                 break;
             case LEVEL2:
@@ -100,13 +100,13 @@ public class LevelData implements Serializable {
                 maxBaseWidth = 1300;
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
-                defenseCount = 6;
-                cannonCount = 2;
-                bombCount = 2;
+                defenseCount = 10;
+                cannonCount = 7;
+                bombCount = 3;
                 towerCount = 0;
                 ballistaCount = 2;
                 mortarCount = 0;
-                armySize = 10;
+                armySize = 25;
                 actualLevel = 2;
 
                 break;
@@ -115,14 +115,209 @@ public class LevelData implements Serializable {
                 maxBaseWidth = 1300;
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
-                defenseCount = 8;
-                cannonCount = 2;
+                defenseCount = 10;
+                cannonCount = 5;
                 bombCount = 2;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 3;
+                armySize = 30;
+                actualLevel = 3;
+
+                break;
+            case LEVEL4:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 12;
+                cannonCount = 6;
+                bombCount = 4;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 2;
+                armySize = 35;
+                actualLevel = 4;
+
+                break;
+            case LEVEL5:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 14;
+                cannonCount = 8;
+                bombCount = 6;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 0;
+                armySize = 40;
+                actualLevel = 5;
+
+                break;
+            case LEVEL6:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 14;
+                cannonCount = 10;
+                bombCount = 0;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 4;
+                armySize = 45;
+                actualLevel = 6;
+
+                break;
+            case LEVEL7:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 14;
+                cannonCount = 6;
+                bombCount = 6;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 2;
+                armySize = 50;
+                actualLevel = 7;
+
+                break;
+            case LEVEL8:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 14;
+                cannonCount = 14;
+                bombCount = 0;
+                towerCount = 0;
+                ballistaCount = 0;
+                mortarCount = 0;
+                armySize = 55;
+                actualLevel = 8;
+
+                break;
+            case LEVEL9:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 14;
+                cannonCount = 7;
+                bombCount = 0;
+                towerCount = 0;
+                ballistaCount = 7;
+                mortarCount = 1;
+                armySize = 60;
+                actualLevel = 9;
+
+                break;
+            case LEVEL10:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 15;
+                cannonCount = 0;
+                bombCount = 14;
+                towerCount = 1;
+                ballistaCount = 0;
+                mortarCount = 0;
+                armySize = 65;
+                actualLevel = 10;
+
+                break;
+            case LEVEL11:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 15;
+                cannonCount = 6;
+                bombCount = 5;
+                towerCount = 1;
+                ballistaCount = 2;
+                mortarCount = 1;
+                armySize = 70;
+                actualLevel = 11;
+
+                break;
+            case LEVEL12:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 15;
+                cannonCount = 6;
+                bombCount = 6;
                 towerCount = 0;
                 ballistaCount = 2;
                 mortarCount = 1;
-                armySize = 12;
-                actualLevel = 3;
+                armySize = 75;
+                actualLevel = 12;
+
+                break;
+            case LEVEL13:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 15;
+                cannonCount = 5;
+                bombCount = 2;
+                towerCount = 1;
+                ballistaCount = 2;
+                mortarCount = 5;
+                armySize = 80;
+                actualLevel = 13;
+
+                break;
+            case LEVEL14:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 20;
+                cannonCount = 5;
+                bombCount = 5;
+                towerCount = 3;
+                ballistaCount = 2;
+                mortarCount = 5;
+                armySize = 85;
+                actualLevel = 14;
+
+                break;
+            case LEVEL15:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 25;
+                cannonCount = 5;
+                bombCount = 5;
+                towerCount = 5;
+                ballistaCount = 5;
+                mortarCount = 5;
+                armySize = 90;
+                actualLevel = 15;
+
+                break;
+            default:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 26;
+                cannonCount = 4;
+                bombCount = 6;
+                towerCount = 2;
+                ballistaCount = 6;
+                mortarCount = 7;
+                armySize = 95;
+                actualLevel = 16;
 
                 break;
         }
