@@ -8,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
+enum Directions {LEFT, RIGHT, TOP, BOTTOM, CENTER};
+
 public class TerrestrialWarrior extends Warrior {
 
     private String[] animations;
@@ -65,6 +67,10 @@ public class TerrestrialWarrior extends Warrior {
                 movingRight = true;
                 if (!collidesRight()) {
                     initialX += greaterIncrease;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.RIGHT);
                 }
             }
             if (initialX > super.getTargetX()) {
@@ -72,18 +78,30 @@ public class TerrestrialWarrior extends Warrior {
                 movingRight = false;
                 if (!collidesLeft()) {
                     initialX -= greaterIncrease;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.LEFT);
                 }
             }
             if (initialY < super.getTargetY()){
                 //Up
                 if (!collidesTop()) {
                     initialY++;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.TOP);
                 }
             }
             if (initialY > super.getTargetY()) {
                 //Down
                 if (!collidesBottom()) {
                     initialY--;
+                }else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.BOTTOM);
                 }
             }
         } else{
@@ -92,6 +110,10 @@ public class TerrestrialWarrior extends Warrior {
                 movingRight = true;
                 if (!collidesRight()) {
                     initialX++;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else  {
+                    destroyWall(Directions.RIGHT);
                 }
             }
             if (initialX > super.getTargetX()) {
@@ -99,18 +121,30 @@ public class TerrestrialWarrior extends Warrior {
                 movingRight = false;
                 if (!collidesLeft()) {
                     initialX--;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.LEFT);
                 }
             }
             if (initialY < super.getTargetY()){
                 //Up
                 if (!collidesTop()) {
                     initialY += greaterIncrease;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.TOP);
                 }
             }
             if (initialY > super.getTargetY()) {
                 //Down
                 if (!collidesBottom()) {
                     initialY -= greaterIncrease;
+                } else if (isCellBlocked(initialX, initialY)){
+                    destroyWall(Directions.CENTER);
+                } else {
+                    destroyWall(Directions.BOTTOM);
                 }
             }
         }
@@ -248,21 +282,57 @@ public class TerrestrialWarrior extends Warrior {
         return collides;
     }
 
-    private void destroyWall(){
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))+1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
+    private void destroyWall(Directions directions){
+        TiledMapTileLayer.Cell cell;
+        switch (directions){
+            case TOP:
+                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), ((int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())))+1);
+                break;
+            case BOTTOM:
+                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), ((int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())))-1);
+                break;
+            case LEFT:
+                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))-1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
+                break;
+            case RIGHT:
+                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth())))+1, (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
+                break;
+            default:
+                //Center is default
+                cell = collisionLayer.getCell(((int) Math.floor(((initialX+animationWidth)/collisionLayer.getTileWidth()))), (int) Math.floor(((initialY+animationWidth/2f)/collisionLayer.getTileHeight())));
+                break;
+        }
+        removeCell(cell);
 
+    }
+
+    void removeCell(TiledMapTileLayer.Cell cell){
         if(map.getTileSets().getTileSet(0).getTile(33)!=null && cell!=null && cell.getTile().getId()!=313){
             if(cell.getTile().getId()!=313){
                 System.out.println(cell.getTile().getId());
                 cell.setTile(map.getTileSets().getTileSet(0).getTile(33));
             }
         }
-
     }
 
-    public void attackWall(){
-        if(collidesRight()){
-            destroyWall();
-        }
+    // function to find the number closest to n
+    // and divisible by m
+    static int closestNumber(int n, int m)
+    {
+        // find the quotient
+        int q = n / m;
+
+        // 1st possible closest number
+        int n1 = m * q;
+
+        // 2nd possible closest number
+        int n2 = (n * m) > 0 ? (m * (q + 1)) : (m * (q - 1));
+
+        // if true, then n1 is the required closest number
+        if (Math.abs(n - n1) < Math.abs(n - n2))
+            return n1;
+
+        // else n2 is the required closest number
+        return n2;
     }
 }

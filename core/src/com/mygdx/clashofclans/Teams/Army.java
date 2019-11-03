@@ -6,17 +6,18 @@ import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
+import com.mygdx.clashofclans.levelManager.Levels;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Army {
-    private int level;
+    private Levels level;
     private int troopsAvailable;
     private ArrayList<Warrior> troops;
     private Defenses enemies;
 
-    public Army(int level, int troopsAvailable, Defenses pEnemies) {
+    public Army(Levels level, int troopsAvailable, Defenses pEnemies) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
         troops = new ArrayList<Warrior>();
