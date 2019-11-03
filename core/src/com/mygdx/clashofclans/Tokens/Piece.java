@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.levelManager.LevelData;
 
-public abstract class Piece extends Sprite {
+import java.io.Serializable;
+
+public abstract class Piece extends Sprite implements Serializable {
 
     protected int animationHeight;
     protected int animationWidth;

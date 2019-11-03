@@ -8,10 +8,11 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
 import com.mygdx.clashofclans.levelManager.Levels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Army {
+public class Army implements Serializable {
     private Levels level;
     private int troopsAvailable;
     private ArrayList<Warrior> troops;
@@ -49,6 +50,18 @@ public class Army {
 
     public ArrayList<Warrior> getTroops() {
         return troops;
+    }
+
+    public void setTroops(ArrayList<Warrior> troops) {
+        this.troops = troops;
+    }
+
+    public int getTroopsAvailable() {
+        return troopsAvailable;
+    }
+
+    public void setTroopsAvailable(int troopsAvailable) {
+        this.troopsAvailable = troopsAvailable;
     }
 
     public boolean addTroop(Warrior newSoldier){

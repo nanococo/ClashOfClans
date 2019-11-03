@@ -1,10 +1,12 @@
 package com.mygdx.clashofclans.levelManager;
 
+import java.io.Serializable;
+
 /**
  * Singleton class for level Data
  * @author sebas
  */
-public class LevelData {
+public class LevelData implements Serializable {
     private static LevelData levelData = null;
 
     private int minBaseWidth;
@@ -85,7 +87,7 @@ public class LevelData {
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
                 defenseCount = 50;
-                cannonCount = 0;
+                cannonCount = 2;
                 bombCount = 0;
                 towerCount = 0;
                 ballistaCount = 0;

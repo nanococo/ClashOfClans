@@ -6,18 +6,29 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.*;
 
 public class WarriorFactory {
+    private static Warrior warrior = null;
     public static Warrior getWarrior(int selectedWarrior, int x, int y, TiledMapTileLayer collisionLayer, TiledMap map){
         switch (selectedWarrior){
             case 0:
-                return new Deuce(x, y, collisionLayer, map);
+                warrior = new Deuce(x, y, collisionLayer, map);
+                warrior.setWarriorType(selectedWarrior);
+                return warrior;
             case 1:
-                return new Yolanda(x, y, collisionLayer, map);
+                warrior.setWarriorType(selectedWarrior);
+                warrior = new Yolanda(x, y, collisionLayer, map);
+                return warrior;
             case 2:
-                return new Hector(x, y, collisionLayer, map);
+                warrior.setWarriorType(selectedWarrior);
+                warrior = new Hector(x, y, collisionLayer, map);
+                return warrior;
             case 3:
-                return new Bichillos(x, y);
+                warrior.setWarriorType(selectedWarrior);
+                warrior = new Bichillos(x, y);
+                return warrior;
             case 4:
-                return new Ringo(x, y, collisionLayer, map);
+                warrior.setWarriorType(selectedWarrior);
+                warrior = new Ringo(x, y, collisionLayer, map);
+                return warrior;
             default:
                 return null;
         }

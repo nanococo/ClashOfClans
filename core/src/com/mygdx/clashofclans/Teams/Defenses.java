@@ -7,13 +7,14 @@ import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
 
-public class Defenses {
+public class Defenses implements Serializable {
     private Levels level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
@@ -88,6 +89,10 @@ public class Defenses {
 
     public ArrayList<Defense> getDefenses() {
         return defenses;
+    }
+
+    public void setDefenses(ArrayList<Defense> defenses) {
+        this.defenses = defenses;
     }
 
     public void setEnemies(Army enemies) {
