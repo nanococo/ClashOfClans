@@ -160,7 +160,7 @@ public class TerrestrialWarrior extends Warrior {
                 return walkingAnimationL;
             }else return idleAnimationL;
         }
-        return idleAnimation;
+
     }
 
     @Override
