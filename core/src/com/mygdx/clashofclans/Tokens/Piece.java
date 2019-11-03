@@ -23,6 +23,10 @@ public abstract class Piece extends Sprite {
     protected boolean dead;
     protected boolean targetLocked;
     protected boolean attacking;
+    private boolean timer;
+    private long start;
+    private long finish;
+    protected boolean hitted;
 
 
     public Piece(float pInitialX, float pInitialY, int pLife, int pAttackRange, double pAttackRate){
@@ -32,8 +36,8 @@ public abstract class Piece extends Sprite {
         life = pLife;
         attackRate = pAttackRate;
         level = 1;
-        targetX = 450;
-        targetY = 450;
+        targetX = 900;
+        targetY = 650;
         target = null;
         nextAttack = 0;
     }
@@ -42,6 +46,7 @@ public abstract class Piece extends Sprite {
         dead = false;
         targetLocked = false;
         attacking = false;
+        hitted = false;
     }
 
     public float getTargetX() {
@@ -64,7 +69,6 @@ public abstract class Piece extends Sprite {
                killedTarget();
            }
        }
-
     }
     protected void killedTarget(){
 
@@ -81,6 +85,8 @@ public abstract class Piece extends Sprite {
     public void setTarget(Piece target) {
         if (target!=null){
             this.target = target;
+            targetX = target.getInitialX();
+            targetY = target.getInitialY();
             targetLocked = true;
         }
 
@@ -104,7 +110,9 @@ public abstract class Piece extends Sprite {
     }
     public void receiveDamage(){
         life--;
+        hitted = true;
     }
+
     public float getInitialX() {
         return initialX;
     }
@@ -163,5 +171,17 @@ public abstract class Piece extends Sprite {
 
     public Piece getTarget() {
         return target;
+    }
+
+    void attackAnimation(){
+        if (!timer){
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if(finish-start>=2000){
+            System.out.println("Hello");
+            timer = false;
+        }
     }
 }

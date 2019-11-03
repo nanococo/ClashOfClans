@@ -14,6 +14,7 @@ import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
+import com.mygdx.clashofclans.Tokens.Warriors.Characters.Deuce;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
 import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
@@ -33,6 +34,8 @@ public class LevelScreen implements Screen {
     private Army army;
     private Defenses defenses;
 
+    private int counter;
+
     private float w = Gdx.graphics.getWidth();
     private float h = Gdx.graphics.getHeight();
     private float elapsed;
@@ -45,6 +48,7 @@ public class LevelScreen implements Screen {
 
     LevelScreen(ClashOfClansGame game) {
         this.game = game;
+        counter = 0;
     }
 
     @Override
@@ -59,23 +63,20 @@ public class LevelScreen implements Screen {
         camera = new OrthographicCamera();
 
         defenses = new Defenses(1, 5, collisionLayer, levelData);
-        defenses.addDefense(0);
         defenses.addDefense(1);
-        defenses.addDefense(4);
-        defenses.addDefense(3);
+        defenses.addDefense(1);
         defenses.addDefense(2);
-        defenses.addDefense(0);
         defenses.addDefense(3);
-        defenses.addDefense(0);
-        //defenses.addDefense(0);
+        defenses.addDefense(4);
+
 
         army = new Army(1, 50, defenses);
         army.addTroop(new Yolanda(0,0, collisionLayer, map));
         army.addTroop(new Hector(500,100, collisionLayer, map));
         army.addTroop(new Ringo(1600,0, collisionLayer, map));
-        army.addTroop(new Yolanda(0,451, collisionLayer, map));
+        army.addTroop(new Deuce(0,451, collisionLayer, map));
         army.addTroop(new Hector(500,0, collisionLayer, map));
-        army.addTroop(new Ringo(0,1600, collisionLayer, map));
+        army.addTroop(new Deuce(0,1600, collisionLayer, map));
 
         defenses.setEnemies(army);
 
@@ -113,19 +114,15 @@ public class LevelScreen implements Screen {
         for (Warrior troop:army.getTroops()){
             troop.doAction();
             game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
-            if (defenses.getDefenses().size()>0)
-            troop.setTargetDirection(defenses.getDefenses().get(0).getInitialX(),defenses.getDefenses().get(0).getInitialY());
-            System.out.println(troop.getLife());
         }
 
         army.searchAndSetTargets();
         defenses.searchAndSetTargets();
 
         game.batch.end();
-
         defenses.removeCasualties();
         army.removeCasualties();
-
+        counter = 0;
 
     }
 

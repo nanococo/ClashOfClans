@@ -6,15 +6,11 @@ import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Defenses.Bomb;
 import com.mygdx.clashofclans.Tokens.Defenses.DefenseFactory;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
+
 import com.mygdx.clashofclans.levelManager.LevelData;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Defenses {
     private int level;
@@ -43,7 +39,6 @@ public class Defenses {
     Defense returnAttackable(float pX, float pY, float pRange){
         for (Defense defense: defenses){
             if (Calculations.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()) <= pRange) {
-                System.out.println(Calculations.distanceBetweenPoints(pX, pY, defense.getInitialX(), defense.getInitialY()));
                 return defense;
             }
         }
@@ -52,12 +47,14 @@ public class Defenses {
 
     public void searchAndSetTargets(){
         for (Defense defense:defenses){
-            Warrior possibleTarget = enemies.returnAttackable(defense.getInitialX(), defense.getInitialY(), defense.getAttackRange());
-            if (possibleTarget!=null){
-                defense.setTarget(possibleTarget);
-            }
-            if (defense instanceof Bomb){
-              ((Bomb) defense).setEnemies(enemies);
+            if(defense.getTarget()==null){
+                Warrior possibleTarget = enemies.returnAttackable(defense.getInitialX(), defense.getInitialY(), defense.getAttackRange());
+                if (possibleTarget!=null){
+                    defense.setTarget(possibleTarget);
+                }
+                if (defense instanceof Bomb){
+                    ((Bomb) defense).setEnemies(enemies);
+                }
             }
         }
     }

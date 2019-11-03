@@ -19,8 +19,6 @@ public class Calculations {
 
     public static int generateRandomIntIntRange(int min, int max) {
         Random r = new Random();
-        System.out.println(min);
-        System.out.println(max);
         return r.nextInt((max - min) + 1) + min;
     }
 

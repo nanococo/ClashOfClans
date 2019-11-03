@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Piece;
+import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 
 public class AerialDefense extends Defense {
 
-    private Animation<TextureRegion> aerialAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(AERIAL_DEFENSE_ANIMATION).read());
+    private Animation<TextureRegion> aerialAttackAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(AERIAL_DEFENSE_ANIMATION).read());
+    private Animation<TextureRegion> aerialStaticAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(AERIAL_DEFENSE_STATICANIMATION).read());
 
 
     AerialDefense(int pInitialX, int pInitialY) {
@@ -18,7 +20,22 @@ public class AerialDefense extends Defense {
 
     @Override
     public Animation<TextureRegion> draw() {
-        return aerialAnimation;
+        if(targetLocked){
+            return aerialAttackAnimation;
+        }else{
+            return aerialStaticAnimation;
+        }
+    }
+
+    @Override
+    public void setTarget(Piece target) {
+        if (target instanceof Aerial){
+            this.target = target;
+            targetX = target.getInitialX();
+            targetY = target.getInitialY();
+            targetLocked = true;
+        }
+
     }
 
 }

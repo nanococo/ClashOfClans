@@ -24,6 +24,7 @@ public class Army {
             Warrior troop = iterator.next();
             if (troop.getLife()<=0) {
                 iterator.remove();
+                System.out.println("rip");
             }
         }
     }
