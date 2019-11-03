@@ -293,9 +293,9 @@ public class TerrestrialWarrior extends Warrior {
     }
 
     private void removeCell(TiledMapTileLayer.Cell cell){
-        if(map.getTileSets().getTileSet(0).getTile(33)!=null && cell!=null && cell.getTile().getId()!=313){
+        if(map.getTileSets().getTileSet(0).getTile(227)!=null && cell!=null && cell.getTile().getId()!=313){
             if(cell.getTile().getId()!=313){
-                cell.setTile(map.getTileSets().getTileSet(0).getTile(33));
+                cell.setTile(map.getTileSets().getTileSet(0).getTile(227));
             }
         }
     }
