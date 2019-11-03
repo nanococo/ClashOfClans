@@ -15,8 +15,7 @@ public abstract class Piece extends Sprite {
     protected int life;
     protected int level;
     protected double attackRate;
-    protected float targetX;
-    protected float targetY;
+
     protected float initialX;
     protected float initialY;
     protected float nextAttack;
@@ -40,9 +39,6 @@ public abstract class Piece extends Sprite {
         attackRate = pAttackRate;
         level = levelData.getActualLevel();
 
-        targetX = Calculations.getBaseCenter(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
-        targetY = Calculations.getBaseCenter(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());
-
         target = null;
         nextAttack = 0;
     }
@@ -54,12 +50,6 @@ public abstract class Piece extends Sprite {
         hitted = false;
     }
 
-    public float getTargetX() {
-        return targetX;
-    }
-    public float getTargetY() {
-        return targetY;
-    }
     public abstract Animation<TextureRegion> draw();
 
     public void attack(){
@@ -82,16 +72,9 @@ public abstract class Piece extends Sprite {
 
     }
 
-    public void setTargetDirection(float x, float y){
-        targetX = x;
-        targetY = y;
-    }
-
     public void setTarget(Piece target) {
         if (target!=null){
             this.target = target;
-            targetX = target.getInitialX();
-            targetY = target.getInitialY();
             targetLocked = true;
         }
 
@@ -116,6 +99,9 @@ public abstract class Piece extends Sprite {
     public void receiveDamage(){
         life--;
         hitted = true;
+        if(life<=0){
+            dead = true;
+        }
     }
 
 
@@ -142,14 +128,6 @@ public abstract class Piece extends Sprite {
 
     public double getAttackRate() {
         return attackRate;
-    }
-
-    public void setTargetX(float targetX) {
-        this.targetX = targetX;
-    }
-
-    public void setTargetY(float targetY) {
-        this.targetY = targetY;
     }
 
     public int getLife() {

@@ -84,11 +84,11 @@ public class LevelData {
                 maxBaseWidth = 1300;
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
-                defenseCount = 5;
-                cannonCount = 2;
-                bombCount = 1;
+                defenseCount = 50;
+                cannonCount = 0;
+                bombCount = 0;
                 towerCount = 0;
-                ballistaCount = 2;
+                ballistaCount = 0;
                 mortarCount = 0;
                 armySize = 50;
                 actualLevel = 1;

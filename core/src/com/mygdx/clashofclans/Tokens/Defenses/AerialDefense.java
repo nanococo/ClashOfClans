@@ -31,8 +31,6 @@ public class AerialDefense extends Defense {
     public void setTarget(Piece target) {
         if (target instanceof Aerial){
             this.target = target;
-            targetX = target.getInitialX();
-            targetY = target.getInitialY();
             targetLocked = true;
         }
 

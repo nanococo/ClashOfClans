@@ -59,7 +59,6 @@ public class LevelScreen implements Screen {
     private final int GO_FRAMES_X = 700;
 
     private Warrior placeHolderWarrior;
-    private House house;
     private boolean timer;
     long start;
     long finish;
@@ -78,7 +77,7 @@ public class LevelScreen implements Screen {
     public void show() {
 
 
-        map = new TmxMapLoader().load("Tiles/gameMap15.tmx");
+        map = new TmxMapLoader().load("Tiles/gameMap1.tmx");
 
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -86,14 +85,10 @@ public class LevelScreen implements Screen {
 
         camera = new OrthographicCamera();
 
-        house = new House();
-        house.setInitialX(Calculations.getBaseCenter(levelData.getMinBaseWidth()-(house.getHouse().getKeyFrame(0).getRegionWidth()/2), levelData.getMaxBaseWidth()));
-        house.setInitialY(Calculations.getBaseCenter(levelData.getMinBaseHeight()-(house.getHouse().getKeyFrame(0).getRegionHeight()/2), levelData.getMaxBaseHeight()));
 
         defenses = new Defenses(Levels.LEVEL1, levelData.getDefenseCount(), collisionLayer, levelData);
-
+        defenses.addDefense(House.getInstance());
         defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
-
         army = new Army(Levels.LEVEL1, levelData.getArmySize(), defenses);
 
 
@@ -122,7 +117,8 @@ public class LevelScreen implements Screen {
         renderer.render();
 
         game.batch.begin();
-        game.batch.draw(house.draw().getKeyFrame(elapsed), house.getInitialX(), house.getInitialY());
+
+        game.batch.draw(House.getInstance().draw().getKeyFrame(elapsed), House.getInstance().getInitialX(), House.getInstance().getInitialY());
 
         if(!gameStart){
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.mygdx.clashofclans.GifDecoder;
+import com.mygdx.clashofclans.Tokens.Defenses.House;
 import com.mygdx.clashofclans.Tokens.Warrior;
 
 enum Directions {LEFT, RIGHT, TOP, BOTTOM, CENTER};
@@ -14,17 +15,20 @@ public class TerrestrialWarrior extends Warrior {
 
     private String[] animations;
 
-    private boolean movingRight;
-    private boolean walking;
-    private boolean attackingWall;
+    protected boolean movingRight;
+    protected boolean walking;
+    protected boolean attackingWall;
 
-    private Animation<TextureRegion> idleAnimation;
-    private Animation<TextureRegion> walkingAnimation;
-    private Animation<TextureRegion> attackAnimation;
+    private float targetX;
+    private float targetY;
+
+    protected Animation<TextureRegion> idleAnimation;
+    protected Animation<TextureRegion> walkingAnimation;
+    protected Animation<TextureRegion> attackAnimation;
     private Animation<TextureRegion> hurtAnimation;
-    private Animation<TextureRegion> idleAnimationL;
-    private Animation<TextureRegion> walkingAnimationL;
-    private Animation<TextureRegion> attackAnimationL;
+    protected Animation<TextureRegion> idleAnimationL;
+    protected Animation<TextureRegion> walkingAnimationL;
+    protected Animation<TextureRegion> attackAnimationL;
     private Animation<TextureRegion> hurtAnimationL;
     private TiledMapTileLayer collisionLayer;
     private TiledMap map;
@@ -39,6 +43,12 @@ public class TerrestrialWarrior extends Warrior {
         this.map = map;
         setAnimations();
         initFlags();
+        
+        targetX = House.getInstance().getInitialX();
+        targetY = House.getInstance().getInitialY();
+
+
+
     }
 
     public void initFlags() {
@@ -63,8 +73,8 @@ public class TerrestrialWarrior extends Warrior {
     private void walk(){
 
         float greaterIncrease = calcGreaterIncrease();
-        if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
-            if (initialX < super.getTargetX()){
+        if (Math.abs(targetX-initialX) > Math.abs(targetY-initialY)){
+            if (initialX < targetX){
                 //Right
                 movingRight = true;
                 if (!collidesRight()) {
@@ -75,7 +85,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialX > super.getTargetX()) {
+            if (initialX > targetX) {
                 //Left
                 movingRight = false;
                 if (!collidesLeft()) {
@@ -86,7 +96,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialY < super.getTargetY()){
+            if (initialY < targetY){
                 //Up
                 if (!collidesTop()) {
                     if(!timer) {
@@ -96,7 +106,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialY > super.getTargetY()) {
+            if (initialY > targetY) {
                 //Down
                 if (!collidesBottom()) {
                     if(!timer) {
@@ -107,7 +117,7 @@ public class TerrestrialWarrior extends Warrior {
                 }
             }
         } else{
-            if (initialX < super.getTargetX()){
+            if (initialX < targetX){
                 //Right
                 movingRight = true;
                 if (!collidesRight()) {
@@ -118,7 +128,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialX > super.getTargetX()) {
+            if (initialX > targetX) {
                 //Left
                 movingRight = false;
                 if (!collidesLeft()) {
@@ -129,7 +139,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialY < super.getTargetY()){
+            if (initialY < targetY){
                 //Up
                 if (!collidesTop()) {
                     if(!timer) {
@@ -139,7 +149,7 @@ public class TerrestrialWarrior extends Warrior {
                     removeWallDelay();
                 }
             }
-            if (initialY > super.getTargetY()) {
+            if (initialY > targetY) {
                 //Down
                 if (!collidesBottom()) {
                     if(!timer) {
@@ -153,10 +163,10 @@ public class TerrestrialWarrior extends Warrior {
     }
     private float calcGreaterIncrease(){
         float trayectory;
-        if (Math.abs(getTargetX()-initialX) > Math.abs(getTargetY()-initialY)){
-            trayectory = Math.abs(getTargetX()-initialX)/Math.abs(getTargetY()-initialY);
+        if (Math.abs(targetX-initialX) > Math.abs(targetY-initialY)){
+            trayectory = Math.abs(targetX-initialX)/Math.abs(targetY-initialY);
         } else{
-            trayectory = Math.abs(getTargetY()-initialY)/Math.abs(getTargetX()-initialX);
+            trayectory = Math.abs(targetY-initialY)/Math.abs(targetX-initialX);
         }
         if (trayectory<3)
             return trayectory;
@@ -169,10 +179,6 @@ public class TerrestrialWarrior extends Warrior {
             if(attackingWall){
                 return attackAnimation;
             } else {
-                if (hitted){
-                    hitted = false;
-                    return hurtAnimation;
-                }
                 if(dead){
                     return super.dieAnimation;
                 }
@@ -188,10 +194,6 @@ public class TerrestrialWarrior extends Warrior {
             if(attackingWall){
                 return attackAnimationL;
             } else {
-                if (hitted){
-                    hitted = false;
-                    return hurtAnimation;
-                }
                 if(dead){
                     return super.dieAnimationL;
                 }
@@ -200,7 +202,7 @@ public class TerrestrialWarrior extends Warrior {
                 }
                 else if(walking){
                     return walkingAnimationL;
-                }else return idleAnimationL;
+                } else return idleAnimationL;
             }
         }
 
@@ -216,23 +218,21 @@ public class TerrestrialWarrior extends Warrior {
                 checkDestination();
                 walk();
             } else {
-                walking = true;
+                checkDestination();
             }
         }else if(walking){
             checkDestination();
             walk();
         } else {
-            walking = true;
+            checkDestination();
         }
         if(timer){
             removeWallDelay();
         }
     }
 
-    public void checkDestination(){
-        if (walking){
-            if (initialX == targetX && initialY == targetY) walking = false;
-        }
+    private void checkDestination(){
+        walking = !House.getInstance().isDead();
     }
 
     private boolean isCellBlocked(float x, float y){

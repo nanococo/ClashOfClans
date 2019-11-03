@@ -1,6 +1,7 @@
 package com.mygdx.clashofclans.Tokens.Defenses;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Calculations;
@@ -8,7 +9,6 @@ import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Interfaces.MakesSound;
 import com.mygdx.clashofclans.Tokens.Piece;
-import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Canyon extends Defense implements MakesSound {
@@ -40,6 +40,8 @@ public class Canyon extends Defense implements MakesSound {
     private Animation<TextureRegion> canyonAttackingAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_SOUTHEAST).read());
     private Animation<TextureRegion> canyonStaticAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_SOUTHEAST).read());
 
+    private Sound canyonSound;
+
 
     public Canyon(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, CANYON_DEFENSE_LIFE, CANYON_DEFENSE_RANGE, CANYON_DEFENSE_ATTACKRATE);
@@ -51,6 +53,8 @@ public class Canyon extends Defense implements MakesSound {
          attackingNE = false;
          attackingSW = false;
          attackingSE = false;
+         canyonSound = Gdx.audio.newSound(Gdx.files.internal("SoundEffects/Canyon/barrett_m107_sniper_rifle-AmMoe-432217390.mp3"));
+
     }
     
     
@@ -58,6 +62,7 @@ public class Canyon extends Defense implements MakesSound {
     @Override
     public Animation<TextureRegion> draw() {
         setTargetLocation();
+        if(targetLocked) playSound();
         if (attackingN){
             if(targetLocked){
                 return canyonAttackingAnimation_N;
@@ -139,11 +144,22 @@ public class Canyon extends Defense implements MakesSound {
     public void setTarget(Piece target) {
         if (target instanceof TerrestrialWarrior){
             this.target = target;
-            targetX = target.getInitialX();
-            targetY = target.getInitialY();
             targetLocked = true;
         }
 
+    }
+
+    @Override
+    public void playSound() {
+        if (!timer) {
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if (finish - start >= 2000) {
+            canyonSound.play(0.2f);
+            timer = false;
+        }
     }
 
     private void setAttackingN() {

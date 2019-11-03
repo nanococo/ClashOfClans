@@ -59,6 +59,7 @@ public interface IDefenseConstants {
     String AERIAL_DEFENSE_STATICANIMATION = "Objects/Ballesta/Ballesta Estático.gif";
 
     String HOUSE = "Tiles/House.gif";
+    String HOUSE_DESTROYED = "Tiles/House Destroyed.gif";
 
 
 }
