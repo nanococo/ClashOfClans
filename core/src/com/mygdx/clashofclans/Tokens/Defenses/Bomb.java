@@ -7,22 +7,26 @@ import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Interfaces.MakesSound;
 import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 import java.util.ArrayList;
 
-public class Bomb extends Defense {
+public class Bomb extends Defense implements MakesSound {
 
-    private Animation<TextureRegion> bombAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_ANIMATION).read());
-    private Animation<TextureRegion> bombExplosionAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_EXPLOSIONANIMATION).read());
-
+    private Animation<TextureRegion> bombAnimation;
+    private Animation<TextureRegion> bombExplosionAnimation;
     private ArrayList<TerrestrialWarrior> reachableTargets;
     private Army enemies;
+
 
     Bomb(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, BOMB_DEFENSE_LIFE, BOMB_DEFENSE_RANGE, BOMB_DEFENSE_ATTACKRATE);
         reachableTargets = new ArrayList<TerrestrialWarrior>();
+        bombAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_ANIMATION).read());
+        bombExplosionAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(BOMB_DEFENSE_EXPLOSIONANIMATION).read());
+
     }
 
     @Override

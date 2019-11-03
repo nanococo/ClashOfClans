@@ -17,6 +17,17 @@ public class Calculations {
         return (float)distance;
     }
 
+    public static float pendient(float pX1, float pY1, float pX2, float pY2){
+        double factorOne = pY1-pY2;
+        double factorTwo = pX1-pX2;
+        double pendient = factorOne/factorTwo;
+        return (float)pendient;
+    }
+
+    public static float levelBonus(int pLevelAvailable, int pActualLevel, float pUpgradeRate){
+        return pUpgradeRate*(pActualLevel-pLevelAvailable+1);
+    }
+
     public static int generateRandomIntIntRange(int min, int max) {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
