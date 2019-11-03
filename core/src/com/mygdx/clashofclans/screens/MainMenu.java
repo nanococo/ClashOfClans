@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.ClashOfClansGame;
+import com.mygdx.clashofclans.levelManager.Levels;
 
 public class MainMenu implements Screen {
 
@@ -90,7 +91,7 @@ public class MainMenu implements Screen {
             game.batch.draw(newGameTxtHover, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
             if(Gdx.input.isTouched()){
                 this.dispose();
-                game.setScreen(new LevelScreen(game));
+                game.setScreen(new LevelScreen(game, "Tiles/gameMap.tmx", Levels.LEVEL1));
             }
         } else {
             game.batch.draw(newGameTxt, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
