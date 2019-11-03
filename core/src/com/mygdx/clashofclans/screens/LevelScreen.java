@@ -13,11 +13,6 @@ import com.mygdx.clashofclans.Teams.Army;
 import com.mygdx.clashofclans.Teams.Defenses;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Warrior;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Deuce;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Hector;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Ringo;
-import com.mygdx.clashofclans.Tokens.Warriors.Characters.Yolanda;
-import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
@@ -34,8 +29,6 @@ public class LevelScreen implements Screen {
 
     private Army army;
     private Defenses defenses;
-
-    private int counter;
 
     private float w = Gdx.graphics.getWidth();
     private float h = Gdx.graphics.getHeight();
@@ -90,11 +83,11 @@ public class LevelScreen implements Screen {
 
         camera = new OrthographicCamera();
 
-        defenses = new Defenses(1, 5, collisionLayer, levelData);
+        defenses = new Defenses(Levels.LEVEL1, levelData.getDefenseCount(), collisionLayer, levelData);
 
         defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
 
-        army = new Army(1, levelData.getArmySize(), defenses);
+        army = new Army(Levels.LEVEL1, levelData.getArmySize(), defenses);
 //        System.out.println(army.addTroop(1, 0,0,collisionLayer, map));
 //        System.out.println(army.addTroop(2, 500, 100, collisionLayer, map));
 //

@@ -16,7 +16,7 @@ public interface IWarriorConstants {
     int CONTACT_WARRIOR_LEVELAVAILABLE = 1; //level available
     double CONTACT_WARRIOR_UPGRADERATE = 1; //upgrade rate
     int CONTACT_WARRIOR_TROOPS_CONSUMED = 1; //troops consumed
-    int CONTACT_WARRIOR_RANGE = 1;
+    int CONTACT_WARRIOR_RANGE = 32;
 
 
     int MIDRANGE_WARRIOR_LIFE = 3; //life
@@ -32,7 +32,7 @@ public interface IWarriorConstants {
     int HERO_WARRIOR_LEVELAVAILABLE = 8; //level available
     double HERO_WARRIOR_UPGRADERATE = 0.8; //upgrade rate
     int HERO_WARRIOR_TROOPS_CONSUMED = 10; //troops consumed
-    int HERO_WARRIOR_RANGE = 1;
+    int HERO_WARRIOR_RANGE = 32;
 
 
     int BEAST_WARRIOR_LIFE = 25; //life
