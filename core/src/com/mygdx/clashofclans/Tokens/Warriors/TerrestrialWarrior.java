@@ -38,8 +38,8 @@ public class TerrestrialWarrior extends Warrior {
     }
 
     public void initFlags() {
-        movingRight = true;
-        walking = true;
+        movingRight = false;
+        walking = false;
         attacking = false;
         dead = false;
     }
@@ -53,8 +53,8 @@ public class TerrestrialWarrior extends Warrior {
         attackAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[6]).read());
         hurtAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[7]).read());
 
-        animationHeight = 32;
-        animationWidth = 32;
+        animationHeight = 28;
+        animationWidth = 28;
     }
     private void walk(){
 
@@ -160,6 +160,7 @@ public class TerrestrialWarrior extends Warrior {
                 return walkingAnimationL;
             }else return idleAnimationL;
         }
+        return idleAnimation;
     }
 
     @Override
@@ -170,6 +171,8 @@ public class TerrestrialWarrior extends Warrior {
         else if(walking){
             checkDestination();
             walk();
+        } else {
+            walking = true;
         }
 
     }

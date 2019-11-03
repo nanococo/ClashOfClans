@@ -86,4 +86,8 @@ public class Calculations {
         }
         return collides;
     }
+
+    public static int getBaseCenter(int min, int max){
+        return (((max-min)/2)+min);
+    }
 }

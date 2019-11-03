@@ -38,12 +38,14 @@ public interface IDefenseConstants {
     String MORTAR_DEFENSE_STATICANIMATION_RIGHT = "Objects/Mortero/Mortero R Estático.gif";
 
     int TOWER_DEFENSE_LIFE = 5; //life
+
     int TOWER_DEFENSE_RANGE = 300; //range
     double TOWER_DEFENSE_ATTACKRATE = 5; //attack rate
     String TOWER_DEFENSE_ANIMATION_LEFT = "Objects/Torre/Torre.gif";
     String TOWER_DEFENSE_ANIMATION_RIGHT = "Objects/Torre/Torre R.gif";
     String TOWER_DEFENSE_STATICANIMATION_LEFT = "Objects/Torre/Torre.gif";
     String TOWER_DEFENSE_STATICANIMATION_RIGHT = "Objects/Torre/Torre R.gif";
+
 
     int BOMB_DEFENSE_LIFE = 1; //life
     int BOMB_DEFENSE_RANGE = 60; //range

@@ -4,22 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.clashofclans.Calculations;
+import com.mygdx.clashofclans.levelManager.LevelData;
 
 public abstract class Piece extends Sprite {
 
-    protected float initialX;
-    protected float initialY;
     protected int animationHeight;
     protected int animationWidth;
     protected int attackRange;
+    protected int life;
+    protected int level;
     protected double attackRate;
     protected float targetX;
     protected float targetY;
-    protected Piece target;
-    protected int life;
-    protected int level;
+    protected float initialX;
+    protected float initialY;
     protected float nextAttack;
-
     protected boolean dead;
     protected boolean targetLocked;
     protected boolean attacking;
@@ -27,6 +27,9 @@ public abstract class Piece extends Sprite {
     private long start;
     private long finish;
     protected boolean hitted;
+    protected Piece target;
+    protected LevelData levelData = LevelData.getInstance();
+
 
 
     public Piece(float pInitialX, float pInitialY, int pLife, int pAttackRange, double pAttackRate){
@@ -36,8 +39,10 @@ public abstract class Piece extends Sprite {
         life = pLife;
         attackRate = pAttackRate;
         level = 1;
-        targetX = 900;
-        targetY = 650;
+
+        targetX = Calculations.getBaseCenter(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
+        targetY = Calculations.getBaseCenter(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());
+
         target = null;
         nextAttack = 0;
     }
@@ -112,6 +117,16 @@ public abstract class Piece extends Sprite {
         life--;
         hitted = true;
     }
+
+
+    public void setInitialX(float initialX) {
+        this.initialX = initialX;
+    }
+
+    public void setInitialY(float initialY) {
+        this.initialY = initialY;
+    }
+
 
     public float getInitialX() {
         return initialX;

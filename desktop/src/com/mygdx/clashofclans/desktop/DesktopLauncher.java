@@ -10,8 +10,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new ClashOfClansGame(), config);
 		config.foregroundFPS = 60;
-		//config.width = ClashOfClansGame.WIDTH;
-		//config.height = ClashOfClansGame.HEIGHT;
 		config.width = Gdx.graphics.getWidth();
 		config.height = Gdx.graphics.getHeight();
 		config.fullscreen = true;
