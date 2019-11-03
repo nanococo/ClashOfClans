@@ -23,9 +23,9 @@ public abstract class Piece extends Sprite {
     protected boolean dead;
     protected boolean targetLocked;
     protected boolean attacking;
-    private boolean timer;
-    private long start;
-    private long finish;
+    protected boolean timer;
+    protected long start;
+    protected long finish;
     protected boolean hitted;
     protected Piece target;
     protected LevelData levelData = LevelData.getInstance();
@@ -186,17 +186,5 @@ public abstract class Piece extends Sprite {
 
     public Piece getTarget() {
         return target;
-    }
-
-    void attackAnimation(){
-        if (!timer){
-            start = System.currentTimeMillis();
-            timer = true;
-        }
-        finish = System.currentTimeMillis();
-        if(finish-start>=2000){
-            System.out.println("Hello");
-            timer = false;
-        }
     }
 }
