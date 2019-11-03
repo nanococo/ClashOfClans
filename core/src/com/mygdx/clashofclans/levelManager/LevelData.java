@@ -17,6 +17,7 @@ public class LevelData {
     private int towerCount;
     private int mortarCount;
     private int armySize;
+    private int defenseCount;
 
     private LevelData(){
         this.minBaseWidth = 0;
@@ -68,6 +69,7 @@ public class LevelData {
     public int getArmySize() {
         return armySize;
     }
+    public int getDefenseCount() { return defenseCount; }
 
     public void setLevel(Levels level){
         switch (level){
@@ -76,12 +78,41 @@ public class LevelData {
                 maxBaseWidth = 1300;
                 minBaseHeight = 350;
                 maxBaseHeight = 900;
+                defenseCount = 5;
                 cannonCount = 2;
                 bombCount = 1;
                 towerCount = 0;
                 ballistaCount = 2;
                 mortarCount = 0;
-                armySize = 50;
+                armySize = 8;
+                break;
+            case LEVEL2:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 6;
+                cannonCount = 2;
+                bombCount = 2;
+                towerCount = 0;
+                ballistaCount = 2;
+                mortarCount = 0;
+                armySize = 10;
+                break;
+            case LEVEL3:
+                minBaseWidth = 660;
+                maxBaseWidth = 1300;
+                minBaseHeight = 350;
+                maxBaseHeight = 900;
+                defenseCount = 8;
+                cannonCount = 2;
+                bombCount = 2;
+                towerCount = 0;
+                ballistaCount = 2;
+                mortarCount = 1;
+                armySize = 12;
+                break;
         }
+
     }
 }

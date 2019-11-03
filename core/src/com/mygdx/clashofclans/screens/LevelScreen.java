@@ -57,7 +57,9 @@ public class LevelScreen implements Screen {
     private final int GO_FRAMES_X = 700;
 
     private Warrior placeHolderWarrior;
-
+    private boolean timer;
+    long start;
+    long finish;
 
 
 
@@ -72,7 +74,7 @@ public class LevelScreen implements Screen {
     public void show() {
 
 
-        map = new TmxMapLoader().load("Tiles/gameMap.tmx");
+        map = new TmxMapLoader().load("Tiles/gameMap4.tmx");
 
         levelData.setLevel(Levels.LEVEL1);
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -97,6 +99,7 @@ public class LevelScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         elapsed += Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -222,7 +225,6 @@ public class LevelScreen implements Screen {
         defenses.removeCasualties();
         army.removeCasualties();
 
-
     }
 
     @Override
@@ -281,4 +283,16 @@ public class LevelScreen implements Screen {
         Gdx.graphics.setCursor(cursor);
         pixmap.dispose();
     }
+
+//    void testEllapsed(){
+//        if (!timer){
+//           start = System.currentTimeMillis();
+//           timer = true;
+//        }
+//        finish = System.currentTimeMillis();
+//        if(finish-start>=2000){
+//            System.out.println("Hello");
+//            timer = false;
+//        }
+//    }
 }
