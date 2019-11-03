@@ -1,18 +1,14 @@
 package com.mygdx.clashofclans.Tokens.Defenses;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
 import com.mygdx.clashofclans.Tokens.Interfaces.MakesSound;
 import com.mygdx.clashofclans.Tokens.Piece;
-import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
-
-import java.lang.annotation.Target;
-
-import static com.mygdx.clashofclans.Tokens.Interfaces.IDefenseConstants.MORTAR_DEFENSE_ANIMATION_LEFT;
 
 public class Mortar extends Defense implements MakesSound {
 
@@ -23,9 +19,14 @@ public class Mortar extends Defense implements MakesSound {
 
     private boolean attackingRight;
 
+    private Sound mortarSound;
+
+
     public Mortar(float pInitialX, float pInitialY) {
         super(pInitialX, pInitialY, MORTAR_DEFENSE_LIFE, MORTAR_DEFENSE_RANGE, MORTAR_DEFENSE_ATTACKRATE);
         attackingRight = false;
+        mortarSound = Gdx.audio.newSound(Gdx.files.internal("SoundEffects/Canyon/shotgun-old_school-RA_The_Sun_God-1129942741.mp3"));
+
     }
 
     @Override
@@ -33,12 +34,14 @@ public class Mortar extends Defense implements MakesSound {
         setTargetLocation();
         if (attackingRight){
             if(targetLocked){
+                playSound();
                 return mortarAttackingAnimation_R;
             }else{
                 return mortarStaticAnimation_R;
             }
         }else{
             if(targetLocked){
+                playSound();
                 return mortarAttackingAnimation_L;
             }else{
                 return mortarStaticAnimation_L;
@@ -50,8 +53,7 @@ public class Mortar extends Defense implements MakesSound {
     public void setTarget(Piece target) {
         if (target instanceof TerrestrialWarrior){
             this.target = target;
-            targetX = target.getInitialX();
-            targetY = target.getInitialY();
+
             targetLocked = true;
         }
 
@@ -61,6 +63,18 @@ public class Mortar extends Defense implements MakesSound {
     private void setTargetLocation() {
         if(targetLocked)
         attackingRight = target.getInitialX() > initialX;
+    }
+    @Override
+    public void playSound() {
+        if (!timer) {
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if (finish - start >= 2000) {
+            mortarSound.play(0.4f);
+            timer = false;
+        }
     }
 
 }

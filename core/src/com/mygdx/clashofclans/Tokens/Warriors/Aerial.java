@@ -1,6 +1,7 @@
 package com.mygdx.clashofclans.Tokens.Warriors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Calculations;
@@ -16,65 +17,84 @@ public class Aerial extends Warrior implements MakesSound {
     private Animation<TextureRegion> idleAnimation;
     private Animation<TextureRegion> attackAnimation;
     private Animation<TextureRegion> hurtAnimation;
+    private Sound wingSound;
     private float levelBonus;
-
 
 
     public Aerial(float pInitialX, float pInitialY, String[] pAnimations) {
         super(pInitialX, pInitialY, AERIAL_WARRIOR_LIFE, AERIAL_WARRIOR_RANGE, AERIAL_WARRIOR_LEVELAVAILABLE, AERIAL_WARRIOR_TROOPS_CONSUMED, AERIAL_WARRIOR_ATTACKRATE);
-        levelBonus = Calculations.levelBonus(levelAvailable, level, (float)upgradeRate);
+        levelBonus = Calculations.levelBonus(levelAvailable, level, (float) upgradeRate);
         animations = pAnimations;
         addBonusLevel();
         idleAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[0]).read());
         attackAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[1]).read());
         hurtAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(animations[2]).read());
+        wingSound = Gdx.audio.newSound(Gdx.files.internal("SoundEffects/Flying/Butterfly-SoundBible.com-1530156556.mp3"));
 
     }
 
 
     @Override
     public Animation<TextureRegion> draw() {
-        if(hitted){
+        if (!dead) {
+            playSound();
+        }
+        if (hitted) {
             hitted = false;
             return hurtAnimation;
         }
-        if(targetLocked){
+        if (targetLocked) {
             return attackAnimation;
-        }else{
+        } else {
             return idleAnimation;
         }
+
     }
 
     @Override
-    public void doAction(){
+    public void doAction() {
         updateRange();
-        if (targetLocked){
+        if (targetLocked) {
             attack();
         }
     }
 
-    public void updateRange(){
-        if (targetLocked){
-            if (Calculations.distanceBetweenPoints(initialX, initialY,  target.getInitialX(), target.getInitialY())>attackRange){
+    public void updateRange() {
+        if (targetLocked) {
+            if (Calculations.distanceBetweenPoints(initialX, initialY, target.getInitialX(), target.getInitialY()) > attackRange) {
                 targetLocked = false;
                 target = null;
             }
         }
 
     }
-    private void addBonusLevel(){
-        life+=levelBonus;
-        attackRate+=levelBonus;
+
+    private void addBonusLevel() {
+        life += levelBonus;
+        attackRate += levelBonus;
     }
 
     public void setTarget(Piece target) {
 
-        if (target!=null){
+        if (target != null) {
             this.target = target;
-            targetX = target.getInitialX();
-            targetY = target.getInitialY();
+
             targetLocked = true;
         }
 
+    }
+
+
+    @Override
+    public void playSound() {
+        if (!timer) {
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if (finish - start >= 2000) {
+            wingSound.play();
+            timer = false;
+        }
     }
 }
