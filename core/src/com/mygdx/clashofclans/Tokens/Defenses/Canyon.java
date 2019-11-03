@@ -155,7 +155,7 @@ public class Canyon extends Defense implements MakesSound {
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("N");
+
     }
     private void setAttackingS() {
         attackingN = false;
@@ -200,6 +200,7 @@ public class Canyon extends Defense implements MakesSound {
         attackingSE = false;
         attackingNW = true;
 
+
     }
     private void setAttackingNE() {
         attackingN = false;
@@ -210,7 +211,7 @@ public class Canyon extends Defense implements MakesSound {
         attackingNE = true;
         attackingSW = false;
         attackingSE = false;
-        System.out.println("NE");
+
     }
     private void setAttackingSW() {
         attackingN = false;
@@ -221,7 +222,7 @@ public class Canyon extends Defense implements MakesSound {
         attackingNE = false;
         attackingSW = true;
         attackingSE = false;
-        System.out.println("SW");
+
     }
     private void setAttackingSE() {
         attackingN = false;
@@ -232,6 +233,6 @@ public class Canyon extends Defense implements MakesSound {
         attackingNE = false;
         attackingSW = false;
         attackingSE = true;
-        System.out.println("SE");
+
     }
 }
