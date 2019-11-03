@@ -1,13 +1,17 @@
 package com.mygdx.clashofclans.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.Json;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.Teams.Army;
@@ -18,6 +22,8 @@ import com.mygdx.clashofclans.Tokens.Warrior;
 import com.mygdx.clashofclans.Tokens.Warriors.WarriorFactory;
 import com.mygdx.clashofclans.levelManager.LevelData;
 import com.mygdx.clashofclans.levelManager.Levels;
+import com.mygdx.clashofclans.test.ClassTest;
+import com.mygdx.clashofclans.test.Container;
 
 public class LevelScreen implements Screen {
 
@@ -46,6 +52,13 @@ public class LevelScreen implements Screen {
     private Texture ringoFrame = new Texture("Ringo/Frame/Ringo (Frame).png");
     private Texture goFrame = new Texture("Go.png");
 
+    private Texture continueText = new Texture("Continue.png");
+    private Texture saveGame = new Texture("SaveAndExit.png");
+    private FileHandle fileHandle = Gdx.files.local("bin/GameData.json");
+
+    private int continueX = ClashOfClansGame.WIDTH /2 - continueText.getWidth()/2;
+    private int saveAndQuitX = ClashOfClansGame.WIDTH /2 - saveGame.getWidth()/2;
+
     //All frames have same width and height so take one as reference
     private final int COMMON_FRAME_WIDTH = hectorFrame.getWidth();
     private final int COMMON_FRAME_HEIGHT = hectorFrame.getHeight();
@@ -60,40 +73,39 @@ public class LevelScreen implements Screen {
 
     private Warrior placeHolderWarrior;
     private boolean timer;
-    long start;
+    boolean isPaused = false;
     long finish;
 
+    Container container = new Container();
+    Json json = new Json();
 
-
-
-
-    LevelScreen(ClashOfClansGame game) {
+    LevelScreen(ClashOfClansGame game, String levelMap, Levels levels) {
         this.game = game;
-
         levelData = LevelData.getInstance();
-    }
-
-    @Override
-    public void show() {
+        map = new TmxMapLoader().load(levelMap);
 
 
-        map = new TmxMapLoader().load("Tiles/gameMap1.tmx");
-
-        levelData.setLevel(Levels.LEVEL1);
+        levelData.setLevel(levels);
         renderer = new OrthogonalTiledMapRenderer(map);
         collisionLayer = (TiledMapTileLayer) map.getLayers().get("Grass");
 
         camera = new OrthographicCamera();
 
 
-        defenses = new Defenses(Levels.LEVEL1, levelData.getDefenseCount(), collisionLayer, levelData);
+        defenses = new Defenses(levels, levelData.getDefenseCount(), collisionLayer, levelData);
         defenses.addDefense(House.getInstance());
         defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
-        army = new Army(Levels.LEVEL1, levelData.getArmySize(), defenses);
+
+        army = new Army(levels, levelData.getArmySize(), defenses);
 
 
         defenses.setEnemies(army);
 
+
+    }
+
+    @Override
+    public void show() {
         camera.setToOrtho(false, w, h);
         camera.position.x = ClashOfClansGame.WIDTH / 2f;
         camera.position.y = ClashOfClansGame.HEIGHT / 2f;
@@ -102,132 +114,165 @@ public class LevelScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
-        elapsed += Gdx.graphics.getDeltaTime();
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-        camera.position.x = ClashOfClansGame.WIDTH / 2f;
-        camera.position.y = ClashOfClansGame.HEIGHT / 2f;
-        camera.update();
+        if(!isPaused){
+            elapsed += Gdx.graphics.getDeltaTime();
+            Gdx.gl.glClearColor(0,0,0,1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        renderer.setView(camera);
-        renderer.render();
+            camera.position.x = ClashOfClansGame.WIDTH / 2f;
+            camera.position.y = ClashOfClansGame.HEIGHT / 2f;
+            camera.update();
+
+
+            renderer.setView(camera);
+            renderer.render();
 
         game.batch.begin();
-
         game.batch.draw(House.getInstance().draw().getKeyFrame(elapsed), House.getInstance().getInitialX(), House.getInstance().getInitialY());
 
-        if(!gameStart){
 
-            if(!setWarrior){
-                if(Gdx.input.getX() > HECTOR_FRAME_X && Gdx.input.getX() < HECTOR_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
-                    setHandCursor();
-                    if(Gdx.input.justTouched()){
-                        placeHolderWarrior = WarriorFactory.getWarrior(2,0,0, collisionLayer, map);
-                        setWarrior = true;
-                    }
-                } else {
-                    if(Gdx.input.getX() > YOLANDA_FRAME_X && Gdx.input.getX() < YOLANDA_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+            if(!gameStart){
+
+                if(!setWarrior){
+                    if(Gdx.input.getX() > HECTOR_FRAME_X && Gdx.input.getX() < HECTOR_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
                         setHandCursor();
                         if(Gdx.input.justTouched()){
-                            placeHolderWarrior = WarriorFactory.getWarrior(1,0,0, collisionLayer, map);
+                            placeHolderWarrior = WarriorFactory.getWarrior(2,0,0, collisionLayer, map);
                             setWarrior = true;
                         }
                     } else {
-                        if(Gdx.input.getX() > DEUCE_FRAME_X && Gdx.input.getX() < DEUCE_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                        if(Gdx.input.getX() > YOLANDA_FRAME_X && Gdx.input.getX() < YOLANDA_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
                             setHandCursor();
                             if(Gdx.input.justTouched()){
-                                placeHolderWarrior = WarriorFactory.getWarrior(0,0,0, collisionLayer, map);
+                                placeHolderWarrior = WarriorFactory.getWarrior(1,0,0, collisionLayer, map);
                                 setWarrior = true;
                             }
                         } else {
-                            if(Gdx.input.getX() > BICHILLO_FRAME_X && Gdx.input.getX() < BICHILLO_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                            if(Gdx.input.getX() > DEUCE_FRAME_X && Gdx.input.getX() < DEUCE_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
                                 setHandCursor();
                                 if(Gdx.input.justTouched()){
-                                    placeHolderWarrior = WarriorFactory.getWarrior(3,0,0, collisionLayer, map);
+                                    placeHolderWarrior = WarriorFactory.getWarrior(0,0,0, collisionLayer, map);
                                     setWarrior = true;
                                 }
                             } else {
-                                if(Gdx.input.getX() > RINGO_FRAMEX && Gdx.input.getX() < RINGO_FRAMEX+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                if(Gdx.input.getX() > BICHILLO_FRAME_X && Gdx.input.getX() < BICHILLO_FRAME_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
                                     setHandCursor();
                                     if(Gdx.input.justTouched()){
-                                        placeHolderWarrior = WarriorFactory.getWarrior(4,0,0, collisionLayer, map);
+                                        placeHolderWarrior = WarriorFactory.getWarrior(3,0,0, collisionLayer, map);
                                         setWarrior = true;
                                     }
                                 } else {
-                                    if(Gdx.input.getX() > GO_FRAMES_X && Gdx.input.getX() < GO_FRAMES_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                    if(Gdx.input.getX() > RINGO_FRAMEX && Gdx.input.getX() < RINGO_FRAMEX+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
                                         setHandCursor();
                                         if(Gdx.input.justTouched()){
-                                            gameStart = true;
-                                            setWarrior = false;
-                                            setNormalCursor();
+                                            placeHolderWarrior = WarriorFactory.getWarrior(4,0,0, collisionLayer, map);
+                                            setWarrior = true;
                                         }
                                     } else {
-                                        setNormalCursor();
+                                        if(Gdx.input.getX() > GO_FRAMES_X && Gdx.input.getX() < GO_FRAMES_X+COMMON_FRAME_WIDTH && ClashOfClansGame.HEIGHT - Gdx.input.getY() > COMMON_Y_FRAMES && ClashOfClansGame.HEIGHT - Gdx.input.getY() < COMMON_Y_FRAMES+COMMON_FRAME_HEIGHT){
+                                            setHandCursor();
+                                            if(Gdx.input.justTouched()){
+                                                gameStart = true;
+                                                setWarrior = false;
+                                                setNormalCursor();
+                                            }
+                                        } else {
+                                            setNormalCursor();
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                game.batch.draw(hectorFrame, 200,15);
-                game.batch.draw(yolandaFrame, 300,15);
-                game.batch.draw(deuceFrame, 400,15);
-                game.batch.draw(bichilloFrame, 500,15);
-                game.batch.draw(ringoFrame, 600, 15);
-                game.batch.draw(goFrame, 700, 15);
+                    game.batch.draw(hectorFrame, 200,15);
+                    game.batch.draw(yolandaFrame, 300,15);
+                    game.batch.draw(deuceFrame, 400,15);
+                    game.batch.draw(bichilloFrame, 500,15);
+                    game.batch.draw(ringoFrame, 600, 15);
+                    game.batch.draw(goFrame, 700, 15);
+                } else {
+                    if (Gdx.input.justTouched()){
+                        placeHolderWarrior.setInitialX(Gdx.input.getX());
+                        placeHolderWarrior.setInitialY(ClashOfClansGame.HEIGHT-Gdx.input.getY());
+                        army.addTroop(placeHolderWarrior);
+                        placeHolderWarrior = null;
+                        setWarrior = false;
+                    }
+                }
+            }
+
+            if (setWarrior){
+                game.batch.draw(placeHolderWarrior.draw().getKeyFrame(elapsed), Gdx.input.getX(), ClashOfClansGame.HEIGHT-Gdx.input.getY());
+            }
+
+
+
+
+            for (Defense defense: defenses.getDefenses()){
+                if(gameStart){
+                    defense.doAction();
+                }
+                game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
+            }
+            for (Warrior troop:army.getTroops()){
+                if (gameStart){
+                    troop.doAction();
+                }
+                game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
+            }
+
+            army.searchAndSetTargets();
+            defenses.searchAndSetTargets();
+
+            game.batch.end();
+
+
+
+            if (setWarrior){
+                game.shape.setProjectionMatrix(camera.combined);
+                game.shape.begin(ShapeRenderer.ShapeType.Line);
+                game.shape.setColor(Color.RED);
+                game.shape.rect(levelData.getMinBaseWidth(), levelData.getMinBaseHeight(), levelData.getMaxBaseWidth()-levelData.getMinBaseWidth(), levelData.getMaxBaseHeight()-levelData.getMinBaseHeight());
+                game.shape.end();
+            }
+
+            defenses.removeCasualties();
+            army.removeCasualties();
+
+            if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+                isPaused = true;
+            }
+        } else {
+            Gdx.gl.glClearColor(98, 45, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            game.batch.begin();
+            game.batch.draw(continueText, continueX, 800);
+            game.batch.draw(saveGame, ClashOfClansGame.WIDTH /2 - saveGame.getWidth()/2, 500);
+            game.batch.end();
+
+            if(Gdx.input.getX() < continueX+continueText.getWidth() && Gdx.input.getX() > continueX && ClashOfClansGame.HEIGHT - Gdx.input.getY() < 800+continueText.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > 800){
+                setHandCursor();
+                if(Gdx.input.justTouched()){
+                    isPaused = false;
+                }
+            } else if(Gdx.input.getX() < saveAndQuitX+saveGame.getWidth() && Gdx.input.getX() > saveAndQuitX && ClashOfClansGame.HEIGHT - Gdx.input.getY() < 500+saveGame.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > 500){
+                if(Gdx.input.justTouched()){
+
+                    ClassTest classTest = new ClassTest("Jose", "Aurelio");
+
+                    container.setName("MIGUE");
+                    container.setClassTest(classTest);
+
+                    saveData();
+                    isPaused = false;
+                }
             } else {
-                if (Gdx.input.justTouched()){
-                    placeHolderWarrior.setInitialX(Gdx.input.getX());
-                    placeHolderWarrior.setInitialY(ClashOfClansGame.HEIGHT-Gdx.input.getY());
-                    army.addTroop(placeHolderWarrior);
-                    placeHolderWarrior = null;
-                    setWarrior = false;
-                }
+                setNormalCursor();
             }
         }
-
-        if (setWarrior){
-            game.batch.draw(placeHolderWarrior.draw().getKeyFrame(elapsed), Gdx.input.getX(), ClashOfClansGame.HEIGHT-Gdx.input.getY());
-        }
-
-
-
-
-        for (Defense defense: defenses.getDefenses()){
-            if(gameStart){
-                defense.doAction();
-            }
-            game.batch.draw(defense.draw().getKeyFrame(elapsed), defense.getInitialX(), defense.getInitialY());
-        }
-        for (Warrior troop:army.getTroops()){
-            if (gameStart){
-                troop.doAction();
-            }
-            game.batch.draw(troop.draw().getKeyFrame(elapsed), troop.getInitialX(), troop.getInitialY());
-        }
-
-        army.searchAndSetTargets();
-        defenses.searchAndSetTargets();
-
-        game.batch.end();
-
-
-
-        if (setWarrior){
-            game.shape.setProjectionMatrix(camera.combined);
-            game.shape.begin(ShapeRenderer.ShapeType.Line);
-            game.shape.setColor(Color.RED);
-            game.shape.rect(levelData.getMinBaseWidth(), levelData.getMinBaseHeight(), levelData.getMaxBaseWidth()-levelData.getMinBaseWidth(), levelData.getMaxBaseHeight()-levelData.getMinBaseHeight());
-            game.shape.end();
-        }
-
-        defenses.removeCasualties();
-        army.removeCasualties();
 
     }
 
@@ -288,15 +333,17 @@ public class LevelScreen implements Screen {
         pixmap.dispose();
     }
 
-//    void testEllapsed(){
-//        if (!timer){
-//           start = System.currentTimeMillis();
-//           timer = true;
-//        }
-//        finish = System.currentTimeMillis();
-//        if(finish-start>=2000){
-//            System.out.println("Hello");
-//            timer = false;
-//        }
-//    }
+    public void saveData() {
+        if (container != null) {
+            fileHandle.writeString(Base64Coder.encodeString(json.prettyPrint(container.Name)),
+                    false);
+        }
+    }
+
+    public void loadData() {
+        container = json.fromJson(Container.class,
+                Base64Coder.decodeString(fileHandle.readString()));
+    }
+
+
 }
