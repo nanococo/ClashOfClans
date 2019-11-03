@@ -84,7 +84,7 @@ public class LevelData {
                 towerCount = 0;
                 ballistaCount = 2;
                 mortarCount = 0;
-                armySize = 8;
+                armySize = 50;
                 break;
             case LEVEL2:
                 minBaseWidth = 660;

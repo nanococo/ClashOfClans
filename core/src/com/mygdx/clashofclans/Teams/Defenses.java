@@ -11,16 +11,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.mygdx.clashofclans.levelManager.LevelData;
+import com.mygdx.clashofclans.levelManager.Levels;
 
 public class Defenses {
-    private int level;
+    private Levels level;
     private int troopsAvailable;
     private ArrayList<Defense> defenses;
     private Army enemies;
     private TiledMapTileLayer collisionLayer;
     private LevelData levelData;
 
-    public Defenses(int level, int troopsAvailable, TiledMapTileLayer collisionLayer, LevelData levelData) {
+    public Defenses(Levels level, int troopsAvailable, TiledMapTileLayer collisionLayer, LevelData levelData) {
         this.level = level;
         this.troopsAvailable = troopsAvailable;
         defenses = new ArrayList<Defense>();
