@@ -38,7 +38,7 @@ public abstract class Piece extends Sprite {
         attackRange = pAttackRange;
         life = pLife;
         attackRate = pAttackRate;
-
+        level = levelData.getActualLevel();
 
         targetX = Calculations.getBaseCenter(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
         targetY = Calculations.getBaseCenter(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());
@@ -187,4 +187,17 @@ public abstract class Piece extends Sprite {
     public Piece getTarget() {
         return target;
     }
+
+    void attackAnimation(){
+        if (!timer){
+            start = System.currentTimeMillis();
+            timer = true;
+        }
+        finish = System.currentTimeMillis();
+        if(finish-start>=2000){
+            System.out.println("Hello");
+            timer = false;
+        }
+    }
+
 }

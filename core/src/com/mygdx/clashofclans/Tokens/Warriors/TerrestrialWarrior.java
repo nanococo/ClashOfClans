@@ -30,10 +30,10 @@ public class TerrestrialWarrior extends Warrior {
     private TiledMap map;
 
 
+    public TerrestrialWarrior(float pInitialX, float pInitialY, int pLife, int pAttackRange, int pLevelAvailable, int pConsumptionInArmy, double pAttackRate, String[] pAnimations,
 
-    public TerrestrialWarrior(float pInitialX, float pInitialY, int pLife, int pAttackRange, int pLevelAvailable, int pConsumptionInArmy, double pAttackRate, double pUpgradeRate, String[] pAnimations,
                               TiledMapTileLayer collisionLayer, TiledMap map) {
-        super(pInitialX, pInitialY, pLife, pAttackRange, pLevelAvailable, pConsumptionInArmy, pAttackRate, pUpgradeRate);
+        super(pInitialX, pInitialY, pLife, pAttackRange, pLevelAvailable, pConsumptionInArmy, pAttackRate);
         animations = pAnimations;
         this.collisionLayer = collisionLayer;
         this.map = map;

@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.Calculations;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Interfaces.MakesSound;
 import com.mygdx.clashofclans.Tokens.Piece;
 import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
-public class Canyon extends Defense {
+public class Canyon extends Defense implements MakesSound {
 
     private boolean attackingN;
     private boolean attackingS;
@@ -30,14 +31,14 @@ public class Canyon extends Defense {
     private Animation<TextureRegion> canyonAttackingAnimation_W = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_WEST).read());
     private Animation<TextureRegion> canyonStaticAnimation_W = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_WEST).read());
 
-    private Animation<TextureRegion> canyonAttackingAnimation_NW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonStaticAnimation_NW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonAttackingAnimation_NE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonStaticAnimation_NE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonAttackingAnimation_SW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonStaticAnimation_SW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonAttackingAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_WEST).read());
-    private Animation<TextureRegion> canyonStaticAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_WEST).read());
+    private Animation<TextureRegion> canyonAttackingAnimation_NW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_NORTHWEST).read());
+    private Animation<TextureRegion> canyonStaticAnimation_NW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_NORTHWEST).read());
+    private Animation<TextureRegion> canyonAttackingAnimation_NE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_NORTHEAST).read());
+    private Animation<TextureRegion> canyonStaticAnimation_NE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_NORTHEAST).read());
+    private Animation<TextureRegion> canyonAttackingAnimation_SW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_SOUTHWEST).read());
+    private Animation<TextureRegion> canyonStaticAnimation_SW = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_SOUTHWEST).read());
+    private Animation<TextureRegion> canyonAttackingAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_ANIMATION_SOUTHEAST).read());
+    private Animation<TextureRegion> canyonStaticAnimation_SE = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(CANYON_DEFENSE_STATICANIMATION_SOUTHEAST).read());
 
 
     public Canyon(float pInitialX, float pInitialY) {
@@ -104,19 +105,20 @@ public class Canyon extends Defense {
 
         if(targetLocked){
             if(initialX!=target.getInitialX()){
-                float pendient = Calculations.distanceBetweenPoints(initialX, initialY, target.getInitialX(), target.getInitialY());
+                float pendient = Calculations.pendient(initialX, initialY, target.getInitialX(), target.getInitialY());
                 if (pendient>0){
                     if (target.getInitialY()>initialY){
                         setAttackingNE();
                     } else{
                         setAttackingSW();
                     }
-                } else if (target.getInitialY()<initialY){
+                } else if (pendient<0){
 
                     if (target.getInitialY()>initialY){
-                        setAttackingSE();
-                    } else{
+
                         setAttackingNW();
+                    } else{
+                        setAttackingSE();
                     }
                 } else{
                     if (target.getInitialX()>initialX){
@@ -192,10 +194,12 @@ public class Canyon extends Defense {
         attackingN = false;
         attackingS = false;
         attackingE = false;
-        attackingW = true;
+        attackingW = false;
         attackingNE = false;
         attackingSW = false;
         attackingSE = false;
+        attackingNW = true;
+
 
     }
     private void setAttackingNE() {

@@ -10,22 +10,20 @@ import com.mygdx.clashofclans.Tokens.Interfaces.IWarriorConstants;
 
 public abstract class Warrior extends Piece implements IWarriorConstants {
 
-    private int consumptionInArmy;
-    private int levelAvailable;
-    private double upgradeRate;
+    protected int consumptionInArmy;
+    protected int levelAvailable;
+    protected double upgradeRate;
 
     protected Animation<TextureRegion> dieAnimation;
     protected Animation<TextureRegion> dieAnimationL;
 
 
-    public Warrior(float pInitialX, float pInitialY, int pLife, int pAttackRange, int pLevelAvailable, int pConsumptionInArmy, double pAttackRate, double pUpgradeRate) {
+    public Warrior(float pInitialX, float pInitialY, int pLife, int pAttackRange, int pLevelAvailable, int pConsumptionInArmy, double pAttackRate) {
         super(pInitialX, pInitialY, pLife, pAttackRange, pAttackRate);
         dieAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(PERSON_DEAD_ANIMATION_RIGHT).read());
         dieAnimationL = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(PERSON_DEAD_ANIMATION_LEFT).read());
-
         levelAvailable = pLevelAvailable;
         consumptionInArmy = pConsumptionInArmy;
-        upgradeRate = pUpgradeRate;
     }
 
     public int getConsumptionInArmy() {
@@ -48,4 +46,6 @@ public abstract class Warrior extends Piece implements IWarriorConstants {
         }
 
     }
+
+
 }

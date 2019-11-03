@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.Tokens.Defense;
+import com.mygdx.clashofclans.Tokens.Interfaces.MakesSound;
 import com.mygdx.clashofclans.Tokens.Piece;
 import com.mygdx.clashofclans.Tokens.Warriors.Aerial;
 import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
@@ -13,7 +14,7 @@ import java.lang.annotation.Target;
 
 import static com.mygdx.clashofclans.Tokens.Interfaces.IDefenseConstants.MORTAR_DEFENSE_ANIMATION_LEFT;
 
-public class Mortar extends Defense {
+public class Mortar extends Defense implements MakesSound {
 
     private Animation<TextureRegion> mortarAttackingAnimation_R = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(MORTAR_DEFENSE_ANIMATION_RIGHT).read());
     private Animation<TextureRegion> mortarAttackingAnimation_L = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(MORTAR_DEFENSE_ANIMATION_LEFT).read());

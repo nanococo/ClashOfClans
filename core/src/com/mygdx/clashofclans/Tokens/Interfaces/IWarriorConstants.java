@@ -30,7 +30,6 @@ public interface IWarriorConstants {
     int HERO_WARRIOR_LIFE = 10; //life
     double HERO_WARRIOR_ATTACKRATE = 1; //attack rate
     int HERO_WARRIOR_LEVELAVAILABLE = 8; //level available
-    double HERO_WARRIOR_UPGRADERATE = 0.8; //upgrade rate
     int HERO_WARRIOR_TROOPS_CONSUMED = 10; //troops consumed
     int HERO_WARRIOR_RANGE = 32;
 
@@ -38,7 +37,6 @@ public interface IWarriorConstants {
     int BEAST_WARRIOR_LIFE = 25; //life
     double BEAST_WARRIOR_ATTACKRATE = 1/2f; //attack rate
     int BEAST_WARRIOR_LEVELAVAILABLE = 10; //level available
-    double BEAST_WARRIOR_UPGRADERATE = 0.7; //upgrade rate
     int BEAST_WARRIOR_TROOPS_CONSUMED = 15; //troops consumed
     int BEAST_WARRIOR_RANGE = 100;
 

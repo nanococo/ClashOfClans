@@ -18,6 +18,7 @@ public class LevelData {
     private int mortarCount;
     private int armySize;
     private int defenseCount;
+    private int actualLevel;
 
     private LevelData(){
         this.minBaseWidth = 0;
@@ -69,7 +70,12 @@ public class LevelData {
     public int getArmySize() {
         return armySize;
     }
-    public int getDefenseCount() { return defenseCount; }
+    public int getDefenseCount() {
+        return defenseCount;
+    }
+    public int getActualLevel(){
+        return actualLevel;
+    }
 
     public void setLevel(Levels level){
         switch (level){
@@ -85,6 +91,7 @@ public class LevelData {
                 ballistaCount = 2;
                 mortarCount = 0;
                 armySize = 50;
+                actualLevel = 1;
                 break;
             case LEVEL2:
                 minBaseWidth = 660;
@@ -98,6 +105,8 @@ public class LevelData {
                 ballistaCount = 2;
                 mortarCount = 0;
                 armySize = 10;
+                actualLevel = 2;
+
                 break;
             case LEVEL3:
                 minBaseWidth = 660;
@@ -111,6 +120,8 @@ public class LevelData {
                 ballistaCount = 2;
                 mortarCount = 1;
                 armySize = 12;
+                actualLevel = 3;
+
                 break;
         }
 
