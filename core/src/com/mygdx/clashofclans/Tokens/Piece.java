@@ -38,7 +38,7 @@ public abstract class Piece extends Sprite {
         attackRange = pAttackRange;
         life = pLife;
         attackRate = pAttackRate;
-        level = 1;
+
 
         targetX = Calculations.getBaseCenter(levelData.getMinBaseWidth(), levelData.getMaxBaseWidth());
         targetY = Calculations.getBaseCenter(levelData.getMinBaseHeight(), levelData.getMaxBaseHeight());

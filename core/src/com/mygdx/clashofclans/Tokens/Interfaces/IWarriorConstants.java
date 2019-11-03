@@ -40,7 +40,7 @@ public interface IWarriorConstants {
     int BEAST_WARRIOR_LEVELAVAILABLE = 10; //level available
     double BEAST_WARRIOR_UPGRADERATE = 0.7; //upgrade rate
     int BEAST_WARRIOR_TROOPS_CONSUMED = 15; //troops consumed
-    int BEAST_WARRIOR_RANGE = 50;
+    int BEAST_WARRIOR_RANGE = 100;
 
     int AERIAL_WARRIOR_LIFE = 25; //life
     double AERIAL_WARRIOR_ATTACKRATE = 1/3f; //attack rate
