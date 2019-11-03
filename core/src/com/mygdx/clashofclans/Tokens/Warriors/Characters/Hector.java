@@ -2,7 +2,7 @@ package com.mygdx.clashofclans.Tokens.Warriors.Characters;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mygdx.clashofclans.Tokens.Warriors.Hero;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarriors.Hero;
 
 public class Hector extends Hero {
 

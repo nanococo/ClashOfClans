@@ -1,4 +1,4 @@
-package com.mygdx.clashofclans.Tokens.Warriors;
+package com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarriors;
 
 //public class Hero extends TerrestrialWarrior{
 //
@@ -7,6 +7,7 @@ package com.mygdx.clashofclans.Tokens.Warriors;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarrior;
 
 public class Hero extends TerrestrialWarrior {
 

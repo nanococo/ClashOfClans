@@ -2,7 +2,7 @@ package com.mygdx.clashofclans.Tokens.Warriors.Characters;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.mygdx.clashofclans.Tokens.Warriors.MidRange;
+import com.mygdx.clashofclans.Tokens.Warriors.TerrestrialWarriors.MidRange;
 
 public class Yolanda extends MidRange {
 
