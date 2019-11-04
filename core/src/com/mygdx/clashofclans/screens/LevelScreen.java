@@ -107,21 +107,7 @@ public class LevelScreen implements Screen {
 
     }
 
-    LevelScreen(ClashOfClansGame game, HashMap<String, Object> saved) {
-
-        try {
-            FileInputStream fis = new FileInputStream("test.obj");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            retrieved = (HashMap<String,Object>)ois.readObject();
-            fis.close();
-
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
+    LevelScreen(ClashOfClansGame game, HashMap<String, Object> retrieved) {
         this.game = game;
         this.level = (Levels) retrieved.get("0");
         this.mapPath = (String) retrieved.get("1");
@@ -136,11 +122,34 @@ public class LevelScreen implements Screen {
 
         defenses = new Defenses(level, levelData.getDefenseCount(), collisionLayer, levelData);
         defenses.addDefense(House.getInstance());
-        defenses.setDefenses((ArrayList<Defense>) retrieved.get("2"));
-        //defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
+
+        ArrayList<Float> xCoordsDef = (ArrayList<Float>) retrieved.get("2");
+        ArrayList<Float> yCoordsDef = (ArrayList<Float>) retrieved.get("3");
+        ArrayList<Integer> defTypes = (ArrayList<Integer>) retrieved.get("4");
+
+        ArrayList<Float> xCoordsTroops = (ArrayList<Float>) retrieved.get("5");
+        ArrayList<Float> yCoordsTroops = (ArrayList<Float>) retrieved.get("6");
+        ArrayList<Integer> troopTypes = (ArrayList<Integer>) retrieved.get("7");
+
+        for(int i=0; i<xCoordsDef.size(); i++){
+            defenses.addDefense(defTypes.get(i), xCoordsDef.get(i), yCoordsDef.get(i));
+        }
+
 
         army = new Army(level, levelData.getArmySize(), defenses);
-        army.setTroops((ArrayList<Warrior>)retrieved.get("3"));
+
+        for(int i=0; i<xCoordsTroops.size(); i++){
+            army.addTroop(troopTypes.get(i), (int)((float)xCoordsTroops.get(i)), (int)((float)yCoordsTroops.get(i)), collisionLayer, map);
+        }
+
+
+
+
+        //defenses.setDefenses((ArrayList<Defense>) retrieved.get("2"));
+        //defenses.generateDefenses(levelData.getCannonCount(), levelData.getBombCount(), levelData.getBallistaCount(), levelData.getTowerCount(), levelData.getMortarCount());
+
+
+        //army.setTroops((ArrayList<Warrior>)retrieved.get("3"));
         army.setTroopsAvailable((Integer) retrieved.get("4"));
         defenses.setEnemies(army);
 
@@ -321,22 +330,36 @@ public class LevelScreen implements Screen {
                     if(Gdx.input.justTouched()){
                         win();
 
-                        ArrayList<Float> xCoords = new ArrayList<>();
-                        ArrayList<Float> yCoords = new ArrayList<>();
-                        ArrayList<Integer> armyType = new ArrayList<>();
-                        for(Warrior war : army.getTroops()){
-                            xCoords.add(war.getInitialX());
-                            yCoords.add(war.getInitialY());
-                            armyType.add(war.getWarriorType());
-                        }
-
-
+//                        ArrayList<Float> troopsXCoords = new ArrayList<>();
+//                        ArrayList<Float> troopsYCoords = new ArrayList<>();
+//                        ArrayList<Integer> armyType = new ArrayList<>();
+//
+//                        ArrayList<Float> defXCoords = new ArrayList<>();
+//                        ArrayList<Float> defYCoords = new ArrayList<>();
+//                        ArrayList<Integer> defType = new ArrayList<>();
+//
+//                        for(Warrior war : army.getTroops()){
+//                            troopsXCoords.add(war.getInitialX());
+//                            troopsYCoords.add(war.getInitialY());
+//                            armyType.add(war.getWarriorType());
+//                        }
+//
+//                        for (Defense def : defenses.getDefenses()){
+//                            defXCoords.add(def.getInitialX());
+//                            defYCoords.add(def.getInitialY());
+//                            defType.add(def.getDefType());
+//                        }
+//
+//
 //                    HashMap<String, Object> saved = new HashMap<String, Object>();
 //                    saved.put("0", level);
 //                    saved.put("1", mapPath);
-//                    saved.put("2", defenses.getDefenses());
-//                    saved.put("3", army.getTroops());
-//                    saved.put("4", army.getTroopsAvailable());
+//                    saved.put("2", defXCoords);
+//                    saved.put("3", defYCoords);
+//                    saved.put("4", defType);
+//                    saved.put("5", troopsXCoords);
+//                    saved.put("6", troopsYCoords);
+//                    saved.put("7",armyType);
 //
 //                    try {
 //                        FileOutputStream fos = new FileOutputStream("SaveFiles/save.obj");
@@ -383,6 +406,7 @@ public class LevelScreen implements Screen {
             if(Gdx.input.getX() < continueX+continueText.getWidth() && Gdx.input.getX() > continueX && ClashOfClansGame.HEIGHT - Gdx.input.getY() < 800+continueText.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > 800){
                 setHandCursor();
                 if(Gdx.input.justTouched()){
+
                     lost = false;
                     this.dispose();
                     game.setScreen(new LevelScreen(game, "Tiles/gameMap1.tmx", Levels.LEVEL1));

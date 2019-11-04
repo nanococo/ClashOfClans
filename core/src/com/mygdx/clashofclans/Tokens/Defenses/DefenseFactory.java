@@ -7,18 +7,29 @@ import com.mygdx.clashofclans.Tokens.Defense;
  * @author sebas
  */
 public class DefenseFactory {
+    private static Defense defense = null;
     public static Defense getDefense(int index, int x, int y){
         switch (index){
             case 0:
-                return new Canyon(x, y);
+                defense = new Canyon(x, y);
+                defense.setDefType(index);
+                return defense;
             case 1:
-                return new Bomb(x, y);
+                defense = new Bomb(x, y);
+                defense.setDefType(index);
+                return defense;
             case 2:
-                return new AerialDefense(x, y);
+                defense = new AerialDefense(x, y);
+                defense.setDefType(index);
+                return defense;
             case 3:
-                return new Mortar(x, y);
+                defense = new Mortar(x, y);
+                defense.setDefType(index);
+                return defense;
             case 4:
-                return new Tower(x, y);
+                defense = new Tower(x, y);
+                defense.setDefType(index);
+                return defense;
             default:
                 return null;
         }

@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 public abstract class Defense extends Piece implements IDefenseConstants, Serializable {
 
+    private int defType;
+
     public Defense(float pPositionX, float pPositionY, int pLife, int pAttackRange, double pAttackRate) {
         super(pPositionX, pPositionY, pLife, pAttackRange, pAttackRate);
     }
@@ -30,5 +32,11 @@ public abstract class Defense extends Piece implements IDefenseConstants, Serial
 
     }
 
+    public int getDefType() {
+        return defType;
+    }
 
+    public void setDefType(int defType) {
+        this.defType = defType;
+    }
 }

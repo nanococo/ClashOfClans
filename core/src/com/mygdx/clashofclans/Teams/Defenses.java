@@ -87,6 +87,11 @@ public class Defenses implements Serializable {
         }
     }
 
+    public void addDefense(int specificDefense, float x, float y){
+        defenses.add(DefenseFactory.getDefense(specificDefense, (int) x, (int) y));
+
+    }
+
     public ArrayList<Defense> getDefenses() {
         return defenses;
     }
