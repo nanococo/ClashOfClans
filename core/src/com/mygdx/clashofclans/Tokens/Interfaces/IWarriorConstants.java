@@ -11,7 +11,7 @@ package com.mygdx.clashofclans.Tokens.Interfaces;
 
 public interface IWarriorConstants {
 
-    int CONTACT_WARRIOR_LIFE = 4; //life
+    int CONTACT_WARRIOR_LIFE = 8; //life
     double CONTACT_WARRIOR_ATTACKRATE = 1; //attack rate
     int CONTACT_WARRIOR_LEVELAVAILABLE = 1; //level available
     double CONTACT_WARRIOR_UPGRADERATE = 1; //upgrade rate
@@ -19,33 +19,33 @@ public interface IWarriorConstants {
     int CONTACT_WARRIOR_RANGE = 32;
 
 
-    int MIDRANGE_WARRIOR_LIFE = 3; //life
+    int MIDRANGE_WARRIOR_LIFE = 12; //life
     double MIDRANGE_WARRIOR_ATTACKRATE = 2; //attack rate
     int MIDRANGE_WARRIOR_LEVELAVAILABLE = 1; //level available
     double MIDRANGE_WARRIOR_UPGRADERATE = 0.9; //upgrade rate
     int MIDRANGE_WARRIOR_TROOPS_CONSUMED = 1; //troops consumed
-    int MIDRANGE_WARRIOR_RANGE = 100;
+    int MIDRANGE_WARRIOR_RANGE = 32*3;
 
 
-    int HERO_WARRIOR_LIFE = 10; //life
-    double HERO_WARRIOR_ATTACKRATE = 1; //attack rate
+    int HERO_WARRIOR_LIFE = 50; //life
+    double HERO_WARRIOR_ATTACKRATE = 5; //attack rate
     int HERO_WARRIOR_LEVELAVAILABLE = 8; //level available
     int HERO_WARRIOR_TROOPS_CONSUMED = 10; //troops consumed
     int HERO_WARRIOR_RANGE = 32;
 
 
-    int BEAST_WARRIOR_LIFE = 25; //life
-    double BEAST_WARRIOR_ATTACKRATE = 1/2f; //attack rate
+    int BEAST_WARRIOR_LIFE = 50; //life
+    double BEAST_WARRIOR_ATTACKRATE = 7; //attack rate
     int BEAST_WARRIOR_LEVELAVAILABLE = 10; //level available
     int BEAST_WARRIOR_TROOPS_CONSUMED = 15; //troops consumed
-    int BEAST_WARRIOR_RANGE = 100;
+    int BEAST_WARRIOR_RANGE = 32*5;
 
     int AERIAL_WARRIOR_LIFE = 25; //life
-    double AERIAL_WARRIOR_ATTACKRATE = 1/3f; //attack rate
+    double AERIAL_WARRIOR_ATTACKRATE = 3; //attack rate
     int AERIAL_WARRIOR_LEVELAVAILABLE = 11; //level available
     double AERIAL_WARRIOR_UPGRADERATE = 0.5; //upgrade rate
-    int AERIAL_WARRIOR_TROOPS_CONSUMED = 40; //troops consumed
-    int AERIAL_WARRIOR_RANGE = 200;
+    int AERIAL_WARRIOR_TROOPS_CONSUMED = 25; //troops consumed
+    int AERIAL_WARRIOR_RANGE = 32*5;
 
     String PERSON_DEAD_ANIMATION_RIGHT = "Ghosts/Death.gif";
     String PERSON_DEAD_ANIMATION_LEFT = "Ghosts/Death L.gif";

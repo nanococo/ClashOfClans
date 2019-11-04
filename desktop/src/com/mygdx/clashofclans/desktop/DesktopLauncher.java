@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 		config.width = Gdx.graphics.getWidth();
 		config.height = Gdx.graphics.getHeight();
-		config.fullscreen = false;
+		config.fullscreen = true;
 		config.resizable = false;
 	}
 }

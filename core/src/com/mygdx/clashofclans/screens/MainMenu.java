@@ -13,6 +13,10 @@ import com.mygdx.clashofclans.GifDecoder;
 import com.mygdx.clashofclans.ClashOfClansGame;
 import com.mygdx.clashofclans.levelManager.Levels;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.HashMap;
+
 public class MainMenu implements Screen {
 
     private Texture img;
@@ -91,7 +95,7 @@ public class MainMenu implements Screen {
             game.batch.draw(newGameTxtHover, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
             if(Gdx.input.isTouched()){
                 this.dispose();
-                game.setScreen(new LevelScreen(game, "Tiles/gameMap.tmx", Levels.LEVEL1));
+                game.setScreen(new LevelScreen(game, "Tiles/gameMap15.tmx", Levels.LEVEL15));
             }
         } else {
             game.batch.draw(newGameTxt, newGameTxtCenterValue, newGameTxtHeight, newGameTxt.getWidth(), newGameTxt.getHeight());
@@ -99,6 +103,21 @@ public class MainMenu implements Screen {
 
         if(Gdx.input.getX() < newGameTxtCenterValue+loadGameTxt.getWidth() && Gdx.input.getX() > newGameTxtCenterValue && ClashOfClansGame.HEIGHT - Gdx.input.getY() < loadGameTxtHeight+loadGameTxt.getHeight() && ClashOfClansGame.HEIGHT - Gdx.input.getY() > loadGameTxtHeight){
             game.batch.draw(loadGameTxtHover, loadGameTxtCenterValue, loadGameTxtHeight, loadGameTxt.getWidth(), loadGameTxt.getHeight());
+            if(Gdx.input.isTouched()){
+//                this.dispose();
+//                HashMap<String,Object> retreived = null;
+//                try {
+//                    FileInputStream fis = new FileInputStream("C:\\GitHub_Projects\\ClashOfClans\\android\\assets\\SaveFiles\\save.obj");
+//                    ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//                    retreived = (HashMap<String,Object>)ois.readObject();
+//                    fis.close();
+//                }catch (Exception e){
+//                    System.out.println(e.getMessage());
+//                }
+//
+//                game.setScreen(new LevelScreen(game, retreived));
+            }
         } else {
             game.batch.draw(loadGameTxt, loadGameTxtCenterValue, loadGameTxtHeight, loadGameTxt.getWidth(), loadGameTxt.getHeight());
         }
